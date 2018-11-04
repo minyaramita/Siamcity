@@ -1,0 +1,148 @@
+<template>
+    <div class="container">
+        <div class="row mt-5">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">ข้อมูลผู้ใช้งาน</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">
+                    เพิ่ม
+                    <i class="fas fa-user-plus fa-fw"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <th>รหัส</th>
+                      <th>ชื่อ-นามสกุล</th>
+                      <th>อีเมล</th>
+                      <th>เบอร์โทรศัพท์</th>
+                      <th>สถานะ</th>
+                      <th>วันที่เพิ่ม</th>
+                      <th>แก้ไข</th>
+                  </tr>
+
+
+                  <tr v-for="user in users" :key="user.id">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.tel}}</td>
+                    <td>{{user.type | upText}}</td>
+                    <td>{{user.created_at | myDate}}</td>
+                    <td>
+                        <a href="#">
+                            <i class="fa fa-edit blue"></i>
+                        </a>
+                        /
+                        <a href="#">
+                            <i class="fa fa-trash red" ></i>
+                        </a>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addNewLabel">เพิ่มผู้ใช้งาน</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form @submit.prevent="createUser">
+              <div class="modal-body">
+            
+                <div class="form-group">
+                  <input v-model="form.name" type="text" name="name"
+                    placeholder="ชื่อ-นามสกุล"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                  <has-error :form="form" field="name"></has-error>
+                </div>
+
+                <div class="form-group">
+                  <select name="type" v-model="form.type" id="type" 
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
+                    <option value="">เลือกสถานะ</option>
+                    <option value="ผู้ดูแลระบบ">ผู้ดูแลระบบ</option>
+                    <option value="ผู้ใช้งาน">ผู้ใช้งาน</option>
+                  </select>
+                  <has-error :form="form" field="tel"></has-error>
+                </div>
+
+                <div class="form-group">
+                  <input v-model="form.tel" type="text" name="tel"
+                    placeholder="เบอร์โทรศัพท์"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
+                  <has-error :form="form" field="tel"></has-error>
+                </div>        
+
+                <div class="form-group">
+                  <input v-model="form.email" type="email" email="email"
+                    placeholder="อีเมล"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                  <has-error :form="form" field="email"></has-error>
+                </div>
+
+                <div class="form-group">
+                  <input v-model="form.password" type="password" name="password" id="password"
+                    placeholder="รหัสผ่าน"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                  <has-error :form="form" field="password"></has-error>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+                <button type="submit" class="btn btn-primary">บันทึก</button>
+              </div>
+              </form>
+            </div>
+          </div>
+</div>
+
+    </div>
+</template>
+
+<script>
+    export default {
+        data () {
+          return {
+            users : {},
+            form: new Form({
+              name: '',
+              email: '',
+              password: '',
+              tel: '',
+              photo: '',
+              type: ''
+            })
+          }
+        },
+        methods:{
+          loadUsers(){
+            axios.get("api/user").then(({ data }) => (this.users = data.data));
+          },
+          createUser(){
+            this.form.post('api/user');
+          }
+        },
+        created() {
+            this.loadUsers();
+        }
+    }
+</script>
