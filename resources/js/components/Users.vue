@@ -58,13 +58,14 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="addNewLabel">เพิ่มผู้ใช้งาน</h5>
+                <h5 class="modal-title" v-show="editmode" id="addNewLabel">แก้ไขข้อมูลผู้ใช้งาน</h5>
+                <h5 class="modal-title" v-show="!editmode" id="addNewLabel">เพิ่มผู้ใช้งาน</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
-              <form @submit.prevent="createUser">
+              <form @submit.prevent="editmode ? updateUser() : createUser()">
               <div class="modal-body">
             
                 <div class="form-group">
@@ -108,7 +109,8 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
-                <button type="submit" class="btn btn-primary">บันทึก</button>
+                <button v-show="editmode" type="submit" class="btn btn-primary">อัพเดท</button>
+                <button v-show="!editmode" type="submit" class="btn btn-primary">บันทึก</button>
               </div>
               </form>
             </div>
@@ -122,6 +124,7 @@
     export default {
         data () {
           return {
+            editmode: false,
             users : {},
             form: new Form({
               name: '',
@@ -134,12 +137,17 @@
           }
         },
         methods:{
+          updateUser(){
+            console.log('Editing data');
+          },
           editModal(user){
+            this.editmode = true;
             this.form.reset();
             $('#addNew').modal('show');
             this.form.fill(user);
           },
           newModal(){
+            this.editmode = false;
             this.form.reset();
             $('#addNew').modal('show');
           },
