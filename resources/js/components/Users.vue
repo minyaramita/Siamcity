@@ -41,7 +41,7 @@
                             <i class="fa fa-edit blue"></i>
                         </a>
                         /
-                        <a href="#">
+                        <a href="#" @click="deleteUser(user.id)">
                             <i class="fa fa-trash red" ></i>
                         </a>
                     </td>
@@ -134,12 +134,37 @@
           }
         },
         methods:{
+          deleteUser(id){
+            swal({
+                title: 'คุณแน่ใจหรือไม่ ที่ต้องการลบ ?',
+                text: "คุณจะไม่สามารถย้อนกลับได้ !",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่, ต้องการลบ!'
+              }).then((result) => {
+                //send request to the server
+                if (result.value) {
+                this.form.delete('api/user/'+id).then(()=>{
+                        swal(
+                          'ลบ!',
+                          'ผู้ใช้งานถูกลบเรียบร้อยแล้ว',
+                          'success'
+                        )
+                      Fire.$emit('AfterCreate');
+                }).catch(()=>{
+                    swal("ล้มเหลว!", "มีบางอย่างผิดพลาด", "warning");
+                });
+                }
+              })
+          },
           loadUsers(){
             axios.get("api/user").then(({ data }) => (this.users = data.data));
           },
           createUser(){
             this.$Progress.start();
-            
+
             this.form.post('api/user')
             .then(()=>{
               Fire.$emit('AfterCreate');
