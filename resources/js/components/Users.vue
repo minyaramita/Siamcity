@@ -7,7 +7,7 @@
                 <h3 class="card-title">ข้อมูลผู้ใช้งาน</h3>
 
                 <div class="card-tools">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">
+                  <button type="button" class="btn btn-primary" @click="newModal()">
                     เพิ่ม
                     <i class="fas fa-user-plus fa-fw"></i>
                   </button>
@@ -37,7 +37,7 @@
                     <td>{{user.type | upText}}</td>
                     <td>{{user.created_at | myDate}}</td>
                     <td>
-                        <a href="#">
+                        <a href="#" @click="editModal(user)">
                             <i class="fa fa-edit blue"></i>
                         </a>
                         /
@@ -134,6 +134,15 @@
           }
         },
         methods:{
+          editModal(user){
+            this.form.reset();
+            $('#addNew').modal('show');
+            this.form.fill(user);
+          },
+          newModal(){
+            this.form.reset();
+            $('#addNew').modal('show');
+          },
           deleteUser(id){
             swal({
                 title: 'คุณแน่ใจหรือไม่ ที่ต้องการลบ ?',
