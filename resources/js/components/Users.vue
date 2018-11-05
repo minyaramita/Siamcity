@@ -140,6 +140,12 @@
           createUser(){
             this.$Progress.start()
             this.form.post('api/user');
+
+            toast({
+              type: 'success',
+              title: 'เพิ่มผู้ใช้เรียบร้อยแล้ว'
+            })
+
             this.$Progress.finish()
           }
         },
