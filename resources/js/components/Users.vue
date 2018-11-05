@@ -127,6 +127,7 @@
             editmode: false,
             users : {},
             form: new Form({
+              id:'',
               name: '',
               email: '',
               password: '',
@@ -138,7 +139,23 @@
         },
         methods:{
           updateUser(){
-            console.log('Editing data');
+            this.$Progress.start();
+            //console.log('Editing data');
+            this.form.put('api/user/'+this.form.id)
+            .then(() => {
+              // success
+                $('#addNew').modal('hide');
+                swal(
+                          'อัพเดท!',
+                          'ข้อมูลผู้ใช้งานถูกแก้ไขเรียบร้อยแล้ว',
+                          'success'
+                    )
+                    this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
+            })
+            .catch(() => {
+              this.$Progress.fail();
+            });
           },
           editModal(user){
             this.editmode = true;

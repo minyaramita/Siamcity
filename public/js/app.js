@@ -70671,6 +70671,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       editmode: false,
       users: {},
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -70683,7 +70684,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     updateUser: function updateUser() {
-      console.log('Editing data');
+      var _this = this;
+
+      this.$Progress.start();
+      //console.log('Editing data');
+      this.form.put('api/user/' + this.form.id).then(function () {
+        // success
+        $('#addNew').modal('hide');
+        swal('อัพเดท!', 'ข้อมูลผู้ใช้งานถูกแก้ไขเรียบร้อยแล้ว', 'success');
+        _this.$Progress.finish();
+        Fire.$emit('AfterCreate');
+      }).catch(function () {
+        _this.$Progress.fail();
+      });
     },
     editModal: function editModal(user) {
       this.editmode = true;
@@ -70697,7 +70710,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       $('#addNew').modal('show');
     },
     deleteUser: function deleteUser(id) {
-      var _this = this;
+      var _this2 = this;
 
       swal({
         title: 'คุณแน่ใจหรือไม่ ที่ต้องการลบ ?',
@@ -70710,7 +70723,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).then(function (result) {
         //send request to the server
         if (result.value) {
-          _this.form.delete('api/user/' + id).then(function () {
+          _this2.form.delete('api/user/' + id).then(function () {
             swal('ลบ!', 'ผู้ใช้งานถูกลบเรียบร้อยแล้ว', 'success');
             Fire.$emit('AfterCreate');
           }).catch(function () {
@@ -70720,15 +70733,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     loadUsers: function loadUsers() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this2.users = data.data;
+        return _this3.users = data.data;
       });
     },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$Progress.start();
 
@@ -70740,16 +70753,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: 'success',
           title: 'เพิ่มผู้ใช้เรียบร้อยแล้ว'
         });
-        _this3.$Progress.finish();
+        _this4.$Progress.finish();
       }).catch(function () {});
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.loadUsers();
     Fire.$on('AfterCreate', function () {
-      _this4.loadUsers();
+      _this5.loadUsers();
     });
     // setInterval(() => this.loadUsers(), 3000);
   }
