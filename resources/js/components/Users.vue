@@ -138,17 +138,23 @@
             axios.get("api/user").then(({ data }) => (this.users = data.data));
           },
           createUser(){
-            this.$Progress.start()
-            this.form.post('api/user');
-            Fire.$emit('AfterCreate');
-            $('#addNew').modal('hide')
+            this.$Progress.start();
+            
+            this.form.post('api/user')
+            .then(()=>{
+              Fire.$emit('AfterCreate');
+              $('#addNew').modal('hide')
 
-            toast({
-              type: 'success',
-              title: 'เพิ่มผู้ใช้เรียบร้อยแล้ว'
+              toast({
+                type: 'success',
+                title: 'เพิ่มผู้ใช้เรียบร้อยแล้ว'
+              })
+              this.$Progress.finish();
             })
+            .catch(()=>{
 
-            this.$Progress.finish()
+            })
+            
           }
         },
         created() {
