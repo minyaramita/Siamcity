@@ -30,24 +30,24 @@
                   <div class="active tab-pane" id="settings">
                     <form class="form-horizontal">
                       <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">ชื่อ - นามสกุล</label>
+                        <label for="name" class="col-sm-2 control-label">ชื่อ - นามสกุล</label>
 
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="ชื่อ - นามสกุล">
+                          <input v-model="form.name" type="text" class="form-control" id="name" placeholder="ชื่อ - นามสกุล">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">อีเมล</label>
+                        <label for="email" class="col-sm-2 control-label">อีเมล</label>
 
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="อีเมล">
+                          <input v-model="form.email" type="email" class="form-control" id="email" placeholder="อีเมล">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputTel" class="col-sm-2 control-label">เบอร์โทรศัพท์</label>
+                        <label for="tel" class="col-sm-2 control-label">เบอร์โทรศัพท์</label>
 
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputTel" placeholder="เบอร์โทรศัพท์">
+                          <input v-model="form.tel" type="text" class="form-control" id="tel" placeholder="เบอร์โทรศัพท์">
                         </div>
                       </div>
                       
@@ -63,6 +63,15 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="form-group">
+                        <label for="password" class="col-sm-5 control-label">รหัสผ่าน (เว้นว่างไว้ หากไม่ต้องการเปลี่ยน)</label>
+
+                        <div class="col-sm-10">
+                          <input v-model="form.password" type="text" class="form-control" id="password" placeholder="รหัสผ่าน">
+                        </div>
+                      </div>
+
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                           <button type="submit" class="btn btn-danger">อัพเดท</button>
@@ -77,22 +86,31 @@
             </div>
             <!-- /.nav-tabs-custom -->
           </div>
-
-
-            
-
-
-
-              
-
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        data () {
+          return {
+            form: new Form({
+              id:'',
+              name: '',
+              email: '',
+              password: '',
+              tel: '',
+              photo: '',
+              type: ''
+            })
+          }
+        },
         mounted() {
             console.log('Component mounted.')
+        },
+        created() {
+            axios.get("api/profile")
+            .then(({ data }) => (this.form.fill(data)));
         }
     }
 </script>
