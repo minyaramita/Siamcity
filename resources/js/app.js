@@ -48,6 +48,7 @@ let routes = [
     { path: '/hospital', component: require('./components/Hospital.vue') },
     { path: '/claim', component: require('./components/Claim.vue') },
     { path: '/report', component: require('./components/Report.vue') },
+    { path: '/profile', component: require('./components/Profile.vue') },
     { path: '/users', component: require('./components/Users.vue') }
   ]
 

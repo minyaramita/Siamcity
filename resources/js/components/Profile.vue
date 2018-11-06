@@ -1,0 +1,98 @@
+<template>
+    <div class="container">
+        <div class="row justify-content-center mt-3">
+
+
+            <div class="col-md-12">
+
+                <div class="card card-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-info-active">
+                        <h3 class="widget-user-username">Alexander Pierce</h3>
+                        <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+                    </div>
+                    <div class="widget-user-image">
+                        <img class="img-circle elevation-2" src="" alt="User Avatar">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">ประวัติผู้ใช้งาน</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="settings">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">ชื่อ - นามสกุล</label>
+
+                        <div class="col-sm-10">
+                          <input type="email" class="form-control" id="inputName" placeholder="ชื่อ - นามสกุล">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputEmail" class="col-sm-2 control-label">อีเมล</label>
+
+                        <div class="col-sm-10">
+                          <input type="email" class="form-control" id="inputEmail" placeholder="อีเมล">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputTel" class="col-sm-2 control-label">เบอร์โทรศัพท์</label>
+
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputTel" placeholder="เบอร์โทรศัพท์">
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="profilePhoto" class="col-sm-2 control-label">รูปโปรไฟล์</label>
+                        <div class="input-group col-sm-10">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="profilePhoto">
+                            <label class="custom-file-label" for="profilePhoto">เลือกไฟล์</label>
+                          </div>
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="">อัพโหลด</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">อัพเดท</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+
+
+            
+
+
+
+              
+
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        mounted() {
+            console.log('Component mounted.')
+        }
+    }
+</script>
