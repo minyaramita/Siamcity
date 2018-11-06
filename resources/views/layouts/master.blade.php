@@ -76,7 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <router-link to="/school" class="nav-link">
+            <router-link to="/list" class="nav-link">
               <i class="nav-icon fas fa-list-ul"></i>
               <p>
                 การรับรายชื่อ
@@ -84,7 +84,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <router-link to="/school" class="nav-link">
+            <router-link to="/insurer" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 ผู้ทำประกัน
@@ -92,7 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <router-link to="/school" class="nav-link">
+            <router-link to="/claim" class="nav-link">
               <i class="nav-icon fas fa-user-injured"></i>
               <p>
                 การเคลมประกัน
@@ -108,10 +108,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <router-link to="/school" class="nav-link">
+            <router-link to="/hospital" class="nav-link">
               <i class="nav-icon fas fa-hospital-alt"></i>
               <p>
                 โรงพยาบาล
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <router-link to="/users" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+                ผู้ใช้งาน
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <router-link to="/report" class="nav-link">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                รายงาน
               </p>
             </a>
           </li>
@@ -133,10 +149,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           <li class="nav-item">
+            <router-link to="/developer" class="nav-link">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>
+                นักพัฒนา
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <router-link to="/users" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                ข้อมูลผู้ใช้งาน
+                ประวัติผู้ใช้งาน
               </p>
             </a>
           </li>

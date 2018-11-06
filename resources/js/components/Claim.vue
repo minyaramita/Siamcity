@@ -3,7 +3,7 @@
         <div class="row justify-content-center mt-5">
             <div class="col-md-12">
                 <div class="card card-default">
-                    <div class="card-header">School Component</div>
+                    <div class="card-header">Claim Component</div>
 
                     <div class="card-body">
                         I'm an example component.
