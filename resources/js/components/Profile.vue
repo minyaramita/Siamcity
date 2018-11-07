@@ -1,3 +1,10 @@
+<style>
+.widget-user-header{
+  height: 180px !important;
+}
+</style>
+
+
 <template>
     <div class="container">
         <div class="row justify-content-center mt-3">
@@ -12,11 +19,10 @@
                         <h5 class="widget-user-desc">Founder &amp; CEO</h5>
                     </div>
                     <div class="widget-user-image">
-                        <img class="img-circle elevation-2" src="" alt="User Avatar">
+                        <img class="img-circle elevation-2" :src="getProfilePhoto()" alt="User Avatar">
                     </div>
                 </div>
             </div>
-
 
             <div class="col-md-12">
             <div class="card">
@@ -106,6 +112,10 @@
         },
 
         methods:{
+
+          getProfilePhoto(){
+            return "img/profile/"+ this.form.photo;
+          },
           updateInfo(){
             this.$Progress.start();
             this.form.put('api/profile/')
