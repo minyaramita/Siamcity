@@ -52,15 +52,9 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="profilePhoto" class="col-sm-2 control-label">รูปโปรไฟล์</label>
-                        <div class="input-group col-sm-10">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="profilePhoto">
-                            <label class="custom-file-label" for="profilePhoto">เลือกไฟล์</label>
-                          </div>
-                          <div class="input-group-append">
-                            <span class="input-group-text" id="">อัพโหลด</span>
-                          </div>
+                        <label for="photo" class="col-sm-2 control-label">รูปโปรไฟล์</label>
+                        <div class="col-sm-10">
+                            <input type="file" @change="updateProfile" name="photo" class="form-input" >
                         </div>
                       </div>
 
@@ -108,6 +102,21 @@
         mounted() {
             console.log('Component mounted.')
         },
+
+        methods:{
+          updateProfile(e){
+            //console.log('uploading');
+            let file = e.target.files[0];
+              // console.log(file);
+              let reader = new FileReader();
+              reader.onloadend = (file) => {
+              // console.log('RESULT', reader.result)
+              this.form.photo = reader.result;
+              }
+              reader.readAsDataURL(file);
+          }
+        },
+
         created() {
             axios.get("api/profile")
             .then(({ data }) => (this.form.fill(data)));
