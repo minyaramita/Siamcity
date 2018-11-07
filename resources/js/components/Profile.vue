@@ -52,7 +52,7 @@
                       </div>
                       
                       <div class="form-group">
-                        <label for="photo" class="col-sm-2 control-label">รูปโปรไฟล์</label>
+                        <label for="photo" class="col-sm-5 control-label">รูปโปรไฟล์ (ขนาดไฟล์ภาพต้องไม่เกิน 2 MB)</label>
                         <div class="col-sm-10">
                             <input type="file" @change="updateProfile" name="photo" class="form-input" >
                         </div>
@@ -105,27 +105,38 @@
 
         methods:{
           updateInfo(){
+            this.$Progress.start();
             this.form.put('api/profile/')
             .then(() => {
-
+              
+              
+              
+              this.$Progress.finish();
             })
             .catch(() => {
-
+              this.$Progress.fail();
             });
           },
           updateProfile(e){
             //console.log('uploading');
             let file = e.target.files[0];
-              // console.log(file);
+              console.log(file);
               let reader = new FileReader();
-              reader.onloadend = (file) => {
-              // console.log('RESULT', reader.result)
-              this.form.photo = reader.result;
-              }
-              reader.readAsDataURL(file);
+              if(file['size' < 2111775]){
+                reader.onloadend = (file) => {
+                  // console.log('RESULT', reader.result)
+                  this.form.photo = reader.result;
+                  }
+                  reader.readAsDataURL(file);
+              }else{
+                  swal({
+                    type: 'error',
+                    title: 'มีบางสิ่งผิดพลาด',
+                    text: 'คุณอัพโหลดไฟล์รูปภาพขนาดใหญ่เกินไป',
+                  })
+              }   
           }
         },
-
         created() {
             axios.get("api/profile")
             .then(({ data }) => (this.form.fill(data)));
