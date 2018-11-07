@@ -71685,7 +71685,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var file = e.target.files[0];
       console.log(file);
       var reader = new FileReader();
-      if (file['size' < 2111775]) {
+
+      if (file['size'] < 2111775) {
         reader.onloadend = function (file) {
           // console.log('RESULT', reader.result)
           _this2.form.photo = reader.result;

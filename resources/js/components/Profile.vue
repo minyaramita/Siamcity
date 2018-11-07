@@ -119,22 +119,23 @@
           },
           updateProfile(e){
             //console.log('uploading');
-            let file = e.target.files[0];
+              let file = e.target.files[0];
               console.log(file);
               let reader = new FileReader();
-              if(file['size' < 2111775]){
-                reader.onloadend = (file) => {
+
+              if(file['size'] < 2111775){
+                  reader.onloadend = (file) => {
                   // console.log('RESULT', reader.result)
                   this.form.photo = reader.result;
                   }
                   reader.readAsDataURL(file);
               }else{
                   swal({
-                    type: 'error',
-                    title: 'มีบางสิ่งผิดพลาด',
-                    text: 'คุณอัพโหลดไฟล์รูปภาพขนาดใหญ่เกินไป',
+                      type: 'error',
+                      title: 'มีบางสิ่งผิดพลาด',
+                      text: 'คุณอัพโหลดไฟล์รูปภาพขนาดใหญ่เกินไป',
                   })
-              }   
+              }
           }
         },
         created() {
