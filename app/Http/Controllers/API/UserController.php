@@ -72,6 +72,11 @@ class UserController extends Controller
 
             $request->merge(['photo' => $name]); //เปลี่ยนชื่อรูปโปรไฟล์ใหม่
         }
+
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+
         $user->update($request->all());  //อัพเดทข้อมูลทั้งหมดไปที่ฐานข้อมูล
         return ['message' => "Success"];  
     }
