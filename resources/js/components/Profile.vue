@@ -15,7 +15,7 @@
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-info-active">
-                        <h3 class="widget-user-username">Alexander Pierce</h3>
+                        <h3 class="widget-user-username">Minyaramita Watthanathunakit</h3>
                         <h5 class="widget-user-desc">Founder &amp; CEO</h5>
                     </div>
                     <div class="widget-user-image">
@@ -112,17 +112,20 @@
         },
 
         methods:{
-
           getProfilePhoto(){
-            return "img/profile/"+ this.form.photo;
+            let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo;
+            return photo;
           },
           updateInfo(){
             this.$Progress.start();
             this.form.put('api/profile/')
             .then(() => {
-              
-              
-              
+                Fire.$emit('AfterCreate');
+                swal({
+                      type: 'success',
+                      title: 'อัพเดท!',
+                      text: 'ข้อมูลผู้ใช้ถูกอัพเดทเรียบร้อยแล้ว',
+                  })
               this.$Progress.finish();
             })
             .catch(() => {
