@@ -17,6 +17,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+
     }
 
     /**
@@ -25,7 +26,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $this->authorize('isAdmin');
         return User::latest()->paginate(20);
     }
 
@@ -37,6 +39,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('isAdmin');
+        
         $this->validate($request,[
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
@@ -132,6 +136,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('isAdmin');
+
         $user = User::findOrFail($id);
 
         // delete the user
