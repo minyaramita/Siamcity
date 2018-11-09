@@ -58,7 +58,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="info">
           <a href="#" class="d-block">
           {{Auth::user()->name}}
-          <p>{{Auth::user()->type}}</p>
+          <br>
+          {{Auth::user()->type}}
           </a>
         </div>
       </div>
@@ -116,16 +117,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          @can('isAdmin')
-          <li class="nav-item">
-            <router-link to="/users" class="nav-link">
-              <i class="nav-icon fas fa-users-cog"></i>
-              <p>
-                ผู้ใช้งาน
-              </p>
-            </a>
-          </li>
-          @endcan
           <li class="nav-item">
             <router-link to="/report" class="nav-link">
               <i class="nav-icon fas fa-file-alt"></i>
@@ -157,6 +148,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fas fa-cogs"></i>
               <p>
                 นักพัฒนา
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <router-link to="/users" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+                ผู้ใช้งาน
               </p>
             </a>
           </li>

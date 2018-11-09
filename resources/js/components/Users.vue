@@ -29,7 +29,7 @@
                   </tr>
 
 
-                  <tr v-for="user in users" :key="user.id">
+                  <tr v-for="user in users.data" :key="user.id">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
@@ -49,6 +49,12 @@
                 </tbody></table>
               </div>
               <!-- /.card-body -->
+
+              <!-- เพิ่ม code pagination -->
+              <div class="card-footer">
+                  <pagination :data="users" @pagination-change-page="getResults"></pagination>
+              </div>
+
             </div>
             <!-- /.card -->
           </div>
@@ -144,6 +150,12 @@
           }
         },
         methods:{
+          getResults(page = 1) {
+            axios.get('api/user?page=' + page)
+              .then(response => {
+                this.users = response.data;
+              });
+          },
           updateUser(){
             this.$Progress.start();
             //console.log('Editing data');
@@ -201,7 +213,7 @@
           },
           loadUsers(){
             if(this.$gate.isAdmin()){
-              axios.get("api/user").then(({ data }) => (this.users = data.data));
+              axios.get("api/user").then(({ data }) => (this.users = data));
             }
           },
           createUser(){
