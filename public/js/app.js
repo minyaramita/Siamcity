@@ -30787,7 +30787,15 @@ Vue.component('example-component', __webpack_require__(225));
 
 var app = new Vue({
   el: '#app',
-  router: router
+  router: router,
+  data: {
+    search: ''
+  },
+  methods: {
+    searchit: function searchit() {
+      Fire.$emit('searching');
+    }
+  }
 });
 
 /***/ }),
@@ -73137,11 +73145,19 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center mt-3" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card card-widget widget-user" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "widget-user-header bg-info-active" }, [
+            _c("h3", { staticClass: "widget-user-username" }, [
+              _vm._v(_vm._s(this.form.name))
+            ]),
+            _vm._v(" "),
+            _c("h5", { staticClass: "widget-user-desc" }, [
+              _vm._v(_vm._s(this.form.type))
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "widget-user-image" }, [
             _c("img", {
-              staticClass: "img-circle elevation-2",
+              staticClass: "img-circle",
               attrs: { src: _vm.getProfilePhoto(), alt: "User Avatar" }
             })
           ])
@@ -73150,7 +73166,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(1),
+          _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "tab-content" }, [
@@ -73404,18 +73420,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "widget-user-header bg-info-active" }, [
-      _c("h3", { staticClass: "widget-user-username" }, [
-        _vm._v("Minyaramita Watthanathunakit")
-      ]),
-      _vm._v(" "),
-      _c("h5", { staticClass: "widget-user-desc" }, [_vm._v("Founder & CEO")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -73739,6 +73743,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     var _this6 = this;
 
+    Fire.$on('searching', function () {
+      var query = _this6.$parent.search;
+      axios.get('api/findUser?q=' + query).then(function (data) {
+        _this6.users = data.data;
+      }).catch(function () {});
+    });
     this.loadUsers();
     Fire.$on('AfterCreate', function () {
       _this6.loadUsers();

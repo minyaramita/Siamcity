@@ -12,11 +12,11 @@
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-info-active">
-                        <h3 class="widget-user-username">Minyaramita Watthanathunakit</h3>
-                        <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+                        <h3 class="widget-user-username">{{this.form.name}}</h3>
+                        <h5 class="widget-user-desc">{{this.form.type}}</h5>
                     </div>
                     <div class="widget-user-image">
-                        <img class="img-circle elevation-2" :src="getProfilePhoto()" alt="User Avatar">
+                        <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
 
         methods:{
           getProfilePhoto(){
-            let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo;
+            let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
             return photo;
           },
           updateInfo(){
