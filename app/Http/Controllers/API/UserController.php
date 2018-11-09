@@ -72,11 +72,8 @@ class UserController extends Controller
 
         if($request->photo != $currentPhoto){
             $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
-
             \Image::make($request->photo)->save(public_path('img/profile/').$name);
-
             $request->merge(['photo' => $name]); //เปลี่ยนชื่อรูปโปรไฟล์ใหม่
-
             $userPhoto = public_path('img/profile/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
@@ -152,6 +149,8 @@ class UserController extends Controller
                 $query->where('name','LIKE',"%$search%")
                         ->orWhere('email','LIKE',"%$search%");
             })->paginate(20);
+        }else{
+            $users = User::latest()->paginate(5);
         }
         
         return $users;

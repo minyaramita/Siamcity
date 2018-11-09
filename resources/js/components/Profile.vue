@@ -109,10 +109,10 @@
         },
 
         methods:{
-          getProfilePhoto(){
-            let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
-            return photo;
-          },
+            getProfilePhoto(){
+                let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
+                return photo;
+            },
           updateInfo(){
             this.$Progress.start();
             this.form.put('api/profile/')
