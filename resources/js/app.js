@@ -55,7 +55,7 @@ let routes = [
     { path: '/report', component: require('./components/Report.vue') },
     { path: '/profile', component: require('./components/Profile.vue') },
     { path: '/users', component: require('./components/Users.vue') },
-    { path: '/*', component: require('./components/Notfound.vue') }
+  //  { path: '/*', component: require('./components/Notfound.vue') }
   ]
 
   const router = new VueRouter({
