@@ -69,6 +69,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+          <!--
           <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -77,6 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          -->
           <li class="nav-item">
             <router-link to="/list" class="nav-link">
               <i class="nav-icon fas fa-list-ul"></i>
@@ -126,6 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           @can('isAdmin')
+          <!--
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list-alt"></i>
@@ -143,6 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          
           <li class="nav-item">
             <router-link to="/developer" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
@@ -151,6 +156,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          -->
           <li class="nav-item">
             <router-link to="/users" class="nav-link">
               <i class="nav-icon fas fa-users-cog"></i>
@@ -209,10 +215,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      Anything you want
+      
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2018 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Siam City 2018 : สำนักงานตัวแทนจังหวัดจันทบุรี </strong>
   </footer>
 </div>
 <!-- ./wrapper -->

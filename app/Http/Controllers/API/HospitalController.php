@@ -4,13 +4,10 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\school;
-use App\bank;
-
-
-class SchoolController extends Controller
+use App\Hospital;
+class HospitalController extends Controller
 {
-    /**
+     /**
      * Create a new controller instance.
      * ป้องกันการเข้าถึงข้อมูล api โดยไม่ได้ log in
      * @return void
@@ -26,10 +23,9 @@ class SchoolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        return School::latest()->paginate(5);
+        return Hospital::latest()->paginate(5);
     }
 
     /**
@@ -41,18 +37,14 @@ class SchoolController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'email' => 'string|email|max:191|unique:schools',
-            'name' => 'required|string|max:191|unique:schools'
+            'email' => 'string|email|max:191|unique:hospitals',
+            'name' => 'required|string|max:191|unique:hospitals'
         ]);
 
-        return School::create([
+        return Hospital::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'tel' => $request['tel'],
-            'account_name' => $request['account_name'],
-            'bank_id' => $request['bank_id'],
-            'bank_branch' => $request['bank_branch'],
-            'bank_number' => $request['bank_number'],
         ]);
     }
 
@@ -76,15 +68,15 @@ class SchoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $school = School::findOrFail($id);
+        $hospital = Hospital::findOrFail($id);
 
         $this->validate($request,[
-            'name' => 'required|string|max:191|unique:schools,name,'.$school->id,
-            'email' => 'string|email|max:191|unique:schools,email,'.$school->id
+            'name' => 'required|string|max:191|unique:hospitals,name,'.$hospital->id,
+            'email' => 'string|email|max:191|unique:hospitals,email,'.$hospital->id
         ]);
 
-        $school->update($request->all());
-        return ['message' => 'Update the school info'];
+        $hospital->update($request->all());
+        return ['message' => 'Update the hospital info'];
     }
 
     /**
@@ -95,23 +87,23 @@ class SchoolController extends Controller
      */
     public function destroy($id)
     {
-        $school = School::findOrFail($id);
+        $hospital = Hospital::findOrFail($id);
 
-        // delete the school
-        $school->delete();
+        // delete the hospital
+        $hospital->delete();
 
-        return['message' => 'SchoolDeleted'];
+        return['message' => 'HospitalDeleted'];
     }
 
     public function search(){
         if ($search = \Request::get('q')) {
-            $schools = School::where(function($query) use ($search){
+            $hospitals = Hospital::where(function($query) use ($search){
                 $query->where('name','LIKE',"%$search%")
                         ->orWhere('email','LIKE',"%$search%");
             })->paginate(20);
         }else{
-            $schools = School::latest()->paginate(5);
+            $hospitals = Hospital::latest()->paginate(5);
         }
-        return $schools;
+        return $hospitals;
     }
 }

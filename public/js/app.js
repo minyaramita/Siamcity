@@ -72322,9 +72322,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -73270,6 +73267,73 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -73293,21 +73357,173 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center mt-5" }, [
+      _c("div", { staticClass: "row mt-3" }, [
         _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
-              _vm._v("Insurer Component")
+              _c("h3", { staticClass: "card-title" }, [_vm._v("สถานศึกษา")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-tools" }, [
+                _c("div", { staticClass: "input-group input-group-sm" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#addNew"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    เพิ่ม\n                    "
+                      ),
+                      _c("i", { staticClass: "fas fa-plus-square" })
+                    ]
+                  )
+                ])
+              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
+            _c("div", { staticClass: "card-body table-responsive p-0" }, [
+              _c("table", { staticClass: "table table-hover" }, [
+                _c("tbody", [
+                  _c("tr", [
+                    _c("th", [_vm._v("รหัส")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("ชื่อสถานศึกษา")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("อีเมล")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("เบอร์โทรศัพท์")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("ชื่อบัญชีธนาคาร")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("ธนาคาร")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("สาขา")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("เลขบัญชี")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("แก้ไข")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("183")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("John Doe")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("11-7-2014")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("span", { staticClass: "tag tag-success" }, [
+                        _vm._v("Approved")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("nnnn")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("nnnn")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("nnnn")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("nnnn")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _c("i", { staticClass: "fa fa-edit blue" })
+                      ]),
+                      _vm._v("\n                    /\n                    "),
+                      _c("a", { attrs: { href: "#" } }, [
+                        _c("i", { staticClass: "fa fa-trash red" })
+                      ])
+                    ])
+                  ])
+                ])
+              ])
             ])
           ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "addNew",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "addNewLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-centered",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "h5",
+                    {
+                      staticClass: "modal-title",
+                      attrs: { id: "addNewLabel" }
+                    },
+                    [_vm._v("เพิ่มสถานศึกษา")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "close",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "modal",
+                        "aria-label": "Close"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("×")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _vm._v("\n            ...\n          ")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("ปิด")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("บันทึก")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
     ])
   }
 ]
@@ -73461,11 +73677,132 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+  data: function data() {
+    return {
+      editmode: false,
+      hospitals: {},
+      form: new Form({
+        id: '',
+        name: '',
+        email: '',
+        tel: ''
+      })
+    };
+  },
+
+  methods: {
+    getResults: function getResults() {
+      var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+      axios.get('api/hospital?page=' + page).then(function (response) {
+        _this.hospitals = response.data;
+      });
+    },
+    updateHospital: function updateHospital() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      //console.log('Editing data');
+      this.form.put('api/hospital/' + this.form.id).then(function () {
+        // success
+        $('#addNew').modal('hide');
+        swal('อัพเดท!', 'ข้อมูลโรงพยาบาลถูกแก้ไขเรียบร้อยแล้ว', 'success');
+        _this2.$Progress.finish();
+        Fire.$emit('AfterCreate');
+      }).catch(function () {
+        _this2.$Progress.fail();
+      });
+    },
+    editModal: function editModal(hospital) {
+      this.editmode = true;
+      this.form.reset();
+      $('#addNew').modal('show');
+      this.form.fill(hospital);
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $('#addNew').modal('show');
+    },
+    deleteHospital: function deleteHospital(id) {
+      var _this3 = this;
+
+      swal({
+        title: 'คุณแน่ใจหรือไม่ ที่ต้องการลบ ?',
+        text: "คุณจะไม่สามารถย้อนกลับได้ !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ใช่, ต้องการลบ!'
+      }).then(function (result) {
+        //send request to the server
+        if (result.value) {
+          _this3.form.delete('api/hospital/' + id).then(function () {
+            swal('ลบ!', 'โรงพยาบาลถูกลบเรียบร้อยแล้ว', 'success');
+            Fire.$emit('AfterCreate');
+          }).catch(function () {
+            swal("ล้มเหลว!", "มีบางอย่างผิดพลาด", "warning");
+          });
+        }
+      });
+    },
+    loadHospitals: function loadHospitals() {
+      var _this4 = this;
+
+      axios.get("api/hospital").then(function (_ref) {
+        var data = _ref.data;
+        return _this4.hospitals = data;
+      });
+    },
+    createHospital: function createHospital() {
+      var _this5 = this;
+
+      this.$Progress.start();
+
+      this.form.post('api/hospital').then(function () {
+        Fire.$emit('AfterCreate');
+        $('#addNew').modal('hide');
+        toast({
+          type: 'success',
+          title: 'เพิ่มโรงพยาบาลเรียบร้อยแล้ว'
+        });
+        _this5.$Progress.finish();
+      }).catch(function () {});
     }
+  },
+  created: function created() {
+    var _this6 = this;
+
+    Fire.$on('searching', function () {
+      var query = _this6.$parent.search;
+      axios.get('api/findHospital?q=' + query).then(function (data) {
+        _this6.hospitals = data.data;
+      }).catch(function () {});
+    });
+    this.loadHospitals();
+    Fire.$on('AfterCreate', function () {
+      _this6.loadHospitals();
+    });
+  }
 });
 
 /***/ }),
@@ -73476,56 +73813,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row mt-3" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("h3", { staticClass: "card-title" }, [_vm._v("สถานศึกษา")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-tools" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "input-group input-group-sm",
-                    staticStyle: { width: "600px" }
-                  },
-                  [
-                    _c("input", {
-                      staticClass: "form-control float-right",
-                      attrs: {
-                        type: "text",
-                        name: "table_search",
-                        placeholder: "Search"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "input-group-append" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: { type: "submit" }
-                        },
-                        [_c("i", { staticClass: "fa fa-search" })]
-                      )
-                    ]),
-                    _vm._v("\n                        \n                "),
-                    _c(
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row mt-3" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c("div", { staticClass: "input-group input-group-sm" }, [
+                _vm.$gate.isAdmin()
+                  ? _c(
                       "button",
                       {
                         staticClass: "btn btn-primary",
-                        attrs: {
-                          type: "button",
-                          "data-toggle": "modal",
-                          "data-target": "#addNew"
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.newModal()
+                          }
                         }
                       },
                       [
@@ -73535,150 +73841,357 @@ var staticRenderFns = [
                         _c("i", { staticClass: "fas fa-plus-square" })
                       ]
                     )
-                  ]
-                )
+                  : _vm._e()
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body table-responsive p-0" }, [
-              _c("table", { staticClass: "table table-hover" }, [
-                _c("tbody", [
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive p-0" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _c(
+                "tbody",
+                [
                   _c("tr", [
                     _c("th", [_vm._v("รหัส")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("ชื่อสถานศึกษา")]),
+                    _c("th", [_vm._v("ชื่อโรงพยาบาล")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("อีเมล")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("เบอร์โทรศัพท์")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("ชื่อบัญชีธนาคาร")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("ธนาคาร")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("สาขา")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("เลขบัญชี")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("แก้ไข")])
+                    _vm.$gate.isAdmin() ? _c("th", [_vm._v("แก้ไข")]) : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("183")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("John Doe")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("11-7-2014")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "tag tag-success" }, [
-                        _vm._v("Approved")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("nnnn")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("nnnn")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("nnnn")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("nnnn")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fa fa-edit blue" })
-                      ]),
-                      _vm._v("\n                    /\n                    "),
-                      _c("a", { attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "fa fa-trash red" })
-                      ])
+                  _vm._l(_vm.hospitals.data, function(hospital) {
+                    return _c("tr", { key: hospital.id }, [
+                      _c("td", [_vm._v(_vm._s(hospital.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(hospital.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(hospital.email))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(hospital.tel))]),
+                      _vm._v(" "),
+                      _vm.$gate.isAdmin()
+                        ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editModal(hospital)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit blue" })]
+                            ),
+                            _vm._v(
+                              "\n                    /\n                    "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteHospital(hospital.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash red" })]
+                            )
+                          ])
+                        : _vm._e()
                     ])
-                  ])
-                ])
-              ])
+                  })
+                ],
+                2
+              )
             ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "modal fade",
-          attrs: {
-            id: "addNew",
-            tabindex: "-1",
-            role: "dialog",
-            "aria-labelledby": "addNewLabel",
-            "aria-hidden": "true"
-          }
-        },
-        [
+          ]),
+          _vm._v(" "),
           _c(
             "div",
-            {
-              staticClass: "modal-dialog modal-dialog-centered",
-              attrs: { role: "document" }
-            },
+            { staticClass: "card-footer" },
             [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c(
-                    "h5",
-                    {
-                      staticClass: "modal-title",
-                      attrs: { id: "addNewLabel" }
-                    },
-                    [_vm._v("เพิ่มสถานศึกษา")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "data-dismiss": "modal",
-                        "aria-label": "Close"
-                      }
-                    },
-                    [
-                      _c("span", { attrs: { "aria-hidden": "true" } }, [
-                        _vm._v("×")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
-                  _vm._v("\n            ...\n          ")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v("ปิด")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "submit" }
-                    },
-                    [_vm._v("บันทึก")]
-                  )
-                ])
-              ])
-            ]
+              _c("pagination", {
+                attrs: { data: _vm.hospitals },
+                on: { "pagination-change-page": _vm.getResults }
+              })
+            ],
+            1
           )
-        ]
-      )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNew",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("แก้ไขข้อมูลโรงพยาบาล")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("เพิ่มโรงพยาบาล")]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editmode ? _vm.updateHospital() : _vm.createHospital()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.name,
+                              expression: "form.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("name") },
+                          attrs: {
+                            type: "text",
+                            name: "name",
+                            placeholder: "ชื่อโรงพยาบาล"
+                          },
+                          domProps: { value: _vm.form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "name", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "name" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.email,
+                              expression: "form.email"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("email") },
+                          attrs: {
+                            type: "email",
+                            email: "email",
+                            placeholder: "อีเมล"
+                          },
+                          domProps: { value: _vm.form.email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "email", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "email" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.tel,
+                              expression: "form.tel"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("tel") },
+                          attrs: {
+                            type: "text",
+                            name: "tel",
+                            placeholder: "เบอร์โทรศัพท์"
+                          },
+                          domProps: { value: _vm.form.tel },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "tel", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "tel" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("ปิด")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("อัพเดท")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("บันทึก")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "card-title" }, [
+      _c("i", { staticClass: "nav-icon fas fa-hospital-alt blue" }),
+      _vm._v("\n                โรงพยาบาลคู่สัญญา\n            ")
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true

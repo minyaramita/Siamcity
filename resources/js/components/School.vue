@@ -129,7 +129,6 @@
                     class="form-control" :class="{ 'is-invalid': form.errors.has('bank_number') }">
                   <has-error :form="form" field="bank_number"></has-error>
                 </div>               
-
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
@@ -140,8 +139,6 @@
             </div>
           </div>
         </div>
-
-
     </div>
 </template>
 
