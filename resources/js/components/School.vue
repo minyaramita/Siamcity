@@ -4,16 +4,13 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">สถานศึกษา</h3>
-
+                <h3 class="card-title">
+                  <i class="nav-icon fas fa-school blue"></i>
+                    สถานศึกษา
+                </h3> 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 600px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNew">
+                  <div class="input-group input-group-sm" >
+                    <button type="button" class="btn btn-primary" @click="newModal()" v-if="$gate.isAdmin()">
                         เพิ่ม
                         <i class="fas fa-plus-square"></i>
                     </button>
@@ -32,7 +29,7 @@
                     <th>ธนาคาร</th>
                     <th>สาขา</th>
                     <th>เลขบัญชี</th>
-                    <th>แก้ไข</th>
+                    <th v-if="$gate.isAdmin()">แก้ไข</th>  
                   </tr>
                   <tr v-for="school in schools.data" :key="school.id">
                     <td>{{school.id}}</td>
@@ -43,12 +40,12 @@
                     <td>{{school.bank_id}}</td>
                     <td>{{school.bank_branch}}</td>
                     <td>{{school.bank_number}}</td>
-                    <td>
-                        <a href="#" >
+                    <td v-if="$gate.isAdmin()">
+                        <a href="#" @click="editModal(school)">
                             <i class="fa fa-edit blue"></i>
                         </a>
                         /
-                        <a href="#" >
+                        <a href="#" @click="deleteSchool(school.id)">
                             <i class="fa fa-trash red" ></i>
                         </a>
                     </td>
@@ -56,6 +53,11 @@
                 </tbody></table>
               </div>
               <!-- /.card-body -->
+
+              <!-- เพิ่ม code pagination -->
+              <div class="card-footer">
+                  <pagination :data="schools" @pagination-change-page="getResults"></pagination>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -66,15 +68,15 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="addNewLabel">เพิ่มสถานศึกษา</h5>
+                <h5 class="modal-title" v-show="editmode" id="addNewLabel">แก้ไขข้อมูลสถานศึกษา</h5>
+                <h5 class="modal-title" v-show="!editmode" id="addNewLabel">เพิ่มสถานศึกษา</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
-              <form @submit.prevent="createSchool()">
+              <form @submit.prevent="editmode ? updateSchool() : createSchool()">
               <div class="modal-body">
-                
                  <div class="form-group">
                   <input v-model="form.name" type="text" name="name"
                     placeholder="ชื่อสถานศึกษา"
@@ -92,7 +94,7 @@
                     placeholder="เบอร์โทรศัพท์"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
                   <has-error :form="form" field="tel"></has-error>
-                </div>
+                </div>     
                 <div class="form-group">
                   <input v-model="form.account_name" type="account_name" name="account_name" id="account_name"
                     placeholder="ชื่อบัญชีธนาคาร"
@@ -103,15 +105,15 @@
                   <select name="bank_id" v-model="form.bank_id" id="bank_id" 
                     class="form-control" :class="{ 'is-invalid': form.errors.has('bank_id') }">
                     <option value="">เลือกธนาคาร</option>
-                    <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
-                    <option value="ธนาคารกสิกรไทย">ธนาคารกสิกรไทย</option>
-                    <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
-                    <option value="ธนาคารทหารไทย">ธนาคารทหารไทย</option>
-                    <option value="ธนาคารไทยพาณิชย์">ธนาคารไทยพาณิชย์</option>
-                    <option value="ธนาคารกรุงศรีอยุธยา">ธนาคารกรุงศรีอยุธยา</option>
-                    <option value="ธนาคารเกียรตินาคิน">ธนาคารเกียรตินาคิน</option>
-                    <option value="ธนาคารออมสิน">ธนาคารออมสิน</option>
-                    <option value="ธนาคารธนชาต">ธนาคารธนชาต</option>
+                    <option value="1">ธนาคารกรุงเทพ</option>
+                    <option value="2">ธนาคารกสิกรไทย</option>
+                    <option value="3">ธนาคารกรุงไทย</option>
+                    <option value="4">ธนาคารทหารไทย</option>
+                    <option value="5">ธนาคารไทยพาณิชย์</option>
+                    <option value="6">ธนาคารกรุงศรีอยุธยา</option>
+                    <option value="7">ธนาคารเกียรตินาคิน</option>
+                    <option value="8">ธนาคารออมสิน</option>
+                    <option value="9">ธนาคารธนชาต</option>
                   </select>
                   <has-error :form="form" field="bank_id"></has-error>
                 </div>
@@ -131,7 +133,8 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
-                <button type="submit" class="btn btn-primary">บันทึก</button>
+                <button v-show="editmode" type="submit" class="btn btn-primary">อัพเดท</button>
+                <button v-show="!editmode" type="submit" class="btn btn-primary">บันทึก</button>
               </div>
               </form>
             </div>
@@ -146,6 +149,7 @@
     export default {
          data () {
           return {
+            editmode: false,
             schools : {},
             form: new Form({
               id:'',
@@ -160,17 +164,103 @@
           }
         },
         methods:{
+            getResults(page = 1) {
+              axios.get('api/school?page=' + page)
+                .then(response => {
+                  this.schools = response.data;
+                });
+            },
+            updateSchool(){
+              this.$Progress.start();
+              //console.log('Editing data');
+              this.form.put('api/school/'+this.form.id)
+              .then(() => {
+                // success
+                  $('#addNew').modal('hide');
+                  swal(
+                            'อัพเดท!',
+                            'ข้อมูลสถานศึกษาถูกแก้ไขเรียบร้อยแล้ว',
+                            'success'
+                      )
+                      this.$Progress.finish();
+                      Fire.$emit('AfterCreate');
+              })
+              .catch(() => {
+                this.$Progress.fail();
+              });
+            },
+            editModal(school){
+              this.editmode = true;
+              this.form.reset();
+              $('#addNew').modal('show');
+              this.form.fill(school);
+            },
+            newModal(){
+              this.editmode = false;
+              this.form.reset();
+              $('#addNew').modal('show');
+            },
+            deleteSchool(id){
+              swal({
+                  title: 'คุณแน่ใจหรือไม่ ที่ต้องการลบ ?',
+                  text: "คุณจะไม่สามารถย้อนกลับได้ !",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'ใช่, ต้องการลบ!'
+                }).then((result) => {
+                  //send request to the server
+                  if (result.value) {
+                  this.form.delete('api/school/'+id).then(()=>{
+                          swal(
+                            'ลบ!',
+                            'สถานศึกษาถูกลบเรียบร้อยแล้ว',
+                            'success'
+                          )
+                        Fire.$emit('AfterCreate');
+                  }).catch(()=>{
+                      swal("ล้มเหลว!", "มีบางอย่างผิดพลาด", "warning");
+                  });
+                  }
+                })
+            },
             loadSchools(){
                   axios.get("api/school").then(({ data }) => (this.schools = data));
             },
             createSchool(){
-              this.form.post('api/school')
-          
+              this.$Progress.start();
               
+              this.form.post('api/school')
+              .then(()=>{
+                  Fire.$emit('AfterCreate');
+                  $('#addNew').modal('hide')
+                  toast({
+                    type: 'success',
+                    title: 'เพิ่มสถานศึกษาเรียบร้อยแล้ว'
+                  })
+                  this.$Progress.finish();
+              })
+              .catch(()=>{
+
+              })
             }
         },
         created() {
+            Fire.$on('searching',() => {
+                let query = this.$parent.search;
+                axios.get('api/findSchool?q=' + query)
+                .then((data) => {
+                    this.schools = data.data
+                })
+                .catch(() => {
+                  
+                })
+            })
             this.loadSchools();
+            Fire.$on('AfterCreate',() => {
+              this.loadSchools();
+            })
         }
     }
 </script>

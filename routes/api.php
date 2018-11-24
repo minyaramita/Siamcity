@@ -23,3 +23,4 @@ Route::get('/findUser', 'API\UserController@search');
 Route::put('/profile', 'API\UserController@updateProfile');
 
 Route::apiResources(['school' => 'API\SchoolController']);
+Route::get('/findSchool', 'API\SchoolController@search');

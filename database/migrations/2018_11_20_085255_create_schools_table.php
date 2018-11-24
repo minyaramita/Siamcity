@@ -19,7 +19,7 @@ class CreateSchoolsTable extends Migration
             $table->string('email')->unique();
             $table->string('tel')->nullable();
             $table->string('account_name')->nullable();
-            $table->string('bank_id')->nullable();
+            $table->integer('bank_id')->nullable();
             $table->string('bank_branch')->nullable();
             $table->string('bank_number')->nullable();
             $table->timestamps();

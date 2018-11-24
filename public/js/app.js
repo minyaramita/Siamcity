@@ -72322,10 +72322,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      editmode: false,
       schools: {},
       form: new Form({
         id: '',
@@ -72341,20 +72345,101 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    loadSchools: function loadSchools() {
+    getResults: function getResults() {
       var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+      axios.get('api/school?page=' + page).then(function (response) {
+        _this.schools = response.data;
+      });
+    },
+    updateSchool: function updateSchool() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      //console.log('Editing data');
+      this.form.put('api/school/' + this.form.id).then(function () {
+        // success
+        $('#addNew').modal('hide');
+        swal('อัพเดท!', 'ข้อมูลสถานศึกษาถูกแก้ไขเรียบร้อยแล้ว', 'success');
+        _this2.$Progress.finish();
+        Fire.$emit('AfterCreate');
+      }).catch(function () {
+        _this2.$Progress.fail();
+      });
+    },
+    editModal: function editModal(school) {
+      this.editmode = true;
+      this.form.reset();
+      $('#addNew').modal('show');
+      this.form.fill(school);
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $('#addNew').modal('show');
+    },
+    deleteSchool: function deleteSchool(id) {
+      var _this3 = this;
+
+      swal({
+        title: 'คุณแน่ใจหรือไม่ ที่ต้องการลบ ?',
+        text: "คุณจะไม่สามารถย้อนกลับได้ !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ใช่, ต้องการลบ!'
+      }).then(function (result) {
+        //send request to the server
+        if (result.value) {
+          _this3.form.delete('api/school/' + id).then(function () {
+            swal('ลบ!', 'สถานศึกษาถูกลบเรียบร้อยแล้ว', 'success');
+            Fire.$emit('AfterCreate');
+          }).catch(function () {
+            swal("ล้มเหลว!", "มีบางอย่างผิดพลาด", "warning");
+          });
+        }
+      });
+    },
+    loadSchools: function loadSchools() {
+      var _this4 = this;
 
       axios.get("api/school").then(function (_ref) {
         var data = _ref.data;
-        return _this.schools = data;
+        return _this4.schools = data;
       });
     },
     createSchool: function createSchool() {
-      this.form.post('api/school');
+      var _this5 = this;
+
+      this.$Progress.start();
+
+      this.form.post('api/school').then(function () {
+        Fire.$emit('AfterCreate');
+        $('#addNew').modal('hide');
+        toast({
+          type: 'success',
+          title: 'เพิ่มสถานศึกษาเรียบร้อยแล้ว'
+        });
+        _this5.$Progress.finish();
+      }).catch(function () {});
     }
   },
   created: function created() {
+    var _this6 = this;
+
+    Fire.$on('searching', function () {
+      var query = _this6.$parent.search;
+      axios.get('api/findSchool?q=' + query).then(function (data) {
+        _this6.schools = data.data;
+      }).catch(function () {});
+    });
     this.loadSchools();
+    Fire.$on('AfterCreate', function () {
+      _this6.loadSchools();
+    });
   }
 });
 
@@ -72370,14 +72455,59 @@ var render = function() {
     _c("div", { staticClass: "row mt-3" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "card-header" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c("div", { staticClass: "input-group input-group-sm" }, [
+                _vm.$gate.isAdmin()
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.newModal()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    เพิ่ม\n                    "
+                        ),
+                        _c("i", { staticClass: "fas fa-plus-square" })
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body table-responsive p-0" }, [
             _c("table", { staticClass: "table table-hover" }, [
               _c(
                 "tbody",
                 [
-                  _vm._m(1),
+                  _c("tr", [
+                    _c("th", [_vm._v("รหัส")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("ชื่อสถานศึกษา")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("อีเมล")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("เบอร์โทรศัพท์")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("ชื่อบัญชีธนาคาร")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("ธนาคาร")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("สาขา")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("เลขบัญชี")]),
+                    _vm._v(" "),
+                    _vm.$gate.isAdmin() ? _c("th", [_vm._v("แก้ไข")]) : _vm._e()
+                  ]),
                   _vm._v(" "),
                   _vm._l(_vm.schools.data, function(school) {
                     return _c("tr", { key: school.id }, [
@@ -72397,14 +72527,56 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(school.bank_number))]),
                       _vm._v(" "),
-                      _vm._m(2, true)
+                      _vm.$gate.isAdmin()
+                        ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editModal(school)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit blue" })]
+                            ),
+                            _vm._v(
+                              "\n                    /\n                    "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteSchool(school.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash red" })]
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   })
                 ],
                 2
               )
             ])
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-footer" },
+            [
+              _c("pagination", {
+                attrs: { data: _vm.schools },
+                on: { "pagination-change-page": _vm.getResults }
+              })
+            ],
+            1
+          )
         ])
       ])
     ]),
@@ -72430,7 +72602,43 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("แก้ไขข้อมูลสถานศึกษา")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("เพิ่มสถานศึกษา")]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
               _vm._v(" "),
               _c(
                 "form",
@@ -72438,7 +72646,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      _vm.createSchool()
+                      _vm.editmode ? _vm.updateSchool() : _vm.createSchool()
                     }
                   }
                 },
@@ -72648,53 +72856,39 @@ var render = function() {
                               _vm._v("เลือกธนาคาร")
                             ]),
                             _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "ธนาคารกรุงเทพ" } },
-                              [_vm._v("ธนาคารกรุงเทพ")]
-                            ),
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("ธนาคารกรุงเทพ")
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "ธนาคารกสิกรไทย" } },
-                              [_vm._v("ธนาคารกสิกรไทย")]
-                            ),
+                            _c("option", { attrs: { value: "2" } }, [
+                              _vm._v("ธนาคารกสิกรไทย")
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "ธนาคารกรุงไทย" } },
-                              [_vm._v("ธนาคารกรุงไทย")]
-                            ),
+                            _c("option", { attrs: { value: "3" } }, [
+                              _vm._v("ธนาคารกรุงไทย")
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "ธนาคารทหารไทย" } },
-                              [_vm._v("ธนาคารทหารไทย")]
-                            ),
+                            _c("option", { attrs: { value: "4" } }, [
+                              _vm._v("ธนาคารทหารไทย")
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "ธนาคารไทยพาณิชย์" } },
-                              [_vm._v("ธนาคารไทยพาณิชย์")]
-                            ),
+                            _c("option", { attrs: { value: "5" } }, [
+                              _vm._v("ธนาคารไทยพาณิชย์")
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "ธนาคารกรุงศรีอยุธยา" } },
-                              [_vm._v("ธนาคารกรุงศรีอยุธยา")]
-                            ),
+                            _c("option", { attrs: { value: "6" } }, [
+                              _vm._v("ธนาคารกรุงศรีอยุธยา")
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "ธนาคารเกียรตินาคิน" } },
-                              [_vm._v("ธนาคารเกียรตินาคิน")]
-                            ),
+                            _c("option", { attrs: { value: "7" } }, [
+                              _vm._v("ธนาคารเกียรตินาคิน")
+                            ]),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "ธนาคารออมสิน" } }, [
+                            _c("option", { attrs: { value: "8" } }, [
                               _vm._v("ธนาคารออมสิน")
                             ]),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "ธนาคารธนชาต" } }, [
+                            _c("option", { attrs: { value: "9" } }, [
                               _vm._v("ธนาคารธนชาต")
                             ])
                           ]
@@ -72798,7 +72992,50 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(4)
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("ปิด")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("อัพเดท")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("บันทึก")]
+                    )
+                  ])
                 ]
               )
             ])
@@ -72813,135 +73050,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("สถานศึกษา")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "div",
-          {
-            staticClass: "input-group input-group-sm",
-            staticStyle: { width: "600px" }
-          },
-          [
-            _c("input", {
-              staticClass: "form-control float-right",
-              attrs: {
-                type: "text",
-                name: "table_search",
-                placeholder: "Search"
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group-append" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-default", attrs: { type: "submit" } },
-                [_c("i", { staticClass: "fa fa-search" })]
-              )
-            ]),
-            _vm._v("\n                        \n                "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                attrs: {
-                  type: "button",
-                  "data-toggle": "modal",
-                  "data-target": "#addNew"
-                }
-              },
-              [
-                _vm._v("\n                    เพิ่ม\n                    "),
-                _c("i", { staticClass: "fas fa-plus-square" })
-              ]
-            )
-          ]
-        )
-      ])
+    return _c("h3", { staticClass: "card-title" }, [
+      _c("i", { staticClass: "nav-icon fas fa-school blue" }),
+      _vm._v("\n                สถานศึกษา\n            ")
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("รหัส")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("ชื่อสถานศึกษา")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("อีเมล")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("เบอร์โทรศัพท์")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("ชื่อบัญชีธนาคาร")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("ธนาคาร")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("สาขา")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("เลขบัญชี")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("แก้ไข")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-edit blue" })
-      ]),
-      _vm._v("\n                    /\n                    "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-trash red" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
-        _vm._v("เพิ่มสถานศึกษา")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("ปิด")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("บันทึก")]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
@@ -74596,7 +74725,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -74732,7 +74860,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
-                _c("h3", { staticClass: "card-title" }, [_vm._v("ผู้ใช้งาน")]),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-tools" }, [
                   _c(
@@ -74747,9 +74875,7 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v(
-                        "\n                    เพิ่ม\n                    "
-                      ),
+                      _vm._v("\n                เพิ่ม\n                "),
                       _c("i", { staticClass: "fas fa-user-plus fa-fw" })
                     ]
                   )
@@ -74761,7 +74887,7 @@ var render = function() {
                   _c(
                     "tbody",
                     [
-                      _vm._m(0),
+                      _vm._m(1),
                       _vm._v(" "),
                       _vm._l(_vm.users.data, function(user) {
                         return _c("tr", { key: user.id }, [
@@ -74795,7 +74921,7 @@ var render = function() {
                               [_c("i", { staticClass: "fa fa-edit blue" })]
                             ),
                             _vm._v(
-                              "\n                        /\n                        "
+                              "\n                    /\n                    "
                             ),
                             _c(
                               "a",
@@ -74892,7 +75018,7 @@ var render = function() {
                   [_vm._v("เพิ่มผู้ใช้งาน")]
                 ),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]),
               _vm._v(" "),
               _c(
@@ -75183,6 +75309,15 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "card-title" }, [
+      _c("i", { staticClass: "nav-icon fas fa-users-cog blue" }),
+      _vm._v("\n              ผู้ใช้งาน\n            ")
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -4,8 +4,9 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">ผู้ใช้งาน</h3>
-
+                <h3 class="card-title"><i class="nav-icon fas fa-users-cog blue"></i>
+                  ผู้ใช้งาน
+                </h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-primary" @click="newModal()">
                     เพิ่ม
@@ -27,8 +28,6 @@
                       <th>วันที่เพิ่ม</th>
                       <th>แก้ไข</th>
                   </tr>
-
-
                   <tr v-for="user in users.data" :key="user.id">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
@@ -127,7 +126,7 @@
               </form>
             </div>
           </div>
-</div>
+        </div>
 
     </div>
 </template>
@@ -233,7 +232,6 @@
             .catch(()=>{
 
             })
-            
           }
         },
         created() {

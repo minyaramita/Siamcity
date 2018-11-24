@@ -11,7 +11,7 @@ class UserController extends Controller
 {
      /**
      * Create a new controller instance.
-     * ป้องกันการเข้าถึงข้อมูลโดยไม่ได้ log in
+     * ป้องกันการเข้าถึงข้อมูล api โดยไม่ได้ log in
      * @return void
      */
     public function __construct()
@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {   
-        $this->authorize('isAdmin');
+        $this->authorize('isAdmin'); //อนุญาตให้ แอดมิน เท่านั้น ที่สามารถเข้าใช้งานหน้า user ได้
         return User::latest()->paginate(5);
     }
 

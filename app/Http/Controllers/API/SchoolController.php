@@ -5,14 +5,28 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\school;
+use App\bank;
+
 
 class SchoolController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     * ป้องกันการเข้าถึงข้อมูล api โดยไม่ได้ log in
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         return School::latest()->paginate(5);
@@ -27,8 +41,8 @@ class SchoolController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required|string|max:191|unique:schools',
-            'email' => 'string|email|max:191|unique:schools'
+            'email' => 'string|email|max:191|unique:schools',
+            'name' => 'required|string|max:191|unique:schools'
         ]);
 
         return School::create([
@@ -62,7 +76,15 @@ class SchoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $school = School::findOrFail($id);
+
+        $this->validate($request,[
+            'name' => 'required|string|max:191|unique:schools,name,'.$school->id,
+            'email' => 'string|email|max:191|unique:schools,email,'.$school->id
+        ]);
+
+        $school->update($request->all());
+        return ['message' => 'Update the school info'];
     }
 
     /**
@@ -73,6 +95,24 @@ class SchoolController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $school = School::findOrFail($id);
+
+        // delete the school
+        $school->delete();
+
+        return['message' => 'SchoolDeleted'];
+    }
+
+    public function search(){
+        if ($search = \Request::get('q')) {
+            $schools = School::where(function($query) use ($search){
+                $query->where('name','LIKE',"%$search%")
+                        ->orWhere('email','LIKE',"%$search%");
+            })->paginate(20);
+        }else{
+            $schools = School::latest()->paginate(5);
+        }
+        return $schools;
     }
 }
