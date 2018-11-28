@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\School;
-use App\Bank;
-class SchoolController extends Controller
+use App\Insurer;
+
+class InsurerController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -18,16 +18,14 @@ class SchoolController extends Controller
         $this->middleware('auth:api');
 
     }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        return School::with('Bank')->latest()->paginate(6);
+        return Insurer::with('Title')->with('Namelist')->latest()->paginate(5);
     }
 
     /**
@@ -39,20 +37,22 @@ class SchoolController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'email' => 'string|email|max:191|unique:schools',
-            'name' => 'required|string|max:191|unique:schools'
+            'title_id' => 'required',
+            'ins_fname' => 'required|string|max:191',
+            'ins_lname' => 'required|string|max:191',
+            'namelist_id' => 'required',
         ]);
 
-        return School::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'tel' => $request['tel'],
-            'account_name' => $request['account_name'],
-            'bank_id' => $request['bank_id'],
-            'bank_branch' => $request['bank_branch'],
-            'bank_number' => $request['bank_number'],
+        return Insurer::create([
+            'title_id' => $request['title_id'],
+            'ins_fname' => $request['ins_fname'],
+            'ins_lname' => $request['ins_lname'],
+            'ins_class' => $request['ins_class'],
+            'namelist_id' => $request['namelist_id'],
+            'ins_type' => $request['ins_type'],
         ]);
     }
+    
 
     /**
      * Display the specified resource.
@@ -72,17 +72,19 @@ class SchoolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $school = School::findOrFail($id);
+        $insurer = Insurer::findOrFail($id);
 
         $this->validate($request,[
-            'name' => 'required|string|max:191|unique:schools,name,'.$school->id,
-            'email' => 'string|email|max:191|unique:schools,email,'.$school->id
+            'title_id' => 'required',
+            'ins_fname' => 'required|string|max:191',
+            'ins_lname' => 'required|string|max:191',
+            'namelist_id' => 'required',
         ]);
 
-        $school->update($request->all());
-        return ['message' => 'Update the school info'];
+        $insurer->update($request->all());
+        return ['message' => 'Update the insurer info'];
     }
 
     /**
@@ -93,23 +95,23 @@ class SchoolController extends Controller
      */
     public function destroy($id)
     {
-        $school = School::findOrFail($id);
+        $insurer = Insurer::findOrFail($id);
 
-        // delete the school
-        $school->delete();
+        // delete the insurer
+        $insurer->delete();
 
-        return['message' => 'SchoolDeleted'];
+        return['message' => 'InsurerDeleted'];
     }
 
     public function search(){
         if ($search = \Request::get('q')) {
-            $schools = School::where(function($query) use ($search){
-                $query->where('name','LIKE',"%$search%")
-                        ->orWhere('email','LIKE',"%$search%");
+            $insurers = Insurer::where(function($query) use ($search){
+                $query->where('ins_fname','LIKE',"%$search%")
+                        ->orWhere('ins_lname','LIKE',"%$search%");
             })->paginate(20);
         }else{
-            $schools = School::with('Bank')->latest()->paginate(6);
+            $insurers = Insurer::latest()->paginate(5);
         }
-        return $schools;
+        return $insurers;
     }
 }

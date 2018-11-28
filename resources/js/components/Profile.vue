@@ -12,8 +12,8 @@
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-info-active">
-                        <h3 class="widget-user-username">{{this.form.name}}</h3>
-                        <h5 class="widget-user-desc">{{this.form.type}}</h5>
+                        <h3 style="color:rgb(99, 106, 111);" class="widget-user-username">{{this.form.name}}</h3>
+                        <h5 style="color:rgb(99, 106, 111);" class="widget-user-desc">{{this.form.type}}</h5>
                     </div>
                     <div class="widget-user-image">
                         <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
@@ -63,8 +63,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="password" class="col-sm-5 control-label">รหัสผ่าน (เว้นว่างไว้ หากไม่ต้องการเปลี่ยน)</label>
-
+                        <label for="password" class="col-sm-5 control-label">รหัสผ่าน </label>
                         <div class="col-sm-10">
                           <input v-model="form.password" type="password" name="password" id="password" class="form-control"  placeholder="รหัสผ่าน" :class="{ 'is-invalid': form.errors.has('password') }">
                           <has-error :form="form" field="password"></has-error>

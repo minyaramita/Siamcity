@@ -76,17 +76,27 @@
                   <has-error :form="form" field="name"></has-error>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.email" type="email" email="email"
-                    placeholder="อีเมล"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                  <has-error :form="form" field="email"></has-error>
+                  <div class="input-group">
+                    <input v-model="form.email" type="email" email="email"
+                      placeholder="อีเมล"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="nav-icon far fa-envelope blue"></i></span>
+                    </div>
+                    <has-error :form="form" field="email"></has-error>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.tel" type="text" name="tel"
-                    placeholder="เบอร์โทรศัพท์"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
-                  <has-error :form="form" field="tel"></has-error>
-                </div>     
+                  <div class="input-group">
+                    <input v-model="form.tel" type="text" name="tel"
+                      placeholder="เบอร์โทรศัพท์"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="nav-icon fas fa-phone blue"></i></span>
+                    </div>
+                    <has-error :form="form" field="tel"></has-error> 
+                  </div> 
+                </div>    
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>

@@ -121,6 +121,9 @@ class UserController extends Controller
             'password' => 'sometimes|min:6'
         ]);
 
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
         $user->update($request->all());
         return ['message' => 'Update the user info'];
     }

@@ -69,8 +69,8 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" v-show="editmode" id="addNewLabel">แก้ไขข้อมูลผู้ใช้งาน</h5>
-                <h5 class="modal-title" v-show="!editmode" id="addNewLabel">เพิ่มผู้ใช้งาน</h5>
+                <h5 class="modal-title" v-show="editmode" id="addNewLabel"><i class="fas fa-user-plus fa-fw blue"></i> แก้ไขข้อมูลผู้ใช้งาน</h5>
+                <h5 class="modal-title" v-show="!editmode" id="addNewLabel"><i class="fas fa-user-plus fa-fw blue"></i> เพิ่มผู้ใช้งาน</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -85,7 +85,6 @@
                     class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                   <has-error :form="form" field="name"></has-error>
                 </div>
-
                 <div class="form-group">
                   <select name="type" v-model="form.type" id="type" 
                     class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
@@ -93,30 +92,48 @@
                     <option value="ผู้ดูแลระบบ">ผู้ดูแลระบบ</option>
                     <option value="ผู้ใช้งาน">ผู้ใช้งาน</option>
                   </select>
-                  <has-error :form="form" field="tel"></has-error>
+                  <has-error :form="form" field="type"></has-error>
                 </div>
 
                 <div class="form-group">
-                  <input v-model="form.tel" type="text" name="tel"
-                    placeholder="เบอร์โทรศัพท์"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
-                  <has-error :form="form" field="tel"></has-error>
-                </div>        
+                  <div class="input-group">
+                    <input v-model="form.tel" type="text" name="tel"
+                      placeholder="เบอร์โทรศัพท์"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="nav-icon fas fa-phone blue"></i></span>
+                    </div>
+                    <has-error :form="form" field="tel"></has-error> 
+                  </div> 
+                </div>          
 
                 <div class="form-group">
-                  <input v-model="form.email" type="email" email="email"
-                    placeholder="อีเมล"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                  <has-error :form="form" field="email"></has-error>
+                  <div class="input-group">
+                    <input v-model="form.email" type="email" email="email"
+                      placeholder="อีเมล"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="nav-icon far fa-envelope blue"></i></span>
+                    </div>
+                    <has-error :form="form" field="email"></has-error>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                  <input v-model="form.password" type="password" name="password" id="password"
-                    placeholder="รหัสผ่าน"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
-                  <has-error :form="form" field="password"></has-error>
+                  <div class="input-group">
+                    <input v-model="form.password" type="password" name="password" id="password"
+                      placeholder="รหัสผ่าน"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="nav-icon fas fa-unlock-alt blue"></i></span>
+                    </div>
+                    <has-error :form="form" field="password"></has-error>
+                  </div>
+                  <label v-show="editmode" for="password" class="col-sm-8 control-label">
+                    <p style="font-size: 12px; font-weight: lighter; color: Gray;">เว้นว่างไว้ หากไม่ต้องการเปลี่ยนรหัสผ่าน</p>
+                  </label>
                 </div>
-
+                
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>

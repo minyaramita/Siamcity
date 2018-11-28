@@ -37,7 +37,7 @@
                     <td>{{school.email}}</td>
                     <td>{{school.tel}}</td>
                     <td>{{school.account_name}}</td>
-                    <td>{{school.bank_id}}</td>
+                    <td>{{school.bank.bank_name}}</td>
                     <td>{{school.bank_branch}}</td>
                     <td>{{school.bank_number}}</td>
                     <td v-if="$gate.isAdmin()">
@@ -77,26 +77,36 @@
 
               <form @submit.prevent="editmode ? updateSchool() : createSchool()">
               <div class="modal-body">
-                 <div class="form-group">
+                <div class="form-group">
                   <input v-model="form.name" type="text" name="name"
                     placeholder="ชื่อสถานศึกษา"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                   <has-error :form="form" field="name"></has-error>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.email" type="email" email="email"
-                    placeholder="อีเมล"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                  <has-error :form="form" field="email"></has-error>
+                  <div class="input-group">
+                    <input v-model="form.email" type="email" email="email"
+                      placeholder="อีเมล"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="nav-icon far fa-envelope blue"></i></span>
+                    </div>
+                    <has-error :form="form" field="email"></has-error>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.tel" type="text" name="tel"
-                    placeholder="เบอร์โทรศัพท์"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
-                  <has-error :form="form" field="tel"></has-error>
+                  <div class="input-group">
+                    <input v-model="form.tel" type="text" name="tel"
+                      placeholder="เบอร์โทรศัพท์"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="nav-icon fas fa-phone blue"></i></span>
+                    </div>
+                    <has-error :form="form" field="tel"></has-error> 
+                  </div> 
                 </div>     
                 <div class="form-group">
-                  <input v-model="form.account_name" type="account_name" name="account_name" id="account_name"
+                  <input v-model="form.account_name" type="text" name="account_name" id="account_name"
                     placeholder="ชื่อบัญชีธนาคาร"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('account_name') }">
                   <has-error :form="form" field="account_name"></has-error>
@@ -118,13 +128,13 @@
                   <has-error :form="form" field="bank_id"></has-error>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.bank_branch" type="bank_branch" name="bank_branch" id="bank_branch"
+                  <input v-model="form.bank_branch" type="text" name="bank_branch" id="bank_branch"
                     placeholder="สาขา"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('bank_branch') }">
                   <has-error :form="form" field="bank_branch"></has-error>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.bank_number" type="bank_number" name="bank_number" id="bank_number"
+                  <input v-model="form.bank_number" type="text" name="bank_number" id="bank_number"
                     placeholder="หมายเลขบัญชี"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('bank_number') }">
                   <has-error :form="form" field="bank_number"></has-error>

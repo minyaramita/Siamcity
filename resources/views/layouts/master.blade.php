@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="/css/app.css">
-   
+  <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
   <title>Siam City</title>
 </head>
 
@@ -28,7 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </ul>
     
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" @keyup="searchit" v-model ="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" type="search" @keyup="searchit" v-model ="search" placeholder="ค้นหา" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-navbar" @click="searchit">
             <i class="fa fa-search"></i>
@@ -70,18 +70,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-          <!--
           <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <router-link to="/home" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
               <p>
-                Dashboard
+                หน้าหลัก
               </p>
             </a>
           </li>
-          -->
           <li class="nav-item">
-            <router-link to="/list" class="nav-link">
+            <router-link to="/namelist" class="nav-link">
               <i class="nav-icon fas fa-list-ul"></i>
               <p>
                 การรับรายชื่อ
@@ -228,7 +226,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       window.user = @json(auth()->user())
   </script> 
 @endauth
-
 <script src="/js/app.js"></script> 
 </body>
 </html>

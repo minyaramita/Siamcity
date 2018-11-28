@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Bank extends Model
 {
     protected $table='banks';
-    
-    public function school(){
-            
-        return $this->hasMany(School::class);
-        
+    protected $fillable = ['bank_name'];
+    public function school(){  
+        return $this->hasMany('App/School','bank_id', 'id');
     }
 }
