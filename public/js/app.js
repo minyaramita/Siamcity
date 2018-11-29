@@ -79637,6 +79637,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -79654,12 +79665,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         pay_date: '',
         payType: '',
         detail: '',
-        status_id: ''
+        status_id: '',
+        status: {
+          name: ''
+        },
+        insurer: {
+          id: '',
+          ins_fname: '',
+          ins_lname: '',
+          ins_class: '',
+          ins_type: '',
+          title: {
+            name: ''
+          },
+          namelist: {
+            protection_date: '',
+            year: '',
+            plan: {
+              name: ''
+            },
+            school: {
+              name: ''
+            }
+          }
+        }
       })
     };
   },
 
   methods: {
+    viewModal: function viewModal(claim) {
+      $('#viewModal').modal('show');
+      this.form.fill(claim);
+    },
     getResults: function getResults() {
       var _this = this;
 
@@ -79808,15 +79846,16 @@ var render = function() {
                   _vm._v(" "),
                   _vm._l(_vm.claims.data, function(claim) {
                     return _c("tr", { key: claim.id }, [
-                      _c("td", [
-                        _vm._v(_vm._s(_vm._f("myDate")(claim.claim_date)))
-                      ]),
+                      _c("td", [_vm._v(_vm._s(claim.id))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(claim.insurer.namelist_id))]),
+                      _c("td", [
+                        _vm._v(_vm._s(claim.insurer.namelist.school.name))
+                      ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          _vm._s(claim.insurer.ins_fname) +
+                          _vm._s(claim.insurer.title.name) +
+                            _vm._s(claim.insurer.ins_fname) +
                             "  " +
                             _vm._s(claim.insurer.ins_lname)
                         )
@@ -79883,12 +79922,36 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.$gate.isUser()
-                        ? _c("td", [_vm._m(2, true)])
+                        ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewModal(claim)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "far fa-eye cyan" })]
+                            )
+                          ])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.$gate.isAdmin()
                         ? _c("td", [
-                            _vm._m(3, true),
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewModal(claim)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "far fa-eye cyan" })]
+                            ),
                             _vm._v(
                               "\n                    /\n                    "
                             ),
@@ -80000,7 +80063,7 @@ var render = function() {
                   [_vm._v("เพิ่มการเคลมประกัน")]
                 ),
                 _vm._v(" "),
-                _vm._m(4)
+                _vm._m(2)
               ]),
               _vm._v(" "),
               _c(
@@ -80059,7 +80122,7 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _vm._m(5)
+                            _vm._m(3)
                           ]),
                           _vm._v(" "),
                           _c("has-error", {
@@ -80164,7 +80227,7 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _vm._m(6)
+                            _vm._m(4)
                           ]),
                           _vm._v(" "),
                           _c("has-error", {
@@ -80371,7 +80434,7 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _vm._m(7)
+                            _vm._m(5)
                           ]),
                           _vm._v(" "),
                           _c("has-error", {
@@ -80626,7 +80689,209 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(8)
+    _c("div", { staticClass: "modal fade", attrs: { id: "viewModal" } }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal-lg",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content th-table" }, [
+            _vm._m(6),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body th-table" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-4" }, [
+                  _c("b", [_vm._v("วันเริ่มคุ้มครอง : ")]),
+                  _vm._v(
+                    _vm._s(
+                      _vm._f("myDate")(
+                        this.form.insurer.namelist.protection_date
+                      )
+                    )
+                  ),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("แผน : ")]),
+                  _vm._v(" " + _vm._s(this.form.insurer.namelist.plan.name)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("ปีการศึกษา : ")]),
+                  _vm._v(" " + _vm._s(this.form.insurer.namelist.year)),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-4" }, [
+                  _c("b", [_vm._v("รหัสเคลม :  ")]),
+                  _vm._v(_vm._s(this.form.id)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("รหัสผู้ทำประกัน :  ")]),
+                  _vm._v(_vm._s(this.form.ins_id)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("วันที่เคลม :  ")]),
+                  _vm._v(" " + _vm._s(_vm._f("myDate")(this.form.claim_date))),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-4" }, [
+                  _c("b", [_vm._v("โรงเรียน : ")]),
+                  _vm._v(" " + _vm._s(this.form.insurer.namelist.school.name)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("ชื่อ-นามสกุล : ")]),
+                  _vm._v(
+                    " " +
+                      _vm._s(this.form.insurer.title.name) +
+                      _vm._s(this.form.insurer.ins_fname) +
+                      " " +
+                      _vm._s(this.form.insurer.ins_lname)
+                  ),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("ชั้นเรียน : ")]),
+                  _vm._v(" " + _vm._s(this.form.insurer.ins_class)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("ประเภท : ")]),
+                  _vm._v(" " + _vm._s(this.form.insurer.ins_type)),
+                  _c("br"),
+                  _c("br")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12 table-responsive" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c("tbody", [
+                      _c("tr", [
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm._f("myDate")(this.form.accident_date))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.form.accident_cause))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("numFormat")(
+                                this.form.withdraw_amount,
+                                "0,0.00"
+                              )
+                            ) + " บาท"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticStyle: { color: "red" } }, [
+                          _c("b", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("numFormat")(
+                                  this.form.approve_amount,
+                                  "0,0.00"
+                                )
+                              ) + " "
+                            )
+                          ]),
+                          _vm._v(" บาท")
+                        ]),
+                        _vm._v(" "),
+                        _vm.form.status_id === 1
+                          ? _c("td", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "label label-mali",
+                                  staticStyle: { color: "#fff" }
+                                },
+                                [_vm._v(_vm._s(this.form.status.name))]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.form.status_id === 2
+                          ? _c("td", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "label label-info",
+                                  staticStyle: { color: "#fff" }
+                                },
+                                [_vm._v(_vm._s(this.form.status.name))]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.form.status_id === 3
+                          ? _c("td", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "label label-success",
+                                  staticStyle: { color: "#fff" }
+                                },
+                                [_vm._v(_vm._s(this.form.status.name))]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.form.status_id === 4
+                          ? _c("td", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "label label-danger",
+                                  staticStyle: { color: "#fff" }
+                                },
+                                [_vm._v(_vm._s(this.form.status.name))]
+                              )
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", { attrs: { colspan: "5" } }, [
+                          _c("b", [_vm._v("รายละเอียด : ")]),
+                          _vm._v(_vm._s(this.form.detail))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.form.status_id === 3
+                        ? _c("tr", [
+                            _c("td", { attrs: { colspan: "5" } }, [
+                              _c("b", [_vm._v("รูปแบบการจ่ายเงิน : ")]),
+                              _vm._v(_vm._s(this.form.payType))
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.form.status_id === 3
+                        ? _c("tr", [
+                            _c("td", { attrs: { colspan: "5" } }, [
+                              _c("b", [_vm._v("วันที่จ่ายเงิน : ")]),
+                              _vm._v(
+                                _vm._s(_vm._f("myDate")(this.form.pay_date))
+                              )
+                            ])
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(8)
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -80644,15 +80909,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("th", [_vm._v("วันที่เคลม")]),
+      _c("th", [_vm._v("รหัส")]),
       _vm._v(" "),
-      _c("th", [_vm._v("รหัสการรับรายชือ")]),
+      _c("th", [_vm._v("สถานศึกษา")]),
       _vm._v(" "),
       _c("th", [_vm._v("ชื่อ-นามสกุล")]),
       _vm._v(" "),
       _c("th", [_vm._v("สาเหตุ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("เบิก")]),
+      _c("th", [_vm._v("ตั้งเบิก")]),
       _vm._v(" "),
       _c("th", [_vm._v("อนุมัติ")]),
       _vm._v(" "),
@@ -80660,38 +80925,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Action")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        attrs: {
-          href: "#",
-          "data-toggle": "modal",
-          "data-target": "#viewModal"
-        }
-      },
-      [_c("i", { staticClass: "far fa-eye cyan" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        attrs: {
-          href: "#",
-          "data-toggle": "modal",
-          "data-target": "#viewModal"
-        }
-      },
-      [_c("i", { staticClass: "far fa-eye cyan" })]
-    )
   },
   function() {
     var _vm = this
@@ -80744,166 +80977,58 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "modal fade", attrs: { id: "viewModal" } },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-centered modal-lg",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content th-table" }, [
-              _c("div", { staticClass: "modal-header th-table" }, [
-                _c("h4", { staticClass: "modal-title" }, [
-                  _c("i", { staticClass: "nav-icon fas fa-user-injured blue" }),
-                  _vm._v("  ข้อมูลการเคลมประกัน")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body th-table" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-4" }, [
-                    _c("b", [_vm._v("วันเริ่มคุ้มครอง : ")]),
-                    _vm._v("25 พ.ค. 2018"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("แผน : ")]),
-                    _vm._v(" 100,000/10,000+500"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("ปีการศึกษา : ")]),
-                    _vm._v(" 2018"),
-                    _c("br")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-4" }, [
-                    _c("b", [_vm._v("รหัสเคลม :  ")]),
-                    _vm._v("1"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("รหัสผู้ทำประกัน :  ")]),
-                    _vm._v("1"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("วันที่เคลม :  ")]),
-                    _vm._v(" 20 พ.ย. 2018"),
-                    _c("br")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-4" }, [
-                    _c("b", [_vm._v("โรงเรียน : ")]),
-                    _vm._v("เบญจมราชูทิศ"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("ชื่อ-นามสกุล : ")]),
-                    _vm._v(" ด.ญ.ธิดารัตน์ วัฒนกิจ"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("ชั้นเรียน : ")]),
-                    _vm._v(" ป.5"),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("b", [_vm._v("ประเภท : ")]),
-                    _vm._v(" นักเรียน"),
-                    _c("br"),
-                    _c("br")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12 table-responsive" }, [
-                    _c("table", { staticClass: "table" }, [
-                      _c("thead", [
-                        _c("tr", [
-                          _c("th", [_vm._v("วันที่เกิดอุบัติเหตุ")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("สาเหตุอุบัติเหตุ")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("ตั้งเบิก")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("อนุมัติ")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("สถานะ")])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("tbody", [
-                        _c("tr", [
-                          _c("td", [_vm._v("25 พ.ค. 2018")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("อุบัติเหตุจราจร")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("100,000.00 บาท")]),
-                          _vm._v(" "),
-                          _c("td", { staticStyle: { color: "red" } }, [
-                            _c("b", [_vm._v("100,000.00 ")]),
-                            _vm._v(" บาท")
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("อนุมัติจ่ายเคลม")])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", { attrs: { colspan: "5" } }, [
-                            _c("b", [_vm._v("รายละเอียด : ")]),
-                            _vm._v("ไม่อนุมัติเคลมเนื่องจากขาดใบรับรองแพทย์")
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", { attrs: { colspan: "5" } }, [
-                            _c("b", [_vm._v("รูปแบบการจ่ายเงิน : ")]),
-                            _vm._v("เงินสด")
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", { attrs: { colspan: "5" } }, [
-                            _c("b", [_vm._v("วันที่จ่ายเงิน : ")]),
-                            _vm._v("20 พ.ค. 2018")
-                          ])
-                        ])
-                      ])
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("ปิด")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "modal-header th-table" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _c("i", { staticClass: "nav-icon fas fa-user-injured blue" }),
+        _vm._v("  ข้อมูลการเคลมประกัน")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("วันที่เกิดอุบัติเหตุ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("สาเหตุอุบัติเหตุ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ตั้งเบิก")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("อนุมัติ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("สถานะ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("ปิด")]
+      )
+    ])
   }
 ]
 render._withStripped = true

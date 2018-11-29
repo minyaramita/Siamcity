@@ -21,19 +21,19 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover th-table">
                   <tbody><tr>
-                    <th>วันที่เคลม</th>
-                    <th>รหัสการรับรายชือ</th>
+                    <th>รหัส</th>
+                    <th>สถานศึกษา</th>
                     <th>ชื่อ-นามสกุล</th>
                     <th>สาเหตุ</th>
-                    <th>เบิก</th>
+                    <th>ตั้งเบิก</th>
                     <th>อนุมัติ</th>
                     <th>สถานะ</th>  
                     <th>Action</th>  
                   </tr>
                   <tr v-for="claim in claims.data" :key="claim.id">
-                    <td>{{claim.claim_date | myDate}}</td>
-                    <td>{{claim.insurer.namelist_id}}</td>
-                    <td>{{claim.insurer.ins_fname}}  {{claim.insurer.ins_lname}}</td>
+                    <td>{{claim.id}}</td>
+                    <td>{{claim.insurer.namelist.school.name}}</td>
+                    <td>{{claim.insurer.title.name}}{{claim.insurer.ins_fname}}  {{claim.insurer.ins_lname}}</td>
                     <td>{{claim.accident_cause}}</td>
                     <td>{{claim.withdraw_amount | numFormat('0,0.00')}}</td>
                     <td style="color:red;"><b>{{claim.approve_amount | numFormat('0,0.00')}}</b></td>
@@ -52,13 +52,13 @@
                     </td>
 
                     <td v-if="$gate.isUser()">
-                        <a href="#" data-toggle="modal" data-target="#viewModal">
+                        <a href="#" @click="viewModal(claim)">
                             <i class="far fa-eye cyan"></i>
                         </a>
                     </td>
 
                     <td v-if="$gate.isAdmin()">
-                        <a href="#" data-toggle="modal" data-target="#viewModal">
+                        <a href="#" @click="viewModal(claim)">
                             <i class="far fa-eye cyan"></i>
                         </a>
                         /
@@ -235,20 +235,20 @@
               <div class="modal-body th-table">
                 <div class="row">
                   <div class="col-sm-4">
-                    <b>วันเริ่มคุ้มครอง : </b>25 พ.ค. 2018<br>
-                    <b>แผน : </b> 100,000/10,000+500<br>
-                    <b>ปีการศึกษา : </b> 2018<br>
+                    <b>วันเริ่มคุ้มครอง : </b>{{this.form.insurer.namelist.protection_date | myDate}}<br>
+                    <b>แผน : </b> {{this.form.insurer.namelist.plan.name}}<br>
+                    <b>ปีการศึกษา : </b> {{this.form.insurer.namelist.year}}<br>
                   </div> <!-- /.col -->
                   <div class="col-sm-4">
-                    <b>รหัสเคลม :  </b>1<br>
-                    <b>รหัสผู้ทำประกัน :  </b>1<br>
-                    <b>วันที่เคลม :  </b> 20 พ.ย. 2018<br>  
+                    <b>รหัสเคลม :  </b>{{this.form.id}}<br>
+                    <b>รหัสผู้ทำประกัน :  </b>{{this.form.ins_id}}<br>
+                    <b>วันที่เคลม :  </b> {{this.form.claim_date | myDate}}<br>  
                   </div> <!-- /.col -->
                   <div class="col-sm-4">
-                    <b>โรงเรียน : </b>เบญจมราชูทิศ<br>
-                    <b>ชื่อ-นามสกุล : </b> ด.ญ.ธิดารัตน์ วัฒนกิจ<br>
-                    <b>ชั้นเรียน : </b> ป.5<br>
-                    <b>ประเภท : </b> นักเรียน<br><br>
+                    <b>โรงเรียน : </b> {{this.form.insurer.namelist.school.name}}<br>
+                    <b>ชื่อ-นามสกุล : </b> {{this.form.insurer.title.name}}{{this.form.insurer.ins_fname}} {{this.form.insurer.ins_lname}}<br>
+                    <b>ชั้นเรียน : </b> {{this.form.insurer.ins_class}}<br>
+                    <b>ประเภท : </b> {{this.form.insurer.ins_type}}<br><br>
                   </div> <!-- /.col -->     
                 </div> <!-- /.row -->
 
@@ -266,20 +266,31 @@
                     </thead>
                     <tbody>
                     <tr>
-                      <td>25 พ.ค. 2018</td>
-                      <td>อุบัติเหตุจราจร</td>
-                      <td>100,000.00 บาท</td>
-                      <td style="color:red;"> <b>100,000.00 </b> บาท</td>
-                      <td>อนุมัติจ่ายเคลม</td>
+                      <td>{{this.form.accident_date | myDate}}</td>
+                      <td>{{this.form.accident_cause}}</td>
+                      <td>{{this.form.withdraw_amount | numFormat('0,0.00')}} บาท</td>
+                      <td style="color:red;"><b>{{this.form.approve_amount | numFormat('0,0.00')}} </b> บาท</td>
+                      <td v-if="form.status_id === 1"> 
+                        <span class="label label-mali" style="color: #fff;">{{this.form.status.name}}</span>
+                      </td>
+                      <td v-if="form.status_id === 2"> 
+                        <span class="label label-info" style="color: #fff;">{{this.form.status.name}}</span>
+                      </td>
+                      <td v-if="form.status_id === 3"> 
+                        <span class="label label-success" style="color: #fff;">{{this.form.status.name}}</span>
+                      </td>
+                      <td v-if="form.status_id === 4"> 
+                        <span class="label label-danger" style="color: #fff;">{{this.form.status.name}}</span>
+                      </td>
                     </tr>
                     <tr >
-                      <td colspan="5"><b>รายละเอียด : </b>ไม่อนุมัติเคลมเนื่องจากขาดใบรับรองแพทย์</td>
+                      <td colspan="5"><b>รายละเอียด : </b>{{this.form.detail}}</td>
                     </tr>
-                    <tr>
-                      <td colspan="5"><b>รูปแบบการจ่ายเงิน : </b>เงินสด</td>
+                    <tr v-if="form.status_id === 3">
+                      <td colspan="5"><b>รูปแบบการจ่ายเงิน : </b>{{this.form.payType}}</td>
                     </tr>
-                    <tr>
-                      <td colspan="5"><b>วันที่จ่ายเงิน : </b>20 พ.ค. 2018</td>
+                    <tr v-if="form.status_id === 3">
+                      <td colspan="5"><b>วันที่จ่ายเงิน : </b>{{this.form.pay_date | myDate}}</td>
                     </tr>
                     </tbody>
                   </table>
@@ -317,10 +328,37 @@
               payType: '',
               detail: '',
               status_id: '',
+              status: {
+                name: '',
+              },
+              insurer: {
+                id: '',
+                ins_fname: '',
+                ins_lname: '',
+                ins_class: '',
+                ins_type: '',
+                title: {
+                  name: '',
+                },
+                namelist: {
+                  protection_date: '',
+                  year: '',
+                  plan: {
+                    name: '',
+                  },
+                  school: {
+                    name: '',
+                  },
+                },
+              },                
             })
           }
         },
         methods:{
+            viewModal(claim){
+              $('#viewModal').modal('show');
+              this.form.fill(claim);
+            },
             getResults(page = 1) {
               axios.get('api/claim?page=' + page)
                 .then(response => {

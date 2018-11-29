@@ -25,7 +25,7 @@ class InsurerController extends Controller
      */
     public function index()
     {
-        return Insurer::with('Title')->with('Namelist')->latest()->paginate(5);
+        return Insurer::with(['Title','Namelist'])->latest()->paginate(5);
     }
 
     /**

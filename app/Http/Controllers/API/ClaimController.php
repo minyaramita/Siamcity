@@ -25,7 +25,7 @@ class ClaimController extends Controller
      */
     public function index()
     {
-        return Claim::with('Insurer')->with('Status')->latest()->paginate(5);
+        return Claim::with(['Insurer.Namelist.School','Insurer.Namelist.Plan','Insurer.Title','Status'])->latest()->paginate(5);
     }
 
     /**

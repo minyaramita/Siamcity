@@ -12,4 +12,7 @@ class School extends Model
     public function bank(){
         return $this->belongsTo('App\Bank', 'bank_id', 'id');
     }
+    public function school(){
+        return $this->hasMany('App\Namelist', 'school_id', 'id');
+    }
 }
