@@ -24,7 +24,7 @@ class CreateClaimsTable extends Migration
             $table->date('pay_date')->nullable();
             $table->string('payType')->nullable();
             $table->mediumText('detail')->nullable();
-            $table->string('status');
+            $table->integer('status_id')->unsigned();
             $table->timestamps();
         });
     }

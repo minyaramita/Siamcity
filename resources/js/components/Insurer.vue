@@ -3,7 +3,7 @@
        <div class="row mt-3">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
+              <div class="card-header th-table">
                 <h3 class="card-title">
                   <i class="nav-icon fas fa-users blue"></i>
                     ผู้ทำประกันภัย
@@ -19,7 +19,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover th-table">
                   <tbody><tr>
                     <th>รหัส</th>
                     <th>คำนำหน้าชื่อ</th>
@@ -29,7 +29,7 @@
                     <th>โรงเรียน</th>
                     <th>ประเภท</th>
                     <th>รหัสการรับรายชื่อ</th>
-                    <th v-if="$gate.isAdmin()">แก้ไข</th>  
+                    <th v-if="$gate.isAdmin()">Action</th>  
                   </tr>
                   <tr v-for="insurer in insurers.data" :key="insurer.id">
                     <td>{{insurer.id}}</td>
@@ -45,7 +45,7 @@
                             <i class="fa fa-edit blue"></i>
                         </a>
                         /
-                        <a href="#" @click="deleteInsurer(insur)">
+                        <a href="#" @click="deleteInsurer(insurer.id)">
                             <i class="fa fa-trash red" ></i>
                         </a>
                     </td>
@@ -66,7 +66,7 @@
         <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content th-table">
               <div class="modal-header">
                 <h5 class="modal-title" v-show="editmode" id="addNewLabel">แก้ไขข้อมูลผู้ทำประกันภัย</h5>
                 <h5 class="modal-title" v-show="!editmode" id="addNewLabel">เพิ่มผู้ทำประกันภัย</h5>
@@ -144,6 +144,7 @@
     export default {
          data () {
           return {
+  
             editmode: false,
             insurers : {},
             form: new Form({
@@ -167,7 +168,7 @@
             updateInsurer(){
               this.$Progress.start();
               //console.log('Editing data');
-              this.form.put('api/insurer/'+this.fo)
+              this.form.put('api/insurer/'+this.form.id)
               .then(() => {
                 // success
                   $('#addNew').modal('hide');

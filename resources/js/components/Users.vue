@@ -3,7 +3,7 @@
         <div class="row mt-3" v-if="$gate.isAdmin()">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
+              <div class="card-header th-table">
                 <h3 class="card-title"><i class="nav-icon fas fa-users-cog blue"></i>
                   ผู้ใช้งาน
                 </h3>
@@ -17,7 +17,7 @@
 
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover th-table">
                   <tbody>
                     <tr>
                       <th>รหัส</th>
@@ -26,7 +26,7 @@
                       <th>เบอร์โทรศัพท์</th>
                       <th>สถานะ</th>
                       <th>วันที่เพิ่ม</th>
-                      <th>แก้ไข</th>
+                      <th>Action</th>
                   </tr>
                   <tr v-for="user in users.data" :key="user.id">
                     <td>{{user.id}}</td>
@@ -67,7 +67,7 @@
         <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content th-table">
               <div class="modal-header">
                 <h5 class="modal-title" v-show="editmode" id="addNewLabel"><i class="fas fa-user-plus fa-fw blue"></i> แก้ไขข้อมูลผู้ใช้งาน</h5>
                 <h5 class="modal-title" v-show="!editmode" id="addNewLabel"><i class="fas fa-user-plus fa-fw blue"></i> เพิ่มผู้ใช้งาน</h5>

@@ -3,7 +3,7 @@
        <div class="row mt-3">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
+              <div class="card-header th-table">
                 <h3 class="card-title">
                   <i class="nav-icon fas fa-hospital-alt blue"></i>
                     โรงพยาบาลคู่สัญญา
@@ -19,13 +19,13 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover th-table">
                   <tbody><tr>
                     <th>รหัส</th>
                     <th>ชื่อโรงพยาบาล</th>
                     <th>อีเมล</th>
                     <th>เบอร์โทรศัพท์</th>
-                    <th v-if="$gate.isAdmin()">แก้ไข</th>  
+                    <th v-if="$gate.isAdmin()">Action</th>  
                   </tr>
                   <tr v-for="hospital in hospitals.data" :key="hospital.id">
                     <td>{{hospital.id}}</td>
@@ -58,7 +58,7 @@
         <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content th-table">
               <div class="modal-header">
                 <h5 class="modal-title" v-show="editmode" id="addNewLabel">แก้ไขข้อมูลโรงพยาบาล</h5>
                 <h5 class="modal-title" v-show="!editmode" id="addNewLabel">เพิ่มโรงพยาบาล</h5>

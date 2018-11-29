@@ -13,6 +13,7 @@ $('.datepicker').datepicker();
 
 window.Vue = require('vue');
 import moment from 'moment';
+import numFormat from 'vue-filter-number-format';
 import { Form, HasError, AlertError } from 'vform';
 
 import Gate from "./Gate";
@@ -72,6 +73,8 @@ let routes = [
   Vue.filter('myDate', function(created){
     return moment(created).locale('th').format('ll'); 
   });
+
+  Vue.filter('numFormat', numFormat);
 
   window.Fire = new Vue();
 /**

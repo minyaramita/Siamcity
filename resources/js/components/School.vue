@@ -3,7 +3,7 @@
        <div class="row mt-3">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
+              <div class="card-header th-table">
                 <h3 class="card-title">
                   <i class="nav-icon fas fa-school blue"></i>
                     สถานศึกษา
@@ -19,7 +19,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover th-table">
                   <tbody><tr>
                     <th>รหัส</th>
                     <th>ชื่อสถานศึกษา</th>
@@ -29,7 +29,7 @@
                     <th>ธนาคาร</th>
                     <th>สาขา</th>
                     <th>เลขบัญชี</th>
-                    <th v-if="$gate.isAdmin()">แก้ไข</th>  
+                    <th v-if="$gate.isAdmin()">Action</th>  
                   </tr>
                   <tr v-for="school in schools.data" :key="school.id">
                     <td>{{school.id}}</td>
@@ -66,7 +66,7 @@
         <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content th-table">
               <div class="modal-header">
                 <h5 class="modal-title" v-show="editmode" id="addNewLabel">แก้ไขข้อมูลสถานศึกษา</h5>
                 <h5 class="modal-title" v-show="!editmode" id="addNewLabel">เพิ่มสถานศึกษา</h5>

@@ -4,10 +4,11 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Namelist;
-class NamelistController extends Controller
+use App\Claim;
+
+class ClaimController extends Controller
 {
-    /**
+     /**
      * Create a new controller instance.
      * ป้องกันการเข้าถึงข้อมูล api โดยไม่ได้ log in
      * @return void
@@ -24,7 +25,7 @@ class NamelistController extends Controller
      */
     public function index()
     {
-        return Namelist::with('School')->with('Plan')->latest()->paginate(6);
+        return Claim::with('Insurer')->with('Status')->latest()->paginate(5);
     }
 
     /**
@@ -36,21 +37,23 @@ class NamelistController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'school_id' => 'required',
-            'protection_date' => 'required',
-            'plan_id' => 'required',
-            'year' => 'required',
+            'ins_id' => 'required',
+            'accident_cause' => 'required|string|max:191',
+            'withdraw_amount' => 'required',
+            'status_id' => 'required',
         ]);
 
-        return Namelist::create([
-            'school_id' => $request['school_id'],
-            'quantity_student' => $request['quantity_student'],
-            'quantity_personnel' => $request['quantity_personnel'],
-            'receive_date' => $request['receive_date'],
-            'protection_date' => $request['protection_date'],
-            'plan_id' => $request['plan_id'],
-            'year' => $request['year'],
+        return Claim::create([
+            'ins_id' => $request['ins_id'],
+            'claim_date' => $request['claim_date'],
+            'accident_cause' => $request['accident_cause'],
+            'accident_date' => $request['accident_date'],
+            'withdraw_amount' => $request['withdraw_amount'],
+            'approve_amount' => $request['approve_amount'],
+            'pay_date' => $request['pay_date'],
+            'payType' => $request['payType'],
             'detail' => $request['detail'],
+            'status_id' => $request['status_id'],
         ]);
     }
 
@@ -74,17 +77,16 @@ class NamelistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $namelist = Namelist::findOrFail($id);
-
+        $claim = Claim::findOrFail($id);
         $this->validate($request,[
-            'school_id' => 'required',
-            'protection_date' => 'required',
-            'plan_id' => 'required',
-            'year' => 'required',
+            'ins_id' => 'required',
+            'accident_cause' => 'required|string|max:191',
+            'withdraw_amount' => 'required',
+            'status_id' => 'required',
         ]);
 
-        $namelist->update($request->all());
-        return ['message' => 'Update the namelist info'];
+        $claim->update($request->all());
+        return ['message' => 'Update the claim info'];
     }
 
     /**
@@ -95,25 +97,23 @@ class NamelistController extends Controller
      */
     public function destroy($id)
     {
-        $namelist = Namelist::findOrFail($id);
+        $claim = Claim::findOrFail($id);
 
-        // delete the namelist
-        $namelist->delete();
+        // delete the insurer
+        $claim->delete();
 
-        return['message' => 'NamelistDeleted'];
+        return['message' => 'ClaimDeleted'];
     }
 
     public function search(){
         if ($search = \Request::get('q')) {
-            $namelists = Namelist::with('School')->where(function($query) use ($search){
-                $query->where('id','LIKE',"%$search%")
-                        ->orWhereHas('School',function($query) use ($search){
-                            $query->where('name','LIKE',"%$search%");
-                        });
+            $claims = Claim::where(function($query) use ($search){
+                $query->where('payType','LIKE',"%$search%")
+                        ->orWhere('accident_cause','LIKE',"%$search%");                        
             })->paginate(20);
         }else{
-            $namelists = Namelist::with('School')->with('Plan')->latest()->paginate(6);
+            $claims = Claim::with('Insurer')->latest()->paginate(5);
         }
-        return $namelists;
+        return $claims;
     }
 }

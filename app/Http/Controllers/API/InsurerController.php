@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Insurer;
+use App\Insurer; 
 
 class InsurerController extends Controller
 {
@@ -72,7 +72,7 @@ class InsurerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $insurer = Insurer::findOrFail($id);
 

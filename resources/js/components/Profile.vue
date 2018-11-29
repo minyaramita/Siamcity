@@ -23,12 +23,12 @@
 
             <div class="col-md-12">
             <div class="card">
-              <div class="card-header p-2">
+              <div class="card-header p-2 th-table">
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab"><h5>ประวัติผู้ใช้งาน</h5></a></li>
                 </ul>
               </div><!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body th-table">
                 <div class="tab-content">
                   <div class="active tab-pane" id="settings">
                     <form class="form-horizontal">
