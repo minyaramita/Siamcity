@@ -105,14 +105,14 @@ class NamelistController extends Controller
 
     public function search(){
         if ($search = \Request::get('q')) {
-            $namelists = Namelist::with('School')->where(function($query) use ($search){
+            $namelists = Namelist::with(['School','Plan'])->where(function($query) use ($search){
                 $query->where('id','LIKE',"%$search%")
                         ->orWhereHas('School',function($query) use ($search){
                             $query->where('name','LIKE',"%$search%");
                         });
             })->paginate(20);
         }else{
-            $namelists = Namelist::with('School')->with('Plan')->latest()->paginate(6);
+            $namelists = Namelist::with(['School','Plan'])->latest()->paginate(6);
         }
         return $namelists;
     }

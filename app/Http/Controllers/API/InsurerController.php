@@ -25,7 +25,7 @@ class InsurerController extends Controller
      */
     public function index()
     {
-        return Insurer::with(['Title','Namelist'])->latest()->paginate(5);
+        return Insurer::with(['Title','Namelist.School','Namelist.Plan'])->latest()->paginate(5);
     }
 
     /**
@@ -105,12 +105,18 @@ class InsurerController extends Controller
 
     public function search(){
         if ($search = \Request::get('q')) {
-            $insurers = Insurer::where(function($query) use ($search){
+            $insurers = Insurer::with(['Title','Namelist.School','Namelist.Plan'])->where(function($query) use ($search){
                 $query->where('ins_fname','LIKE',"%$search%")
-                        ->orWhere('ins_lname','LIKE',"%$search%");
+                        ->orWhere('ins_lname','LIKE',"%$search%")
+                        ->orWhereHas('Namelist',function($query) use ($search){
+                            $query->where('year','LIKE',"%$search%")
+                            ->orWhereHas('School',function($query) use ($search){
+                                $query->where('name','LIKE',"%$search%");
+                            }); 
+                        });  
             })->paginate(20);
         }else{
-            $insurers = Insurer::latest()->paginate(5);
+            $insurers = Insurer::with(['Title','Namelist.School','Namelist.Plan'])->latest()->paginate(5);
         }
         return $insurers;
     }

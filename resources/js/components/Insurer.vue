@@ -22,24 +22,22 @@
                 <table class="table table-hover th-table">
                   <tbody><tr>
                     <th>รหัส</th>
-                    <th>คำนำหน้าชื่อ</th>
-                    <th>ชื่อจริง</th>
-                    <th>นามสกุล</th>
+                    <th>ชื่อ-นามสกุล</th>
                     <th>ชั้นเรียน</th>
                     <th>โรงเรียน</th>
-                    <th>ประเภท</th>
-                    <th>รหัสการรับรายชื่อ</th>
+                    <th>แผน</th>
+                    <th>วันคุ้มครอง</th>
+                    <th>ปีการศึกษา</th>
                     <th v-if="$gate.isAdmin()">Action</th>  
                   </tr>
                   <tr v-for="insurer in insurers.data" :key="insurer.id">
                     <td>{{insurer.id}}</td>
-                    <td>{{insurer.title.name}}</td>
-                    <td>{{insurer.ins_fname}}</td>
-                    <td>{{insurer.ins_lname}}</td>
+                    <td>{{insurer.title.name}}{{insurer.ins_fname}}  {{insurer.ins_lname}}</td>
                     <td>{{insurer.ins_class}}</td>
-                    <td>{{insurer.namelist.school_id}}</td>
-                    <td>{{insurer.ins_type}}</td>
-                    <td>{{insurer.namelist_id}}</td>
+                    <td>{{insurer.namelist.school.name}}</td>
+                    <td>{{insurer.namelist.plan.name}}</td>
+                    <td>{{insurer.namelist.protection_date | myDate}}</td>
+                    <td>{{insurer.namelist.year}}</td>
                     <td v-if="$gate.isAdmin()">
                         <a href="#" @click="editModal(insurer)">
                             <i class="fa fa-edit blue"></i>

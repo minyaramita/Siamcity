@@ -103,7 +103,7 @@ class SchoolController extends Controller
 
     public function search(){
         if ($search = \Request::get('q')) {
-            $schools = School::where(function($query) use ($search){
+            $schools = School::with('Bank')->where(function($query) use ($search){
                 $query->where('name','LIKE',"%$search%")
                         ->orWhere('email','LIKE',"%$search%");
             })->paginate(20);

@@ -107,13 +107,27 @@ class ClaimController extends Controller
 
     public function search(){
         if ($search = \Request::get('q')) {
-            $claims = Claim::where(function($query) use ($search){
+            $claims = Claim::with(['Status','Insurer.Namelist.School','Insurer.Namelist.Plan','Insurer.Title'])->where(function($query) use ($search){
                 $query->where('payType','LIKE',"%$search%")
-                        ->orWhere('accident_cause','LIKE',"%$search%");                        
+                        ->orWhere('accident_cause','LIKE',"%$search%")
+                        ->orWhere('withdraw_amount','LIKE',"%$search%")
+                        ->orWhere('approve_amount','LIKE',"%$search%")
+                        ->orWhereHas('Insurer',function($query) use ($search){
+                            $query->where('ins_fname','LIKE',"%$search%")
+                            ->orWhere('ins_lname','LIKE',"%$search%")
+                            ->orWhere('ins_class','LIKE',"%$search%")
+                            ->orWhere('ins_type','LIKE',"%$search%")
+                            ->orWhereHas('Namelist',function($query) use ($search){
+                                $query->where('year','LIKE',"%$search%")
+                                ->orWhereHas('School',function($query) use ($search){
+                                    $query->where('name','LIKE',"%$search%");                                          
+                                }); 
+                            });                 
+                        });                 
             })->paginate(20);
         }else{
-            $claims = Claim::with('Insurer')->latest()->paginate(5);
+            $claims = Claim::with(['Insurer.Namelist.School','Insurer.Namelist.Plan','Insurer.Title','Status'])->latest()->paginate(5);
         }
-        return $claims;
+        return $claims;   
     }
 }

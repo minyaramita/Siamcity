@@ -77803,8 +77803,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -77972,19 +77970,17 @@ var render = function() {
                   _c("tr", [
                     _c("th", [_vm._v("รหัส")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("คำนำหน้าชื่อ")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("ชื่อจริง")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("นามสกุล")]),
+                    _c("th", [_vm._v("ชื่อ-นามสกุล")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("ชั้นเรียน")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("โรงเรียน")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("ประเภท")]),
+                    _c("th", [_vm._v("แผน")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("รหัสการรับรายชื่อ")]),
+                    _c("th", [_vm._v("วันคุ้มครอง")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("ปีการศึกษา")]),
                     _vm._v(" "),
                     _vm.$gate.isAdmin()
                       ? _c("th", [_vm._v("Action")])
@@ -77995,19 +77991,30 @@ var render = function() {
                     return _c("tr", { key: insurer.id }, [
                       _c("td", [_vm._v(_vm._s(insurer.id))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(insurer.title.name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(insurer.ins_fname))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(insurer.ins_lname))]),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(insurer.title.name) +
+                            _vm._s(insurer.ins_fname) +
+                            "  " +
+                            _vm._s(insurer.ins_lname)
+                        )
+                      ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(insurer.ins_class))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(insurer.namelist.school_id))]),
+                      _c("td", [_vm._v(_vm._s(insurer.namelist.school.name))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(insurer.ins_type))]),
+                      _c("td", [_vm._v(_vm._s(insurer.namelist.plan.name))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(insurer.namelist_id))]),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("myDate")(insurer.namelist.protection_date)
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(insurer.namelist.year))]),
                       _vm._v(" "),
                       _vm.$gate.isAdmin()
                         ? _c("td", [
@@ -79648,6 +79655,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -79883,6 +79891,8 @@ var render = function() {
                           )
                         ])
                       ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(claim.insurer.namelist.year))]),
                       _vm._v(" "),
                       claim.status_id === 1
                         ? _c("td", [
@@ -80920,6 +80930,8 @@ var staticRenderFns = [
       _c("th", [_vm._v("ตั้งเบิก")]),
       _vm._v(" "),
       _c("th", [_vm._v("อนุมัติ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ปีการศึกษา")]),
       _vm._v(" "),
       _c("th", [_vm._v("สถานะ")]),
       _vm._v(" "),

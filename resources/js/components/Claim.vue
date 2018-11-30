@@ -27,6 +27,7 @@
                     <th>สาเหตุ</th>
                     <th>ตั้งเบิก</th>
                     <th>อนุมัติ</th>
+                    <th>ปีการศึกษา</th>
                     <th>สถานะ</th>  
                     <th>Action</th>  
                   </tr>
@@ -37,7 +38,7 @@
                     <td>{{claim.accident_cause}}</td>
                     <td>{{claim.withdraw_amount | numFormat('0,0.00')}}</td>
                     <td style="color:red;"><b>{{claim.approve_amount | numFormat('0,0.00')}}</b></td>
-
+                    <td>{{claim.insurer.namelist.year}}</td>
                     <td v-if="claim.status_id === 1">
                       <span class="label label-mali" style="color: #fff;">{{claim.status.name}}</span>
                     </td>
