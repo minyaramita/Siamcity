@@ -24,6 +24,7 @@ Route::put('/profile', 'API\UserController@updateProfile');
 
 Route::apiResources(['school' => 'API\SchoolController']);
 Route::get('/findSchool', 'API\SchoolController@search');
+Route::get('/schoolDropdown', 'API\SchoolController@schoolDropdown');
 
 Route::apiResources(['hospital' => 'API\HospitalController']);
 Route::get('/findHospital', 'API\HospitalController@search');

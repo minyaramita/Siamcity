@@ -75677,6 +75677,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -75691,12 +75757,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         account_name: '',
         bank_id: '',
         bank_branch: '',
-        bank_number: ''
+        bank_number: '',
+        bank: {
+          bank_name: ''
+        }
       })
     };
   },
 
   methods: {
+    viewModal: function viewModal(school) {
+      $('#viewModal').modal('show');
+      this.form.fill(school);
+    },
     getResults: function getResults() {
       var _this = this;
 
@@ -75841,27 +75914,7 @@ var render = function() {
               _c(
                 "tbody",
                 [
-                  _c("tr", [
-                    _c("th", [_vm._v("รหัส")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("ชื่อสถานศึกษา")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("อีเมล")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("เบอร์โทรศัพท์")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("ชื่อบัญชีธนาคาร")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("ธนาคาร")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("สาขา")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("เลขบัญชี")]),
-                    _vm._v(" "),
-                    _vm.$gate.isAdmin()
-                      ? _c("th", [_vm._v("Action")])
-                      : _vm._e()
-                  ]),
+                  _vm._m(1),
                   _vm._v(" "),
                   _vm._l(_vm.schools.data, function(school) {
                     return _c("tr", { key: school.id }, [
@@ -75873,16 +75926,40 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(school.tel))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(school.account_name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(school.bank.bank_name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(school.bank_branch))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(school.bank_number))]),
+                      _vm.$gate.isUser()
+                        ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewModal(school)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "far fa-eye cyan" })]
+                            )
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _vm.$gate.isAdmin()
                         ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewModal(school)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "far fa-eye cyan" })]
+                            ),
+                            _vm._v(
+                              "\n                    /\n                    "
+                            ),
                             _c(
                               "a",
                               {
@@ -75991,7 +76068,7 @@ var render = function() {
                   [_vm._v("เพิ่มสถานศึกษา")]
                 ),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]),
               _vm._v(" "),
               _c(
@@ -76010,6 +76087,10 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
+                        _c("label", { attrs: { for: "name" } }, [
+                          _vm._v("ชื่อสถานศึกษา")
+                        ]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -76044,316 +76125,353 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "form-group col-sm-6" }, [
+                        _c("label", { attrs: { for: "email" } }, [
+                          _vm._v("อีเมล")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "input-group" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.email,
+                                  expression: "form.email"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("email")
+                              },
+                              attrs: {
+                                type: "email",
+                                email: "email",
+                                placeholder: "อีเมล"
+                              },
+                              domProps: { value: _vm.form.email },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "email",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._m(3),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "email" }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-sm-6" }, [
+                        _c("label", { attrs: { for: "tel" } }, [
+                          _vm._v("เบอร์โทรศัพท์")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "input-group" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.tel,
+                                  expression: "form.tel"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("tel")
+                              },
+                              attrs: {
+                                type: "text",
+                                name: "tel",
+                                placeholder: "เบอร์โทรศัพท์"
+                              },
+                              domProps: { value: _vm.form.tel },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(_vm.form, "tel", $event.target.value)
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._m(4),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "tel" }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
                       _c(
                         "div",
-                        { staticClass: "input-group" },
+                        { staticClass: "form-group col-sm-6" },
                         [
+                          _c("label", { attrs: { for: "account_name" } }, [
+                            _vm._v("ชื่อบัญชีธนาคาร")
+                          ]),
+                          _vm._v(" "),
                           _c("input", {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.email,
-                                expression: "form.email"
+                                value: _vm.form.account_name,
+                                expression: "form.account_name"
                               }
                             ],
                             staticClass: "form-control",
                             class: {
-                              "is-invalid": _vm.form.errors.has("email")
+                              "is-invalid": _vm.form.errors.has("account_name")
                             },
-                            attrs: {
-                              type: "email",
-                              email: "email",
-                              placeholder: "อีเมล"
-                            },
-                            domProps: { value: _vm.form.email },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.form, "email", $event.target.value)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(2),
-                          _vm._v(" "),
-                          _c("has-error", {
-                            attrs: { form: _vm.form, field: "email" }
-                          })
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "div",
-                        { staticClass: "input-group" },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.tel,
-                                expression: "form.tel"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: { "is-invalid": _vm.form.errors.has("tel") },
                             attrs: {
                               type: "text",
-                              name: "tel",
-                              placeholder: "เบอร์โทรศัพท์"
+                              name: "account_name",
+                              id: "account_name",
+                              placeholder: "ชื่อบัญชีธนาคาร"
                             },
-                            domProps: { value: _vm.form.tel },
+                            domProps: { value: _vm.form.account_name },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.$set(_vm.form, "tel", $event.target.value)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(3),
-                          _vm._v(" "),
-                          _c("has-error", {
-                            attrs: { form: _vm.form, field: "tel" }
-                          })
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.account_name,
-                              expression: "form.account_name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("account_name")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "account_name",
-                            id: "account_name",
-                            placeholder: "ชื่อบัญชีธนาคาร"
-                          },
-                          domProps: { value: _vm.form.account_name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "account_name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "account_name" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.bank_id,
-                                expression: "form.bank_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid": _vm.form.errors.has("bank_id")
-                            },
-                            attrs: { name: "bank_id", id: "bank_id" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
                                 _vm.$set(
                                   _vm.form,
-                                  "bank_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
+                                  "account_name",
+                                  $event.target.value
                                 )
                               }
                             }
-                          },
-                          [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("เลือกธนาคาร")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "1" } }, [
-                              _vm._v("ธนาคารกรุงเทพ")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "2" } }, [
-                              _vm._v("ธนาคารกสิกรไทย")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "3" } }, [
-                              _vm._v("ธนาคารกรุงไทย")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "4" } }, [
-                              _vm._v("ธนาคารทหารไทย")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "5" } }, [
-                              _vm._v("ธนาคารไทยพาณิชย์")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "6" } }, [
-                              _vm._v("ธนาคารกรุงศรีอยุธยา")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "7" } }, [
-                              _vm._v("ธนาคารเกียรตินาคิน")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "8" } }, [
-                              _vm._v("ธนาคารออมสิน")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "9" } }, [
-                              _vm._v("ธนาคารธนชาต")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "bank_id" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "account_name" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-sm-6" },
+                        [
+                          _c("label", { attrs: { for: "bank_id" } }, [
+                            _vm._v("ธนาคาร")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
                             {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.bank_branch,
-                              expression: "form.bank_branch"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("bank_branch")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "bank_branch",
-                            id: "bank_branch",
-                            placeholder: "สาขา"
-                          },
-                          domProps: { value: _vm.form.bank_branch },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.bank_id,
+                                  expression: "form.bank_id"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("bank_id")
+                              },
+                              attrs: { name: "bank_id", id: "bank_id" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "bank_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
                               }
-                              _vm.$set(
-                                _vm.form,
-                                "bank_branch",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "bank_branch" }
-                        })
-                      ],
-                      1
-                    ),
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("เลือกธนาคาร")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "1" } }, [
+                                _vm._v("ธนาคารกรุงเทพ")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "2" } }, [
+                                _vm._v("ธนาคารกสิกรไทย")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "3" } }, [
+                                _vm._v("ธนาคารกรุงไทย")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "4" } }, [
+                                _vm._v("ธนาคารทหารไทย")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "5" } }, [
+                                _vm._v("ธนาคารไทยพาณิชย์")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "6" } }, [
+                                _vm._v("ธนาคารกรุงศรีอยุธยา")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "7" } }, [
+                                _vm._v("ธนาคารเกียรตินาคิน")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "8" } }, [
+                                _vm._v("ธนาคารออมสิน")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "9" } }, [
+                                _vm._v("ธนาคารธนชาต")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "bank_id" }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.bank_number,
-                              expression: "form.bank_number"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("bank_number")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "bank_number",
-                            id: "bank_number",
-                            placeholder: "หมายเลขบัญชี"
-                          },
-                          domProps: { value: _vm.form.bank_number },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-sm-6" },
+                        [
+                          _c("label", { attrs: { for: "bank_branch" } }, [
+                            _vm._v("สาขา")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.bank_branch,
+                                expression: "form.bank_branch"
                               }
-                              _vm.$set(
-                                _vm.form,
-                                "bank_number",
-                                $event.target.value
-                              )
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("bank_branch")
+                            },
+                            attrs: {
+                              type: "text",
+                              name: "bank_branch",
+                              id: "bank_branch",
+                              placeholder: "สาขา"
+                            },
+                            domProps: { value: _vm.form.bank_branch },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "bank_branch",
+                                  $event.target.value
+                                )
+                              }
                             }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "bank_number" }
-                        })
-                      ],
-                      1
-                    )
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "bank_branch" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-sm-6" },
+                        [
+                          _c("label", { attrs: { for: "bank_number" } }, [
+                            _vm._v("หมายเลขบัญชี")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.bank_number,
+                                expression: "form.bank_number"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("bank_number")
+                            },
+                            attrs: {
+                              type: "text",
+                              name: "bank_number",
+                              id: "bank_number",
+                              placeholder: "หมายเลขบัญชี"
+                            },
+                            domProps: { value: _vm.form.bank_number },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "bank_number",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "bank_number" }
+                          })
+                        ],
+                        1
+                      )
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
@@ -76406,7 +76524,69 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal fade", attrs: { id: "viewModal" } }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal-md",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content th-table" }, [
+            _vm._m(5),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body th-table" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-12" }, [
+                  _c("b", [_vm._v("ชื่อบัญชีธนาคาร :  ")]),
+                  _vm._v(_vm._s(this.form.account_name)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("ธนาคาร :  ")]),
+                  _vm._v(_vm._s(this.form.bank.bank_name)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("สาขา :  ")]),
+                  _vm._v(_vm._s(this.form.bank_branch)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("เลขบัญชี :  ")]),
+                  _vm._v(_vm._s(this.form.bank_number)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("อีเมล : ")]),
+                  _vm._v(" " + _vm._s(this.form.email)),
+                  _c("br"),
+                  _c("br")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12 table-responsive" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _c("tbody", [
+                      _c("tr", [
+                        _c("td", [_vm._v(_vm._s(this.form.id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.form.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.form.tel))])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(7)
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -76417,6 +76597,22 @@ var staticRenderFns = [
     return _c("h3", { staticClass: "card-title" }, [
       _c("i", { staticClass: "nav-icon fas fa-school blue" }),
       _vm._v("\n                สถานศึกษา\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("รหัส")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ชื่อสถานศึกษา")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("อีเมล")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("เบอร์โทรศัพท์")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Action")])
     ])
   },
   function() {
@@ -76454,6 +76650,59 @@ var staticRenderFns = [
       _c("span", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "nav-icon fas fa-phone blue" })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header th-table" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _c("i", { staticClass: "nav-icon fas fa-school blue" }),
+        _vm._v("  ข้อมูลสถานศึกษา")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("รหัส")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("โรงเรียน/วิทยาลัย/มหาวิทยาลัย")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("เบอร์โทรศัพท์")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("ปิด")]
+      )
     ])
   }
 ]
@@ -76699,13 +76948,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       editmode: false,
+      schools: {},
       namelists: {},
       form: new Form({
         id: '',
@@ -76788,8 +77036,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return _this4.namelists = data;
       });
     },
-    createNamelist: function createNamelist() {
+    loadSchools: function loadSchools() {
       var _this5 = this;
+
+      axios.get("api/school").then(function (_ref2) {
+        var data = _ref2.data;
+        return _this5.schools = data;
+      });
+    },
+    createNamelist: function createNamelist() {
+      var _this6 = this;
 
       this.$Progress.start();
 
@@ -76800,22 +77056,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: 'success',
           title: 'เพิ่มการรับรายชื่อผู้ทำประกันภัยเรียบร้อยแล้ว'
         });
-        _this5.$Progress.finish();
+        _this6.$Progress.finish();
       }).catch(function () {});
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this7 = this;
 
     Fire.$on('searching', function () {
-      var query = _this6.$parent.search;
+      var query = _this7.$parent.search;
       axios.get('api/findNamelist?q=' + query).then(function (data) {
-        _this6.namelists = data.data;
+        _this7.namelists = data.data;
       }).catch(function () {});
     });
     this.loadNamelists();
+    this.loadSchools();
     Fire.$on('AfterCreate', function () {
-      _this6.loadNamelists();
+      _this7.loadNamelists();
     });
   }
 });
@@ -77060,7 +77317,7 @@ var render = function() {
                             class: {
                               "is-invalid": _vm.form.errors.has("school_id")
                             },
-                            attrs: { name: "school_id", id: "school_id" },
+                            attrs: { name: "school_id" },
                             on: {
                               change: function($event) {
                                 var $$selectedVal = Array.prototype.filter
@@ -77086,18 +77343,18 @@ var render = function() {
                               _vm._v("เลือกสถานศึกษา")
                             ]),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "1" } }, [
-                              _vm._v("บ้านแก้ว")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "2" } }, [
-                              _vm._v("แหลมสิงห์วิทยาคม")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "3" } }, [
-                              _vm._v("โป่งน้ำร้อนวิทยาคม")
-                            ])
-                          ]
+                            _vm._l(_vm.schools.data, function(school) {
+                              return _c(
+                                "option",
+                                {
+                                  key: school.id,
+                                  domProps: { value: school.id }
+                                },
+                                [_vm._v(_vm._s(school.name))]
+                              )
+                            })
+                          ],
+                          2
                         ),
                         _vm._v(" "),
                         _c("has-error", {
@@ -77177,7 +77434,7 @@ var render = function() {
                                 expression: "form.quantity_personnel"
                               }
                             ],
-                            staticClass: "form-control",
+                            staticClass: "form-control datepicker",
                             class: {
                               "is-invalid": _vm.form.errors.has(
                                 "quantity_personnel"
@@ -77233,7 +77490,7 @@ var render = function() {
                                   expression: "form.receive_date"
                                 }
                               ],
-                              staticClass: "form-control",
+                              staticClass: "form-control datepicker",
                               class: {
                                 "is-invalid": _vm.form.errors.has(
                                   "receive_date"
@@ -77803,12 +78060,93 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-
       editmode: false,
+      namelists: {},
+      claims: {},
       insurers: {},
       form: new Form({
         id: '',
@@ -77817,12 +78155,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         ins_lname: '',
         ins_class: '',
         ins_type: '',
-        namelist_id: ''
+        namelist_id: '',
+        title: {
+          name: ''
+        },
+        namelist: {
+          id: '',
+          protection_date: '',
+          year: '',
+          plan: {
+            name: ''
+          },
+          school: {
+            name: ''
+          }
+        }
       })
     };
   },
 
   methods: {
+    viewModal: function viewModal(insurer) {
+      $('#viewModal').modal('show');
+      this.form.fill(insurer);
+    },
     getResults: function getResults() {
       var _this = this;
 
@@ -77889,8 +78245,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return _this4.insurers = data;
       });
     },
-    createInsurer: function createInsurer() {
+    loadNamelists: function loadNamelists() {
       var _this5 = this;
+
+      axios.get("api/namelist").then(function (_ref2) {
+        var data = _ref2.data;
+        return _this5.namelists = data;
+      });
+    },
+    createInsurer: function createInsurer() {
+      var _this6 = this;
 
       this.$Progress.start();
 
@@ -77901,22 +78265,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: 'success',
           title: 'เพิ่มผู้ทำประกันภัยเรียบร้อยแล้ว'
         });
-        _this5.$Progress.finish();
+        _this6.$Progress.finish();
       }).catch(function () {});
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this7 = this;
 
     Fire.$on('searching', function () {
-      var query = _this6.$parent.search;
+      var query = _this7.$parent.search;
       axios.get('api/findInsurer?q=' + query).then(function (data) {
-        _this6.insurers = data.data;
+        _this7.insurers = data.data;
       }).catch(function () {});
     });
+    this.loadNamelists();
     this.loadInsurers();
     Fire.$on('AfterCreate', function () {
-      _this6.loadInsurers();
+      _this7.loadInsurers();
     });
   }
 });
@@ -77967,25 +78332,7 @@ var render = function() {
               _c(
                 "tbody",
                 [
-                  _c("tr", [
-                    _c("th", [_vm._v("รหัส")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("ชื่อ-นามสกุล")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("ชั้นเรียน")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("โรงเรียน")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("แผน")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("วันคุ้มครอง")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("ปีการศึกษา")]),
-                    _vm._v(" "),
-                    _vm.$gate.isAdmin()
-                      ? _c("th", [_vm._v("Action")])
-                      : _vm._e()
-                  ]),
+                  _vm._m(1),
                   _vm._v(" "),
                   _vm._l(_vm.insurers.data, function(insurer) {
                     return _c("tr", { key: insurer.id }, [
@@ -78016,8 +78363,40 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(insurer.namelist.year))]),
                       _vm._v(" "),
+                      _vm.$gate.isUser()
+                        ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewModal(insurer)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "far fa-eye cyan" })]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _vm.$gate.isAdmin()
                         ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.viewModal(insurer)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "far fa-eye cyan" })]
+                            ),
+                            _vm._v(
+                              "\n                    /\n                    "
+                            ),
                             _c(
                               "a",
                               {
@@ -78126,7 +78505,7 @@ var render = function() {
                   [_vm._v("เพิ่มผู้ทำประกันภัย")]
                 ),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]),
               _vm._v(" "),
               _c(
@@ -78145,6 +78524,89 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
+                        _c("label", { attrs: { for: "namelist_id" } }, [
+                          _vm._v("รหัสการรับรายชื่อ")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.namelist_id,
+                                expression: "form.namelist_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("namelist_id")
+                            },
+                            attrs: { name: "namelist_id" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "namelist_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("เลือกรหัสการรับรายชื่อ")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.namelists.data, function(namelist) {
+                              return _c(
+                                "option",
+                                {
+                                  key: namelist.id,
+                                  domProps: { value: namelist.id }
+                                },
+                                [
+                                  _vm._v(
+                                    "รหัส: " +
+                                      _vm._s(namelist.id) +
+                                      " | " +
+                                      _vm._s(namelist.school.name) +
+                                      " ปีการศึกษา " +
+                                      _vm._s(namelist.year)
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "namelist_id" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "title_id" } }, [
+                          _vm._v("คำนำหน้าชื่อ")
+                        ]),
+                        _vm._v(" "),
                         _c(
                           "select",
                           {
@@ -78219,98 +78681,112 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.ins_fname,
-                              expression: "form.ins_fname"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("ins_fname")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "ins_fname",
-                            placeholder: "ชื่อจริง"
-                          },
-                          domProps: { value: _vm.form.ins_fname },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-sm-6" },
+                        [
+                          _c("label", { attrs: { for: "ins_fname" } }, [
+                            _vm._v("ชื่อจริง")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.ins_fname,
+                                expression: "form.ins_fname"
                               }
-                              _vm.$set(
-                                _vm.form,
-                                "ins_fname",
-                                $event.target.value
-                              )
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("ins_fname")
+                            },
+                            attrs: {
+                              type: "text",
+                              name: "ins_fname",
+                              placeholder: "ชื่อจริง"
+                            },
+                            domProps: { value: _vm.form.ins_fname },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "ins_fname",
+                                  $event.target.value
+                                )
+                              }
                             }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "ins_fname" }
-                        })
-                      ],
-                      1
-                    ),
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "ins_fname" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-sm-6" },
+                        [
+                          _c("label", { attrs: { for: "ins_lname" } }, [
+                            _vm._v("นามสกุล")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.ins_lname,
+                                expression: "form.ins_lname"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("ins_lname")
+                            },
+                            attrs: {
+                              type: "text",
+                              name: "ins_lname",
+                              placeholder: "นามสกุล"
+                            },
+                            domProps: { value: _vm.form.ins_lname },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "ins_lname",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "ins_lname" }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.ins_lname,
-                              expression: "form.ins_lname"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("ins_lname")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "ins_lname",
-                            placeholder: "นามสกุล"
-                          },
-                          domProps: { value: _vm.form.ins_lname },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "ins_lname",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
+                        _c("label", { attrs: { for: "ins_class" } }, [
+                          _vm._v("ชั้นเรียน")
+                        ]),
                         _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "ins_lname" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
                         _c("input", {
                           directives: [
                             {
@@ -78355,6 +78831,10 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
+                        _c("label", { attrs: { for: "ins_type" } }, [
+                          _vm._v("ประเภท ")
+                        ]),
+                        _vm._v(" "),
                         _c("div", { staticClass: "form-check-inline" }, [
                           _c(
                             "label",
@@ -78443,51 +78923,6 @@ var render = function() {
                         })
                       ],
                       1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.namelist_id,
-                              expression: "form.namelist_id"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("namelist_id")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "namelist_id",
-                            id: "namelist_id",
-                            placeholder: "รหัสการรับรายชื่อ"
-                          },
-                          domProps: { value: _vm.form.namelist_id },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "namelist_id",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "namelist_id" }
-                        })
-                      ],
-                      1
                     )
                   ]),
                   _vm._v(" "),
@@ -78541,7 +78976,84 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal fade", attrs: { id: "viewModal" } }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal-md",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content th-table" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body th-table" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-6" }, [
+                  _c("b", [_vm._v("วันเริ่มคุ้มครอง : ")]),
+                  _vm._v(
+                    _vm._s(_vm._f("myDate")(this.form.namelist.protection_date))
+                  ),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("แผน : ")]),
+                  _vm._v(" " + _vm._s(this.form.namelist.plan.name)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("ปีการศึกษา : ")]),
+                  _vm._v(" " + _vm._s(this.form.namelist.year)),
+                  _c("br"),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-6" }, [
+                  _c("b", [_vm._v("รหัสการรับรายชื่อ :  ")]),
+                  _vm._v(_vm._s(this.form.namelist.id)),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("รหัสผู้ทำประกัน :  ")]),
+                  _vm._v(_vm._s(this.form.id)),
+                  _c("br")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12 table-responsive" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("tbody", [
+                      _c("tr", [
+                        _c("td", [
+                          _vm._v(_vm._s(this.form.namelist.school.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(this.form.title.name) +
+                              _vm._s(this.form.ins_fname) +
+                              " " +
+                              _vm._s(this.form.ins_lname)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.form.ins_class))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.form.ins_type))])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(5)
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -78552,6 +79064,28 @@ var staticRenderFns = [
     return _c("h3", { staticClass: "card-title" }, [
       _c("i", { staticClass: "nav-icon fas fa-users blue" }),
       _vm._v("\n                ผู้ทำประกันภัย\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("รหัส")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ชื่อ-นามสกุล")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ชั้นเรียน")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("โรงเรียน")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("แผน")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("วันคุ้มครอง")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ปีการศึกษา")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Action")])
     ])
   },
   function() {
@@ -78570,6 +79104,61 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header th-table" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _c("i", { staticClass: "nav-icon fas fa-users blue" }),
+        _vm._v("  ข้อมูลผู้ทำประกันภัย")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("โรงเรียน")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ชื่อ-นามสกุล")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ชั้นเรียน")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ประเภท")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("ปิด")]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -79654,8 +80243,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -79879,19 +80466,6 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", { staticStyle: { color: "red" } }, [
-                        _c("b", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("numFormat")(
-                                claim.approve_amount,
-                                "0,0.00"
-                              )
-                            )
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(claim.insurer.namelist.year))]),
                       _vm._v(" "),
                       claim.status_id === 1
@@ -80107,14 +80681,13 @@ var render = function() {
                                   expression: "form.claim_date"
                                 }
                               ],
-                              staticClass: "form-control datepicker",
+                              staticClass: "datepicker form-control",
                               class: {
                                 "is-invalid": _vm.form.errors.has("claim_date")
                               },
                               attrs: {
                                 type: "text",
                                 name: "claim_date",
-                                id: "datepicker",
                                 placeholder: "วันที่ส่งเอกสารเคลม"
                               },
                               domProps: { value: _vm.form.claim_date },
@@ -80219,7 +80792,6 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "accident_date",
-                                id: "datepicker",
                                 placeholder: "วันที่เกิดอุบัติเหตุ"
                               },
                               domProps: { value: _vm.form.accident_date },
@@ -80304,7 +80876,7 @@ var render = function() {
                         { staticClass: "form-group col-sm-6" },
                         [
                           _c("label", { attrs: { for: "withdraw_amount" } }, [
-                            _vm._v("ยอดเงินที่ตั้งเบิก")
+                            _vm._v("ยอดเงินที่ตั้งเบิก (บาท)")
                           ]),
                           _vm._v(" "),
                           _c("input", {
@@ -80354,7 +80926,7 @@ var render = function() {
                         { staticClass: "form-group col-sm-6" },
                         [
                           _c("label", { attrs: { for: "approve_amount" } }, [
-                            _vm._v("ยอดเงินที่อนุมัติ")
+                            _vm._v("ยอดเงินที่อนุมัติ (บาท)")
                           ]),
                           _vm._v(" "),
                           _c("input", {
@@ -80426,7 +80998,6 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "pay_date",
-                                id: "datepicker",
                                 placeholder: "วันที่จ่ายเงินเคลม"
                               },
                               domProps: { value: _vm.form.pay_date },
@@ -80928,8 +81499,6 @@ var staticRenderFns = [
       _c("th", [_vm._v("สาเหตุ")]),
       _vm._v(" "),
       _c("th", [_vm._v("ตั้งเบิก")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("อนุมัติ")]),
       _vm._v(" "),
       _c("th", [_vm._v("ปีการศึกษา")]),
       _vm._v(" "),
@@ -81994,6 +82563,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -82312,6 +82889,10 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
+                        _c("label", { attrs: { for: "name" } }, [
+                          _vm._v("ชื่อ-นามสกุล")
+                        ]),
+                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -82346,230 +82927,263 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.type,
-                                expression: "form.type"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid": _vm.form.errors.has("type")
-                            },
-                            attrs: { name: "type", id: "type" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "type",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("เลือกสถานะ")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "ผู้ดูแลระบบ" } }, [
-                              _vm._v("ผู้ดูแลระบบ")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "ผู้ใช้งาน" } }, [
-                              _vm._v("ผู้ใช้งาน")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "type" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
+                    _c("div", { staticClass: "row" }, [
                       _c(
                         "div",
-                        { staticClass: "input-group" },
+                        { staticClass: "form-group col-sm-6" },
                         [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.tel,
-                                expression: "form.tel"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: { "is-invalid": _vm.form.errors.has("tel") },
-                            attrs: {
-                              type: "text",
-                              name: "tel",
-                              placeholder: "เบอร์โทรศัพท์"
-                            },
-                            domProps: { value: _vm.form.tel },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.form, "tel", $event.target.value)
-                              }
-                            }
-                          }),
+                          _c("label", { attrs: { for: "type" } }, [
+                            _vm._v("สถานะ")
+                          ]),
                           _vm._v(" "),
-                          _vm._m(3),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.type,
+                                  expression: "form.type"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("type")
+                              },
+                              attrs: { name: "type", id: "type" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "type",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("เลือกสถานะ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "option",
+                                { attrs: { value: "ผู้ดูแลระบบ" } },
+                                [_vm._v("ผู้ดูแลระบบ")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "ผู้ใช้งาน" } }, [
+                                _vm._v("ผู้ใช้งาน")
+                              ])
+                            ]
+                          ),
                           _vm._v(" "),
                           _c("has-error", {
-                            attrs: { form: _vm.form, field: "tel" }
-                          })
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "div",
-                        { staticClass: "input-group" },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.email,
-                                expression: "form.email"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid": _vm.form.errors.has("email")
-                            },
-                            attrs: {
-                              type: "email",
-                              email: "email",
-                              placeholder: "อีเมล"
-                            },
-                            domProps: { value: _vm.form.email },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.form, "email", $event.target.value)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(4),
-                          _vm._v(" "),
-                          _c("has-error", {
-                            attrs: { form: _vm.form, field: "email" }
-                          })
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "div",
-                        { staticClass: "input-group" },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.password,
-                                expression: "form.password"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid": _vm.form.errors.has("password")
-                            },
-                            attrs: {
-                              type: "password",
-                              name: "password",
-                              id: "password",
-                              placeholder: "รหัสผ่าน"
-                            },
-                            domProps: { value: _vm.form.password },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "password",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(5),
-                          _vm._v(" "),
-                          _c("has-error", {
-                            attrs: { form: _vm.form, field: "password" }
+                            attrs: { form: _vm.form, field: "type" }
                           })
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.editmode,
-                              expression: "editmode"
-                            }
-                          ],
-                          staticClass: "col-sm-8 control-label",
-                          attrs: { for: "password" }
-                        },
-                        [
-                          _c(
-                            "p",
-                            {
-                              staticStyle: {
-                                "font-size": "12px",
-                                "font-weight": "lighter",
-                                color: "Gray"
+                      _c("div", { staticClass: "form-group col-sm-6" }, [
+                        _c("label", { attrs: { for: "tel" } }, [
+                          _vm._v("เบอร์โทรศัพท์")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "input-group" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.tel,
+                                  expression: "form.tel"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("tel")
+                              },
+                              attrs: {
+                                type: "text",
+                                name: "tel",
+                                placeholder: "เบอร์โทรศัพท์"
+                              },
+                              domProps: { value: _vm.form.tel },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(_vm.form, "tel", $event.target.value)
+                                }
                               }
-                            },
-                            [_vm._v("เว้นว่างไว้ หากไม่ต้องการเปลี่ยนรหัสผ่าน")]
-                          )
-                        ]
-                      )
+                            }),
+                            _vm._v(" "),
+                            _vm._m(3),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "tel" }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "form-group col-sm-6" }, [
+                        _c("label", { attrs: { for: "email" } }, [
+                          _vm._v("อีเมล")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "input-group" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.email,
+                                  expression: "form.email"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("email")
+                              },
+                              attrs: {
+                                type: "email",
+                                email: "email",
+                                placeholder: "อีเมล"
+                              },
+                              domProps: { value: _vm.form.email },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "email",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._m(4),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "email" }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-sm-6" }, [
+                        _c("label", { attrs: { for: "password" } }, [
+                          _vm._v("รหัสผ่าน")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "input-group" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.password,
+                                  expression: "form.password"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("password")
+                              },
+                              attrs: {
+                                type: "password",
+                                name: "password",
+                                id: "password",
+                                placeholder: "รหัสผ่าน"
+                              },
+                              domProps: { value: _vm.form.password },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "password",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm._m(5),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "password" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editmode,
+                                expression: "editmode"
+                              }
+                            ],
+                            staticClass: "control-label",
+                            attrs: { for: "password" }
+                          },
+                          [
+                            _c(
+                              "p",
+                              {
+                                staticStyle: {
+                                  "font-size": "12px",
+                                  "font-weight": "lighter",
+                                  color: "Gray"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "เว้นว่างไว้ หากไม่ต้องการเปลี่ยนรหัสผ่าน"
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ])
                     ])
                   ]),
                   _vm._v(" "),

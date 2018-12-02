@@ -13,7 +13,6 @@ $fa-font-path: "../webfonts";
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
-
 @import '~jquery-ui/themes/base/datepicker.css';
 
 
@@ -21,7 +20,9 @@ $fa-font-path: "../webfonts";
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
-
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,.5);
+}
 .router-link-exact-active{
   background-color: #3f51b5;
   color: #fff !important ;

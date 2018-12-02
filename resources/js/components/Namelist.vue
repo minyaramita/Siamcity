@@ -76,17 +76,15 @@
               </div>
 
               <form @submit.prevent="editmode ? updateNamelist() : createNamelist()">
-              <div class="modal-body">
+                <div class="modal-body">              
                 <div class="form-group">
-                  <label for="school_id">สถานศึกษา</label>
-                  <select name="school_id" v-model="form.school_id" id="school_id" 
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('school_id') }">
-                    <option value="">เลือกสถานศึกษา</option>
-                    <option value="1">บ้านแก้ว</option>
-                    <option value="2">แหลมสิงห์วิทยาคม</option>
-                    <option value="3">โป่งน้ำร้อนวิทยาคม</option>
-                  </select>
-                  <has-error :form="form" field="school_id"></has-error>
+                    <label for="school_id">สถานศึกษา</label>
+                    <select name="school_id"  class="form-control" v-model="form.school_id" 
+                      :class="{ 'is-invalid': form.errors.has('school_id') }">
+                      <option value="">เลือกสถานศึกษา</option>
+                      <option v-for="school in schools.data" :value="school.id" :key="school.id">{{school.name}}</option>         
+                    </select>
+                    <has-error :form="form" field="school_id"></has-error>
                 </div>
 
                 <div class="row">
@@ -102,7 +100,7 @@
                       <label for="quantity_personnel">จำนวนบุคลากร (คน)</label>
                       <input v-model="form.quantity_personnel" type="text" name="quantity_personnel"
                         placeholder="จำนวนบุคลากร"
-                        class="form-control" :class="{ 'is-invalid': form.errors.has('quantity_personnel') }">
+                        class="form-control datepicker" :class="{ 'is-invalid': form.errors.has('quantity_personnel') }">
                       <has-error :form="form" field="quantity_personnel"></has-error>
                     </div>
                 </div>
@@ -112,7 +110,7 @@
                       <label for="receive_date">วันที่ได้รับรายชื่อ</label>
                       <div class="input-group">
                         <input v-model="form.receive_date" type="text" name="receive_date" id="datepicker"
-                          placeholder="วันที่ได้รับรายชื่อ" class="form-control" 
+                          placeholder="วันที่ได้รับรายชื่อ" class="form-control datepicker" 
                           :class="{ 'is-invalid': form.errors.has('receive_date') }">
                         <div class="input-group-append">
                           <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
@@ -185,6 +183,7 @@
          data () {
           return {
             editmode: false,
+            schools : {},
             namelists : {},
             form: new Form({
               id:'',
@@ -264,6 +263,10 @@
             loadNamelists(){
                   axios.get("api/namelist").then(({ data }) => (this.namelists = data));
             },
+            loadSchools(){
+                  axios.get("api/school").then(({ data }) => (this.schools = data));
+            },
+            
             createNamelist(){
               this.$Progress.start();
               
@@ -294,6 +297,7 @@
                 })
             })
             this.loadNamelists();
+            this.loadSchools();
             Fire.$on('AfterCreate',() => {
               this.loadNamelists();
             })

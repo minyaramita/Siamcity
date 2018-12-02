@@ -24,7 +24,7 @@ class NamelistController extends Controller
      */
     public function index()
     {
-        return Namelist::with(['School','Plan'])->latest()->paginate(6);
+        return Namelist::with(['School','Plan'])->latest()->paginate(10);
     }
 
     /**
@@ -107,6 +107,7 @@ class NamelistController extends Controller
         if ($search = \Request::get('q')) {
             $namelists = Namelist::with(['School','Plan'])->where(function($query) use ($search){
                 $query->where('id','LIKE',"%$search%")
+                        ->orWhere('year','LIKE',"%$search%")
                         ->orWhereHas('School',function($query) use ($search){
                             $query->where('name','LIKE',"%$search%");
                         });

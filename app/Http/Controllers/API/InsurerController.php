@@ -41,6 +41,7 @@ class InsurerController extends Controller
             'ins_fname' => 'required|string|max:191',
             'ins_lname' => 'required|string|max:191',
             'namelist_id' => 'required',
+            'ins_type' => 'required',
         ]);
 
         return Insurer::create([
@@ -81,6 +82,13 @@ class InsurerController extends Controller
             'ins_fname' => 'required|string|max:191',
             'ins_lname' => 'required|string|max:191',
             'namelist_id' => 'required',
+            'ins_type' => 'required',
+        ],[
+            'title_id.required' => 'กรุณากรอกคำนำหน้าชื่อ',
+            'ins_fname.required' => 'กรุณากรอกชื่อจริง',
+            'ins_lname.required' => 'กรุณากรอกนามสกุล',
+            'namelist_id.required' => 'กรุณาเลือกรหัสการรับรายชื่อผู้ทำประกัน',
+            'ins_type.required' => 'กรุณาเลือกประเภทผู้ทำประกัน',
         ]);
 
         $insurer->update($request->all());

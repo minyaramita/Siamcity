@@ -27,9 +27,10 @@ class SchoolController extends Controller
 
     public function index()
     {
-        return School::with('Bank')->latest()->paginate(6);
+        return School::with('Bank')->latest()->paginate(20);
     }
 
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -53,7 +54,11 @@ class SchoolController extends Controller
             'bank_number' => $request['bank_number'],
         ]);
     }
-
+    
+    public function schoolDropdown()
+    {
+        return School::latest();
+    }
     /**
      * Display the specified resource.
      *
@@ -108,7 +113,7 @@ class SchoolController extends Controller
                         ->orWhere('email','LIKE',"%$search%");
             })->paginate(20);
         }else{
-            $schools = School::with('Bank')->latest()->paginate(6);
+            $schools = School::with('Bank')->latest()->paginate(20);
         }
         return $schools;
     }

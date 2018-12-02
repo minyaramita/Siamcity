@@ -80,58 +80,66 @@
               <div class="modal-body">
             
                 <div class="form-group">
+                  <label for="name">ชื่อ-นามสกุล</label>
                   <input v-model="form.name" type="text" name="name"
                     placeholder="ชื่อ-นามสกุล"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                   <has-error :form="form" field="name"></has-error>
                 </div>
-                <div class="form-group">
-                  <select name="type" v-model="form.type" id="type" 
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
-                    <option value="">เลือกสถานะ</option>
-                    <option value="ผู้ดูแลระบบ">ผู้ดูแลระบบ</option>
-                    <option value="ผู้ใช้งาน">ผู้ใช้งาน</option>
-                  </select>
-                  <has-error :form="form" field="type"></has-error>
-                </div>
 
-                <div class="form-group">
-                  <div class="input-group">
-                    <input v-model="form.tel" type="text" name="tel"
-                      placeholder="เบอร์โทรศัพท์"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
-                    <div class="input-group-append">
-                        <span class="input-group-text"><i class="nav-icon fas fa-phone blue"></i></span>
-                    </div>
-                    <has-error :form="form" field="tel"></has-error> 
-                  </div> 
-                </div>          
-
-                <div class="form-group">
-                  <div class="input-group">
-                    <input v-model="form.email" type="email" email="email"
-                      placeholder="อีเมล"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                    <div class="input-group-append">
-                        <span class="input-group-text"><i class="nav-icon far fa-envelope blue"></i></span>
-                    </div>
-                    <has-error :form="form" field="email"></has-error>
+                <div class="row"> 
+                  <div class="form-group col-sm-6">
+                    <label for="type">สถานะ</label>
+                    <select name="type" v-model="form.type" id="type" 
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
+                      <option value="">เลือกสถานะ</option>
+                      <option value="ผู้ดูแลระบบ">ผู้ดูแลระบบ</option>
+                      <option value="ผู้ใช้งาน">ผู้ใช้งาน</option>
+                    </select>
+                    <has-error :form="form" field="type"></has-error>
                   </div>
-                </div>
+                  <div class="form-group col-sm-6">
+                    <label for="tel">เบอร์โทรศัพท์</label>
+                    <div class="input-group">
+                      <input v-model="form.tel" type="text" name="tel"
+                        placeholder="เบอร์โทรศัพท์"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
+                      <div class="input-group-append">
+                          <span class="input-group-text"><i class="nav-icon fas fa-phone blue"></i></span>
+                      </div>
+                      <has-error :form="form" field="tel"></has-error> 
+                    </div> 
+                  </div>  
+                </div> 
 
-                <div class="form-group">
-                  <div class="input-group">
-                    <input v-model="form.password" type="password" name="password" id="password"
-                      placeholder="รหัสผ่าน"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
-                    <div class="input-group-append">
-                        <span class="input-group-text"><i class="nav-icon fas fa-unlock-alt blue"></i></span>
+                <div class="row"> 
+                  <div class="form-group col-sm-6">
+                    <label for="email">อีเมล</label>
+                    <div class="input-group">
+                      <input v-model="form.email" type="email" email="email"
+                        placeholder="อีเมล"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                      <div class="input-group-append">
+                          <span class="input-group-text"><i class="nav-icon far fa-envelope blue"></i></span>
+                      </div>
+                      <has-error :form="form" field="email"></has-error>
                     </div>
-                    <has-error :form="form" field="password"></has-error>
                   </div>
-                  <label v-show="editmode" for="password" class="col-sm-8 control-label">
-                    <p style="font-size: 12px; font-weight: lighter; color: Gray;">เว้นว่างไว้ หากไม่ต้องการเปลี่ยนรหัสผ่าน</p>
-                  </label>
+                  <div class="form-group col-sm-6">
+                    <label for="password">รหัสผ่าน</label>
+                    <div class="input-group">
+                      <input v-model="form.password" type="password" name="password" id="password"
+                        placeholder="รหัสผ่าน"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                      <div class="input-group-append">
+                          <span class="input-group-text"><i class="nav-icon fas fa-unlock-alt blue"></i></span>
+                      </div>
+                      <has-error :form="form" field="password"></has-error>
+                    </div>
+                    <label v-show="editmode" for="password" class="control-label">
+                      <p style="font-size: 12px; font-weight: lighter; color: Gray;">เว้นว่างไว้ หากไม่ต้องการเปลี่ยนรหัสผ่าน</p>
+                    </label>
+                  </div>
                 </div>
                 
               </div>

@@ -25,22 +25,23 @@
                     <th>ชื่อสถานศึกษา</th>
                     <th>อีเมล</th>
                     <th>เบอร์โทรศัพท์</th>
-                    <th>ชื่อบัญชีธนาคาร</th>
-                    <th>ธนาคาร</th>
-                    <th>สาขา</th>
-                    <th>เลขบัญชี</th>
-                    <th v-if="$gate.isAdmin()">Action</th>  
+                    <th>Action</th>  
                   </tr>
                   <tr v-for="school in schools.data" :key="school.id">
                     <td>{{school.id}}</td>
                     <td>{{school.name}}</td>
                     <td>{{school.email}}</td>
                     <td>{{school.tel}}</td>
-                    <td>{{school.account_name}}</td>
-                    <td>{{school.bank.bank_name}}</td>
-                    <td>{{school.bank_branch}}</td>
-                    <td>{{school.bank_number}}</td>
+                    <td v-if="$gate.isUser()">
+                        <a href="#" @click="viewModal(school)">
+                            <i class="far fa-eye cyan"></i>
+                        </a>
+                    </td>
                     <td v-if="$gate.isAdmin()">
+                        <a href="#" @click="viewModal(school)">
+                            <i class="far fa-eye cyan"></i>
+                        </a>
+                        /
                         <a href="#" @click="editModal(school)">
                             <i class="fa fa-edit blue"></i>
                         </a>
@@ -63,7 +64,7 @@
           </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Edit Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content th-table">
@@ -78,67 +79,80 @@
               <form @submit.prevent="editmode ? updateSchool() : createSchool()">
               <div class="modal-body">
                 <div class="form-group">
+                  <label for="name">ชื่อสถานศึกษา</label>
                   <input v-model="form.name" type="text" name="name"
                     placeholder="ชื่อสถานศึกษา"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                   <has-error :form="form" field="name"></has-error>
                 </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <input v-model="form.email" type="email" email="email"
-                      placeholder="อีเมล"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                    <div class="input-group-append">
-                        <span class="input-group-text"><i class="nav-icon far fa-envelope blue"></i></span>
+                <div class="row"> 
+                  <div class="form-group col-sm-6">
+                    <label for="email">อีเมล</label>
+                    <div class="input-group">
+                      <input v-model="form.email" type="email" email="email"
+                        placeholder="อีเมล"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                      <div class="input-group-append">
+                          <span class="input-group-text"><i class="nav-icon far fa-envelope blue"></i></span>
+                      </div>
+                      <has-error :form="form" field="email"></has-error>
                     </div>
-                    <has-error :form="form" field="email"></has-error>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label for="tel">เบอร์โทรศัพท์</label>
+                    <div class="input-group">
+                      <input v-model="form.tel" type="text" name="tel"
+                        placeholder="เบอร์โทรศัพท์"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
+                      <div class="input-group-append">
+                          <span class="input-group-text"><i class="nav-icon fas fa-phone blue"></i></span>
+                      </div>
+                      <has-error :form="form" field="tel"></has-error> 
+                    </div> 
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <input v-model="form.tel" type="text" name="tel"
-                      placeholder="เบอร์โทรศัพท์"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('tel') }">
-                    <div class="input-group-append">
-                        <span class="input-group-text"><i class="nav-icon fas fa-phone blue"></i></span>
-                    </div>
-                    <has-error :form="form" field="tel"></has-error> 
+                <div class="row">     
+                  <div class="form-group col-sm-6">
+                    <label for="account_name">ชื่อบัญชีธนาคาร</label>
+                    <input v-model="form.account_name" type="text" name="account_name" id="account_name"
+                      placeholder="ชื่อบัญชีธนาคาร"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('account_name') }">
+                    <has-error :form="form" field="account_name"></has-error>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label for="bank_id">ธนาคาร</label>
+                    <select name="bank_id" v-model="form.bank_id" id="bank_id" 
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('bank_id') }">
+                      <option value="">เลือกธนาคาร</option>
+                      <option value="1">ธนาคารกรุงเทพ</option>
+                      <option value="2">ธนาคารกสิกรไทย</option>
+                      <option value="3">ธนาคารกรุงไทย</option>
+                      <option value="4">ธนาคารทหารไทย</option>
+                      <option value="5">ธนาคารไทยพาณิชย์</option>
+                      <option value="6">ธนาคารกรุงศรีอยุธยา</option>
+                      <option value="7">ธนาคารเกียรตินาคิน</option>
+                      <option value="8">ธนาคารออมสิน</option>
+                      <option value="9">ธนาคารธนชาต</option>
+                    </select>
+                    <has-error :form="form" field="bank_id"></has-error>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-sm-6">
+                    <label for="bank_branch">สาขา</label>
+                    <input v-model="form.bank_branch" type="text" name="bank_branch" id="bank_branch"
+                      placeholder="สาขา"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('bank_branch') }">
+                    <has-error :form="form" field="bank_branch"></has-error>
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label for="bank_number">หมายเลขบัญชี</label>
+                    <input v-model="form.bank_number" type="text" name="bank_number" id="bank_number"
+                      placeholder="หมายเลขบัญชี"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('bank_number') }">
+                    <has-error :form="form" field="bank_number"></has-error>
                   </div> 
-                </div>     
-                <div class="form-group">
-                  <input v-model="form.account_name" type="text" name="account_name" id="account_name"
-                    placeholder="ชื่อบัญชีธนาคาร"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('account_name') }">
-                  <has-error :form="form" field="account_name"></has-error>
-                </div>
-                <div class="form-group">
-                  <select name="bank_id" v-model="form.bank_id" id="bank_id" 
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('bank_id') }">
-                    <option value="">เลือกธนาคาร</option>
-                    <option value="1">ธนาคารกรุงเทพ</option>
-                    <option value="2">ธนาคารกสิกรไทย</option>
-                    <option value="3">ธนาคารกรุงไทย</option>
-                    <option value="4">ธนาคารทหารไทย</option>
-                    <option value="5">ธนาคารไทยพาณิชย์</option>
-                    <option value="6">ธนาคารกรุงศรีอยุธยา</option>
-                    <option value="7">ธนาคารเกียรตินาคิน</option>
-                    <option value="8">ธนาคารออมสิน</option>
-                    <option value="9">ธนาคารธนชาต</option>
-                  </select>
-                  <has-error :form="form" field="bank_id"></has-error>
-                </div>
-                <div class="form-group">
-                  <input v-model="form.bank_branch" type="text" name="bank_branch" id="bank_branch"
-                    placeholder="สาขา"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('bank_branch') }">
-                  <has-error :form="form" field="bank_branch"></has-error>
-                </div>
-                <div class="form-group">
-                  <input v-model="form.bank_number" type="text" name="bank_number" id="bank_number"
-                    placeholder="หมายเลขบัญชี"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('bank_number') }">
-                  <has-error :form="form" field="bank_number"></has-error>
-                </div>               
+                </div>              
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
@@ -148,7 +162,59 @@
               </form>
             </div>
           </div>
+        </div> <!-- /.Edit Modal -->
+
+        <!-- View Modal -->
+        <div class="modal fade" id="viewModal">
+          <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content th-table">
+              <div class="modal-header th-table">
+                <h4 class="modal-title"> <i class="nav-icon fas fa-school blue"></i>  ข้อมูลสถานศึกษา</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body th-table">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <b>ชื่อบัญชีธนาคาร :  </b>{{this.form.account_name}}<br>
+                    <b>ธนาคาร :  </b>{{this.form.bank.bank_name}}<br>
+                    <b>สาขา :  </b>{{this.form.bank_branch}}<br>
+                    <b>เลขบัญชี :  </b>{{this.form.bank_number}}<br>
+                    <b>อีเมล : </b> {{this.form.email}}<br><br>
+                  </div> <!-- /.col -->     
+                </div> <!-- /.row -->
+
+                <div class="row">
+                <div class="col-12 table-responsive">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>รหัส</th>
+                      <th>โรงเรียน/วิทยาลัย/มหาวิทยาลัย</th>
+                      <th>เบอร์โทรศัพท์</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>{{this.form.id}}</td>
+                      <td>{{this.form.name}}</td>
+                      <td>{{this.form.tel}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              </div> <!-- /.modal-body -->
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+              </div>
+            </div>
+          </div>
         </div>
+        <!-- ./View Modal -->
     </div>
 </template>
 
@@ -166,11 +232,18 @@
               account_name: '',
               bank_id: '',
               bank_branch: '',
-              bank_number: ''
+              bank_number: '',
+              bank:{
+                bank_name:'',
+              },
             })
           }
         },
         methods:{
+            viewModal(school){
+              $('#viewModal').modal('show');
+              this.form.fill(school);
+            },
             getResults(page = 1) {
               axios.get('api/school?page=' + page)
                 .then(response => {

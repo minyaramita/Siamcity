@@ -8,11 +8,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+  <title>Siam City</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="/css/app.css">
   <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
-  <title>Siam City</title>
 </head>
 
 <body class="hold-transition sidebar-mini fix-header">
@@ -25,8 +24,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
-    </ul>
-    
+    </ul>    
+    <div class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" @keyup="searchit" v-model ="search" placeholder="ค้นหา" aria-label="Search">
         <div class="input-group-append">
@@ -35,6 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </button>
         </div>
       </div>
+    </div>
     
   </nav>
   <!-- /.navbar -->
@@ -110,6 +110,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                รายงาน
+                <i class="right fas fa-angle-left blue"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/report" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>การเคลมประกัน</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--
           <li class="nav-item">
             <router-link to="/hospital" class="nav-link">
               <i class="nav-icon fas fa-hospital-alt"></i>
@@ -119,34 +137,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <router-link to="/report" class="nav-link">
-              <i class="nav-icon fas fa-file-alt"></i>
-              <p>
-                รายงาน
-              </p>
-            </a>
-          </li>
-          @can('isAdmin')
-          <!--
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-list-alt"></i>
-              <p>
-                จัดการข้อมูล
-                <i class="right fas fa-angle-left blue"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>คำนำหน้าชื่อ</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          
-          <li class="nav-item">
             <router-link to="/developer" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
@@ -155,6 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           -->
+          @can('isAdmin')
           <li class="nav-item">
             <router-link to="/users" class="nav-link">
               <i class="nav-icon fas fa-users-cog"></i>
@@ -210,14 +201,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.content-wrapper -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
+  <footer class="main-footer" style="padding-bottom:0px;">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
       
     </div>
     <!-- Default to the left -->
-    <strong>Siam City 2018 : สำนักงานตัวแทนจังหวัดจันทบุรี </strong>
-  </footer>
+    
+    <div class="row">
+      <div class="col-md-2">
+        <img class="img-fluid" src="img/logo3.png"  style="margin-left:60px; width:65%; padding-top:10px;"> &nbsp;
+      </div>
+      <div class="col-md-10" style="text-align:left;">
+      <br>
+        <h5 style="color:#0158a7;">บริษัท สยามซิตี้ประกันภัย จำกัด (มหาชน)</h5>
+        <h6 style="color:#0158a7;">สำนักงานตัวแทนประกันวินาศภัย โดย คุณบุญยง เอมซ์บุตร</h6>
+        <p style="color:#0158a7;">48/7 หมู่ 5 ตำบลท่าช้าง อำเภอเมือง จังหวัดจันทบุรี โทร. 039-471887 E-mail: bonyongchan@gmail.com</p>
+      </div>
+    </div>
+     </footer>
 </div>
 <!-- ./wrapper -->
 
@@ -226,6 +228,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       window.user = @json(auth()->user())
   </script> 
 @endauth
+
 <script src="/js/app.js"></script> 
 </body>
 </html>

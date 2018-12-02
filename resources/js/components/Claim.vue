@@ -26,7 +26,6 @@
                     <th>ชื่อ-นามสกุล</th>
                     <th>สาเหตุ</th>
                     <th>ตั้งเบิก</th>
-                    <th>อนุมัติ</th>
                     <th>ปีการศึกษา</th>
                     <th>สถานะ</th>  
                     <th>Action</th>  
@@ -37,7 +36,6 @@
                     <td>{{claim.insurer.title.name}}{{claim.insurer.ins_fname}}  {{claim.insurer.ins_lname}}</td>
                     <td>{{claim.accident_cause}}</td>
                     <td>{{claim.withdraw_amount | numFormat('0,0.00')}}</td>
-                    <td style="color:red;"><b>{{claim.approve_amount | numFormat('0,0.00')}}</b></td>
                     <td>{{claim.insurer.namelist.year}}</td>
                     <td v-if="claim.status_id === 1">
                       <span class="label label-mali" style="color: #fff;">{{claim.status.name}}</span>
@@ -104,8 +102,8 @@
                     <div class="form-group col-sm-6">
                       <label for="claim_date">วันที่ส่งเอกสารเคลม</label>
                       <div class="input-group">
-                        <input v-model="form.claim_date" type="text" name="claim_date" id="datepicker"
-                          placeholder="วันที่ส่งเอกสารเคลม" class="form-control datepicker" 
+                        <input v-model="form.claim_date" type="text" name="claim_date"
+                          placeholder="วันที่ส่งเอกสารเคลม" class="datepicker form-control" 
                           :class="{ 'is-invalid': form.errors.has('claim_date') }">
                         <div class="input-group-append">
                           <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
@@ -127,7 +125,7 @@
                     <div class="form-group col-sm-6">
                       <label for="accident_date">วันที่เกิดอุบัติเหตุ</label>
                       <div class="input-group">
-                        <input v-model="form.accident_date" type="text" name="accident_date" id="datepicker"
+                        <input v-model="form.accident_date" type="text" name="accident_date"
                           placeholder="วันที่เกิดอุบัติเหตุ" class="form-control datepicker" 
                           :class="{ 'is-invalid': form.errors.has('accident_date') }">
                         <div class="input-group-append">
@@ -148,7 +146,7 @@
                 
                 <div class="row">
                     <div class="form-group col-sm-6">
-                      <label for="withdraw_amount">ยอดเงินที่ตั้งเบิก</label>
+                      <label for="withdraw_amount">ยอดเงินที่ตั้งเบิก (บาท)</label>
                       <input v-model="form.withdraw_amount" type="text" name="withdraw_amount"
                         placeholder="ยอดเงินที่ตั้งเบิก"
                         class="form-control" :class="{ 'is-invalid': form.errors.has('withdraw_amount') }">
@@ -156,7 +154,7 @@
                     </div>
                     
                     <div class="form-group col-sm-6">
-                      <label for="approve_amount">ยอดเงินที่อนุมัติ</label>
+                      <label for="approve_amount">ยอดเงินที่อนุมัติ (บาท)</label>
                       <input v-model="form.approve_amount" type="text" name="approve_amount"
                         placeholder="ยอดเงินที่อนุมัติ"
                         class="form-control" :class="{ 'is-invalid': form.errors.has('approve_amount') }">
@@ -168,7 +166,7 @@
                     <div class="form-group col-sm-6">
                       <label for="pay_date">วันที่จ่ายเงินเคลม</label>
                       <div class="input-group">
-                        <input v-model="form.pay_date" type="text" name="pay_date" id="datepicker"
+                        <input v-model="form.pay_date" type="text" name="pay_date"
                           placeholder="วันที่จ่ายเงินเคลม" class="form-control datepicker" 
                           :class="{ 'is-invalid': form.errors.has('pay_date') }">
                         <div class="input-group-append">
