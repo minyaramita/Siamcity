@@ -165,9 +165,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="{{ url('/chartInsurer')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>แผนภูมิจำนวนผู้ทำประกัน</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ url('/chartClaim')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>รายงานการเคลมประกัน</p>
+                  <p>แผนภูมิการเคลมประกัน</p>
                 </a>
               </li>
             </ul>

@@ -84,7 +84,7 @@ class ClaimController extends Controller
         }
         
         $chart1 = \Chart::title([
-            'text' => 'รายงานจำนวนการเคลมประกันแบ่งตามสถานะการเคลมประกัน',
+            'text' => 'รายงานจำนวนการเคลมประกันในแต่ละปีการศึกษา',
         ])
         ->chart([
             'type'     => 'column', // pie , column ect
@@ -93,7 +93,7 @@ class ClaimController extends Controller
             'borderRadius' => 15,              
         ])
         ->subtitle([
-            'text' => 'ประกันอุบัติเหตุนักเรียน โครงการโรงเรียนอุ่นใจ',
+            'text' => 'แยกตามสถานะการเคลมประกัน',
         ])
         ->credits([
             'enabled' => false,
@@ -152,7 +152,6 @@ class ClaimController extends Controller
             ]
         )
         ->display();
-
         return view('chartClaim', [
             'chart1' => $chart1,
         ]);

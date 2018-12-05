@@ -5,8 +5,8 @@
                   <div class="col-md-12">
                         <div class="card">
                               <div class="card-body " style="padding:70px;">
-                                     <div id="chart1"></div>
-                                           {!! $chart1 !!}
+                                     <div id="chart2"></div>
+                                           {!! $chart2 !!}
                               </div>
                         </div>
                   </div>
