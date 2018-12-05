@@ -7,22 +7,22 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Siam City') }}</title>
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <title>Siam City</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
     
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div class="wrapper" id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -49,21 +49,49 @@
                                 </a>
                             </li>
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                            <li class="nav-item inline" style="padding-top: 20px;">
+                                <a class="nav-link" href="{{ url('/home') }}"><i class="nav-icon fas fa-home"></i> หน้าหลัก</a>
+                            </li>
+                            
+                            <li class="nav-item dropdown inline">
+                                <a class="nav-link inline" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <div class="user-panel">
+                                    <div class="image" style="padding: 10px;">
+                                    <img src="img/profile/{{Auth::user()->photo}}" class="img-circle elevation-2"  alt="User Image">
+                                    </div>
+                                </div>
+                                </a>   
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                                <a href="#" class="dropdown-item">
+                                    <!-- Message Start -->
+                                    <div class="media">
+                                    <img src="img/profile/{{Auth::user()->photo}}" class="img-size-50 mr-3 ">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title">
+                                        {{ Auth::user()->name }} 
+                                        </h3>
+                                        <p class="text-sm">{{ Auth::user()->type }}</p>
+                                        <p class="text-sm text-muted">{{ Auth::user()->email }}</p>
+                                    </div>
+                                    </div>
+                                    <!-- Message End -->
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('ออกจากระบบ') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <div class="dropdown-divider"></div>
+                                <router-link to="/profile" class="dropdown-item">
+                                    <i class=" fas fa-user ml-3 mr-2"></i>
+                                    ประวัติผู้ใช้งาน  
+                                </a><br><br>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-power-off red mr-2"></i>
+                                    {{ __('ออกจากระบบ') }} 
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
-                                    </form>
+                                </form>
                                 </div>
                             </li>
                         @endguest
@@ -73,10 +101,10 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            @yield('report')
         </main>
 
-         <footer class="myfooter" style="padding-bottom:0px;">
+        <footer class="myfooter" style="padding-bottom:0px;">
             <!-- To the right -->
             <div class=" d-none d-sm-inline">
                 
@@ -96,5 +124,6 @@
             </div>
         </footer>
     </div>
+    <script src="/js/app.js"></script> 
 </body>
 </html>

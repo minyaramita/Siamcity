@@ -48,17 +48,17 @@ Vue.use(VueProgressBar, {
 })
 
 let routes = [
-    { path: '/home', component: require('./components/Dashboard.vue') },
+    { path: '/home', component: require('./components/Welcome.vue') },
     { path: '/developer', component: require('./components/Developer.vue') },
     { path: '/school', component: require('./components/School.vue') },
     { path: '/namelist', component: require('./components/Namelist.vue') },
     { path: '/insurer', component: require('./components/Insurer.vue') },
     { path: '/hospital', component: require('./components/Hospital.vue') },
     { path: '/claim', component: require('./components/Claim.vue') },
-    { path: '/report', component: require('./components/Report.vue') },
+   // { path: '/claimReport', component: require('./components/ClaimReport.vue') },
     { path: '/profile', component: require('./components/Profile.vue') },
     { path: '/users', component: require('./components/Users.vue') },
-  //  { path: '/*', component: require('./components/Notfound.vue') }
+    { path: '/*', component: require('./components/Notfound.vue') }
   ]
 
   const router = new VueRouter({

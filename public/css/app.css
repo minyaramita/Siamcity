@@ -30160,3 +30160,19 @@ readers do not read off random characters that represent icons */
   color: #525151;
 }
 
+.myfooter {
+  padding: 15px;
+  padding-top: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  color: #555;
+  border-top: 1px solid #dee2e6;
+  background: #ffffff;
+}
+
+.inline {
+  display: inline-block;
+  padding-left: 10px;
+}
+

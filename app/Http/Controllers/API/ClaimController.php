@@ -25,7 +25,7 @@ class ClaimController extends Controller
      */
     public function index()
     {
-        return Claim::with(['Insurer.Namelist.School','Insurer.Namelist.Plan','Insurer.Title','Status'])->latest()->paginate(5);
+        return Claim::with(['Insurer.Namelist.School','Insurer.Namelist.Plan','Insurer.Title','Status'])->latest()->paginate(10);
     }
 
     /**
@@ -40,7 +40,6 @@ class ClaimController extends Controller
             'ins_id' => 'required',
             'accident_cause' => 'required|string|max:191',
             'withdraw_amount' => 'required|numeric',
-            'approve_amount' => 'numeric',
             'status_id' => 'required',
         ]);
 
@@ -83,7 +82,6 @@ class ClaimController extends Controller
             'ins_id' => 'required',
             'accident_cause' => 'required|string|max:191',
             'withdraw_amount' => 'required|numeric',
-            'approve_amount' => 'numeric',
             'status_id' => 'required',
         ]);
 
@@ -128,7 +126,7 @@ class ClaimController extends Controller
                         });                 
             })->paginate(20);
         }else{
-            $claims = Claim::with(['Insurer.Namelist.School','Insurer.Namelist.Plan','Insurer.Title','Status'])->latest()->paginate(5);
+            $claims = Claim::with(['Insurer.Namelist.School','Insurer.Namelist.Plan','Insurer.Title','Status'])->latest()->paginate(10);
         }
         return $claims;   
     }

@@ -25,7 +25,7 @@ class InsurerController extends Controller
      */
     public function index()
     {
-        return Insurer::with(['Title','Namelist.School','Namelist.Plan'])->latest()->paginate(5);
+        return Insurer::with(['Title','Namelist.School','Namelist.Plan'])->latest()->paginate(10);
     }
 
     /**
@@ -124,7 +124,7 @@ class InsurerController extends Controller
                         });  
             })->paginate(20);
         }else{
-            $insurers = Insurer::with(['Title','Namelist.School','Namelist.Plan'])->latest()->paginate(5);
+            $insurers = Insurer::with(['Title','Namelist.School','Namelist.Plan'])->latest()->paginate(10);
         }
         return $insurers;
     }

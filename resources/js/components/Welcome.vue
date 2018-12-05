@@ -4,7 +4,6 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body" style="height:450px;">
-                        <p style="color: #636366;text-align:right;">{{this.form.name}} [ {{this.form.type}} ]</p>
                         <h4 style="color:rgb(99, 106, 111);text-align:center;">ยินดีต้อนรับเข้าสู่ระบบ</h4>
                         <br>
                         <img class="img-fluid" src="img/siamcity.jpg" width="25%" height="" style="display: block;margin-left: auto;margin-right: auto;">

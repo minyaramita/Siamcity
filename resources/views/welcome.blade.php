@@ -66,6 +66,7 @@
         </style>
     </head>
     <body>
+    <div id="app">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -84,8 +85,10 @@
                 <div class="title m-b-md">
                     <img class="img-fluid" src="./img/siamcity.jpg"  width="50%" height=""> <br>
                     ระบบบันทึกข้อมูลประกันอุบัติเหตุนักเรียน 
-                </div>
-                
+                </div>  
+                 
             </div>
+
+           </div> 
     </body>
 </html>
