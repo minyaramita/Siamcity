@@ -102,7 +102,7 @@ class InsurerController extends Controller
                 [
                     'name'  => 'จำนวนผู้ทำประกัน',
                     'data'  => $countInsurer,
-                    'color' => '#80e960',
+                    'color' => '#8db7da',
                     'dataLabels'  => [
                         'enabled' => true,
                         'color'  => 'rgb(133, 127, 127)',
@@ -111,7 +111,7 @@ class InsurerController extends Controller
                 [
                     'name'  => 'จำนวนสถานศึกษา',
                     'data'  => $countSchool,
-                    'color' => '#e6af4a',
+                    'color' => '#9d7bd1',
                     'dataLabels'  => [
                         'enabled' => true,
                         'color'  => 'rgb(133, 127, 127)',

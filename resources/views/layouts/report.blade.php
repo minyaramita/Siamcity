@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -111,7 +112,7 @@
             </div>
             <!-- Default to the left -->
             
-            <div class="row">
+            <div class="row" >
                 <div class="col-md-2">
                 <img class="img-fluid" src="img/logo3.png"  style="margin-left:100px; width:50%; padding-top:10px;"> 
                 </div>
@@ -125,5 +126,10 @@
         </footer>
     </div>
     <script src="/js/app.js"></script> 
+    <script src="//code.highcharts.com/highcharts.js"></script>
+    <script src="//code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    @yield('script')
 </body>
 </html>

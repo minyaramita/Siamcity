@@ -8,8 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Siam City</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Siam City</title> 
+
   <link rel="stylesheet" href="/css/app.css">
   <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 </head>
@@ -166,13 +167,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ url('/chartInsurer')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-chart-bar nav-icon"></i>
                   <p>แผนภูมิจำนวนผู้ทำประกัน</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('/chartClaim')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-chart-bar nav-icon"></i>
                   <p>แผนภูมิการเคลมประกัน</p>
                 </a>
               </li>
@@ -250,7 +251,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.content-wrapper -->
 
   <!-- Main Footer -->
-  <footer class="main-footer" style="padding-bottom:0px;">
+  <footer class="main-footer no-print" style="padding-bottom:0px;">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
       
@@ -277,7 +278,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       window.user = @json(auth()->user())
   </script> 
 @endauth
-
-<script src="/js/app.js"></script> 
+  <script src="/js/app.js"></script>   
 </body>
 </html>

@@ -16,75 +16,92 @@ class ClaimController extends Controller
     {
         $this->middleware('auth');
     }
-
+    
     public function chartreport(){
-        //query สถานะเคลม
+        //query ปีการศึกษา
         $results1 = DB::select('SELECT
-        statuses.name_en AS claimstatus 
+        namelists.year AS namelistYear 
         FROM
         claims
         INNER JOIN statuses ON claims.status_id = statuses.id
+        INNER JOIN insurers ON claims.ins_id = insurers.id
+        INNER JOIN namelists ON insurers.namelist_id = namelists.id
         GROUP BY
-        statuses.name_en');
+        namelists.year');
 
-        //query จำนวนเคลม 2017
+        //query จำนวนเคลม สถานะรอตรวจสอบเอกสาร
         $results2 = DB::select('SELECT
-        COUNT(claims.id) AS countclaim2017
+        COUNT(claims.id) AS countClaim01
         FROM
         claims
         INNER JOIN statuses ON claims.status_id = statuses.id
         INNER JOIN insurers ON claims.ins_id = insurers.id
         INNER JOIN namelists ON insurers.namelist_id = namelists.id
-        WHERE namelists.year = "2017"
+        WHERE claims.status_id = 1
         GROUP BY
-        statuses.name_en');
+        namelists.year');
 
-        //query จำนวนเคลม 2018
+        //query จำนวนเคลม สถานะรอการพิจารณาอนุมัติเคลม
         $results3 = DB::select('SELECT
-        COUNT(claims.id) AS countclaim2018
+        COUNT(claims.id) AS countClaim02
         FROM
         claims
         INNER JOIN statuses ON claims.status_id = statuses.id
         INNER JOIN insurers ON claims.ins_id = insurers.id
         INNER JOIN namelists ON insurers.namelist_id = namelists.id
-        WHERE namelists.year = "2018"
+        WHERE claims.status_id = 2
         GROUP BY
-        statuses.name_en');
+        namelists.year');
 
-        //query จำนวนเคลม 2019
+        //query จำนวนเคลม สถานะอนุมัติจ่ายเคลม
         $results4 = DB::select('SELECT
-        COUNT(claims.id) AS countclaim2019
+        COUNT(claims.id) AS countClaim03
         FROM
         claims
         INNER JOIN statuses ON claims.status_id = statuses.id
         INNER JOIN insurers ON claims.ins_id = insurers.id
         INNER JOIN namelists ON insurers.namelist_id = namelists.id
-        WHERE namelists.year = "2019"
+        WHERE claims.status_id = 3
         GROUP BY
-        statuses.name_en');
+        namelists.year');
 
-        $claimstatus  = [];
+        //query จำนวนเคลม สถานะไม่อนุมัติจ่ายเคลม
+        $results5 = DB::select('SELECT
+        COUNT(claims.id) AS countClaim04
+        FROM
+        claims
+        INNER JOIN statuses ON claims.status_id = statuses.id
+        INNER JOIN insurers ON claims.ins_id = insurers.id
+        INNER JOIN namelists ON insurers.namelist_id = namelists.id
+        WHERE claims.status_id = 4
+        GROUP BY
+        namelists.year');
+
+        $namelistYear   = [];
         foreach ($results1 as $r1) {
-            $claimstatus [] = (array) $r1->claimstatus;
+            $namelistYear  [] = (array) $r1->namelistYear;
         }
-
-        $countclaim2017  = [];
+         $countClaim01  = [];
         foreach ($results2 as $r2) {
-            $countclaim2017 [] = (array) $r2->countclaim2017;
+            $countClaim01 [] = (array) $r2->countClaim01;
         }
-
-        $countclaim2018  = [];
+         $countClaim02  = [];
         foreach ($results3 as $r3) {
-            $countclaim2018 [] = (array) $r3->countclaim2018;
+            $countClaim02 [] = (array) $r3->countClaim02;
+        }
+         $countClaim03  = [];
+        foreach ($results4 as $r4) {
+            $countClaim03 [] = (array) $r4->countClaim03;
+        }
+        $countClaim04  = [];
+        foreach ($results5 as $r5) {
+            $countClaim04 [] = (array) $r5->countClaim04;
         }
 
-        $countclaim2019  = [];
-        foreach ($results4 as $r4) {
-            $countclaim2019 [] = (array) $r4->countclaim2019;
-        }
+        
         
         $chart1 = \Chart::title([
-            'text' => 'รายงานจำนวนการเคลมประกันในแต่ละปีการศึกษา',
+            'text' => 'รายงานจำนวนการเคลมประกันแบ่งตามสถานะการเคลมประกัน',
         ])
         ->chart([
             'type'     => 'column', // pie , column ect
@@ -93,7 +110,7 @@ class ClaimController extends Controller
             'borderRadius' => 15,              
         ])
         ->subtitle([
-            'text' => 'แยกตามสถานะการเคลมประกัน',
+            'text' => 'ประกันอุบัติเหตุนักเรียน โครงการโรงเรียนอุ่นใจ',
         ])
         ->credits([
             'enabled' => false,
@@ -102,7 +119,7 @@ class ClaimController extends Controller
             '#b38fe9',
         ])
         ->xaxis([
-            'categories' => $claimstatus,
+            'categories' => $namelistYear,
             'labels'     => [
                 'align'     => 'center',
                 //'formatter' => 'startJs:function(){return this.value}:endJs', 
@@ -123,27 +140,36 @@ class ClaimController extends Controller
         ->series(
             [
                 [
-                    'name'  => 'ปีการศึกษา 2017',
-                    'data'  => $countclaim2017,
-                    'color' => '#b38fe9',
+                    'name'  => 'รอตรวจสอบเอกสาร',
+                    'data'  => $countClaim01,
+                    'color' => '#eca829',
                     'dataLabels'  => [
                         'enabled' => true,
                         'color'  => 'rgb(133, 127, 127)',
                     ],
                 ],
                 [
-                    'name'  => 'ปีการศึกษา 2018',
-                    'data'  => $countclaim2018,
-                    'color' => '#f66D9b',
+                    'name'  => 'รอการพิจารณาอนุมัติเคลม',
+                    'data'  => $countClaim02,
+                    'color' => '#5bc0de',
                     'dataLabels'  => [
                         'enabled' => true,
                         'color'  => 'rgb(133, 127, 127)',
                     ],
                 ],
                 [
-                    'name'  => ' ปีการศึกษา 2019',
-                    'data'  => $countclaim2019,
-                    'color' => '#8fb3d1',
+                    'name'  => 'อนุมัติจ่ายเคลม',
+                    'data'  => $countClaim03,
+                    'color' => '#5cb85c',
+                    'dataLabels'  => [
+                        'enabled' => true,
+                        'color'  => 'rgb(133, 127, 127)',
+                    ],
+                ],
+                [
+                    'name'  => 'ไม่อนุมัติจ่ายเคลม',
+                    'data'  => $countClaim04,
+                    'color' => '#d9534f',
                     'dataLabels'  => [
                         'enabled' => true,
                         'color'  => 'rgb(133, 127, 127)',
@@ -152,7 +178,7 @@ class ClaimController extends Controller
             ]
         )
         ->display();
-        return view('chartClaim', [
+         return view('chartClaim', [
             'chart1' => $chart1,
         ]);
     }

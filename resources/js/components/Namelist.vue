@@ -8,8 +8,10 @@
                   <i class="nav-icon fas fa-list-ul blue"></i>
                     การรับรายชื่อผู้ทำประกันภัย
                 </h3> 
-                <div class="card-tools">
+                <div class="card-tools no-print">
                   <div class="input-group input-group-sm" >
+                    <a href="" @click.prevent="printme" target="_blank" class="btn btn-outline-primary"><i class="fa fa-print"></i> Print</a>
+                    &nbsp;&nbsp;
                     <button type="button" class="btn btn-primary" @click="newModal()" v-if="$gate.isAdmin()">
                         เพิ่ม
                         <i class="fas fa-plus-square"></i>
@@ -29,7 +31,7 @@
                     <th>วันคุ้มครอง</th>
                     <th>แผน</th>
                     <th>ปีการศึกษา</th>
-                    <th v-if="$gate.isAdmin()">Action</th>  
+                    <th v-if="$gate.isAdmin()" class="no-print">Action</th>  
                   </tr>
                   <tr v-for="namelist in namelists.data" :key="namelist.id">
                     <td>{{namelist.id}}</td>
@@ -40,7 +42,7 @@
                     <td>{{namelist.protection_date | myDate}}</td>
                     <td>{{namelist.plan.name}}</td>
                     <td>{{namelist.year}}</td>
-                    <td v-if="$gate.isAdmin()">
+                    <td v-if="$gate.isAdmin()" class="no-print">
                         <a href="#" @click="editModal(namelist)">
                             <i class="fa fa-edit blue"></i>
                         </a>
@@ -55,7 +57,7 @@
               <!-- /.card-body -->
 
               <!-- เพิ่ม code pagination -->
-              <div class="card-footer">
+              <div class="card-footer no-print">
                   <pagination :data="namelists" @pagination-change-page="getResults"></pagination>
               </div>
             </div>
@@ -109,8 +111,8 @@
                     <div class="form-group col-sm-6">
                       <label for="receive_date">วันที่ได้รับรายชื่อ</label>
                       <div class="input-group">
-                        <input v-model="form.receive_date" type="text" name="receive_date" id="datepicker"
-                          placeholder="วันที่ได้รับรายชื่อ" class="form-control datepicker" 
+                        <input v-model="form.receive_date" type="date" name="receive_date"
+                          placeholder="วันที่ได้รับรายชื่อ" class="form-control" 
                           :class="{ 'is-invalid': form.errors.has('receive_date') }">
                         <div class="input-group-append">
                           <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
@@ -122,8 +124,8 @@
                     <div class="form-group col-sm-6">
                       <label for="protection_date">วันคุ้มครอง</label>
                       <div class="input-group">
-                        <input v-model="form.protection_date" type="text" name="protection_date" id="datepicker"
-                          placeholder="วันคุ้มครอง" class="form-control datepicker" 
+                        <input v-model="form.protection_date" type="date" name="protection_date"
+                          placeholder="วันคุ้มครอง" class="form-control" 
                           :class="{ 'is-invalid': form.errors.has('protection_date') }">
                         <div class="input-group-append">
                           <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
@@ -190,7 +192,7 @@
               school_id: '',
               quantity_student: '',
               quantity_personnel: '',
-              receive_dat: '',
+              receive_date: '',
               protection_date: '',
               plan_id: '',
               year: '',
@@ -199,6 +201,9 @@
           }
         },
         methods:{
+            printme() {
+              window.print();
+            },
             getResults(page = 1) {
               axios.get('api/namelist?page=' + page)
                 .then(response => {

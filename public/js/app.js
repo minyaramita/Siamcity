@@ -30747,9 +30747,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  */
 
 __webpack_require__(143);
+__webpack_require__(255);
 
 
-$('.datepicker').datepicker();
 
 window.Vue = __webpack_require__(167);
 
@@ -30787,9 +30787,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_progressbar___default.a, {
   height: '3px'
 });
 
-var routes = [{ path: '/home', component: __webpack_require__(179) }, { path: '/developer', component: __webpack_require__(182) }, { path: '/school', component: __webpack_require__(185) }, { path: '/namelist', component: __webpack_require__(188) }, { path: '/insurer', component: __webpack_require__(191) }, { path: '/hospital', component: __webpack_require__(194) }, { path: '/claim', component: __webpack_require__(197) },
-// { path: '/claimReport', component: require('./components/ClaimReport.vue') },
-{ path: '/profile', component: __webpack_require__(200) }, { path: '/users', component: __webpack_require__(206) }, { path: '/*', component: __webpack_require__(209) }];
+var routes = [{ path: '/home', component: __webpack_require__(179) }, { path: '/developer', component: __webpack_require__(182) }, { path: '/school', component: __webpack_require__(185) }, { path: '/namelist', component: __webpack_require__(188) }, { path: '/insurer', component: __webpack_require__(191) }, { path: '/hospital', component: __webpack_require__(194) }, { path: '/claim', component: __webpack_require__(197) }, { path: '/profile', component: __webpack_require__(200) }, { path: '/users', component: __webpack_require__(206) }, { path: '/*', component: __webpack_require__(209) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_6_vue_router__["a" /* default */]({
   mode: 'history',
@@ -30821,7 +30819,7 @@ Vue.component('passport-personal-access-tokens', __webpack_require__(222));
 
 Vue.component('not-found', __webpack_require__(227));
 
-Vue.component('example-component', __webpack_require__(230));
+//Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 var app = new Vue({
   el: '#app',
@@ -30832,8 +30830,11 @@ var app = new Vue({
   methods: {
     searchit: _.debounce(function () {
       Fire.$emit('searching');
-    }, 1000)
+    }, 1000),
 
+    printme: function printme() {
+      window.print();
+    }
   }
 });
 
@@ -76943,6 +76944,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -76955,7 +76958,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         school_id: '',
         quantity_student: '',
         quantity_personnel: '',
-        receive_dat: '',
+        receive_date: '',
         protection_date: '',
         plan_id: '',
         year: '',
@@ -76965,6 +76968,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    printme: function printme() {
+      window.print();
+    },
     getResults: function getResults() {
       var _this = this;
 
@@ -77087,8 +77093,23 @@ var render = function() {
           _c("div", { staticClass: "card-header th-table" }, [
             _vm._m(0),
             _vm._v(" "),
-            _c("div", { staticClass: "card-tools" }, [
+            _c("div", { staticClass: "card-tools no-print" }, [
               _c("div", { staticClass: "input-group input-group-sm" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-outline-primary",
+                    attrs: { href: "", target: "_blank" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.printme($event)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-print" }), _vm._v(" Print")]
+                ),
+                _vm._v("\n                  \n                "),
                 _vm.$gate.isAdmin()
                   ? _c(
                       "button",
@@ -77136,7 +77157,9 @@ var render = function() {
                     _c("th", [_vm._v("ปีการศึกษา")]),
                     _vm._v(" "),
                     _vm.$gate.isAdmin()
-                      ? _c("th", [_vm._v("Action")])
+                      ? _c("th", { staticClass: "no-print" }, [
+                          _vm._v("Action")
+                        ])
                       : _vm._e()
                   ]),
                   _vm._v(" "),
@@ -77165,7 +77188,7 @@ var render = function() {
                       _c("td", [_vm._v(_vm._s(namelist.year))]),
                       _vm._v(" "),
                       _vm.$gate.isAdmin()
-                        ? _c("td", [
+                        ? _c("td", { staticClass: "no-print" }, [
                             _c(
                               "a",
                               {
@@ -77205,7 +77228,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "card-footer" },
+            { staticClass: "card-footer no-print" },
             [
               _c("pagination", {
                 attrs: { data: _vm.namelists },
@@ -77485,16 +77508,15 @@ var render = function() {
                                   expression: "form.receive_date"
                                 }
                               ],
-                              staticClass: "form-control datepicker",
+                              staticClass: "form-control",
                               class: {
                                 "is-invalid": _vm.form.errors.has(
                                   "receive_date"
                                 )
                               },
                               attrs: {
-                                type: "text",
+                                type: "date",
                                 name: "receive_date",
-                                id: "datepicker",
                                 placeholder: "วันที่ได้รับรายชื่อ"
                               },
                               domProps: { value: _vm.form.receive_date },
@@ -77540,16 +77562,15 @@ var render = function() {
                                   expression: "form.protection_date"
                                 }
                               ],
-                              staticClass: "form-control datepicker",
+                              staticClass: "form-control",
                               class: {
                                 "is-invalid": _vm.form.errors.has(
                                   "protection_date"
                                 )
                               },
                               attrs: {
-                                type: "text",
+                                type: "date",
                                 name: "protection_date",
-                                id: "datepicker",
                                 placeholder: "วันคุ้มครอง"
                               },
                               domProps: { value: _vm.form.protection_date },
@@ -80238,6 +80259,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -80284,6 +80307,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    printme: function printme() {
+      window.print();
+    },
     viewModal: function viewModal(claim) {
       $('#viewModal').modal('show');
       this.form.fill(claim);
@@ -80395,14 +80421,29 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row mt-3" }, [
+    _c("div", { staticClass: "row mt-3", attrs: { id: "mytable" } }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header th-table" }, [
             _vm._m(0),
             _vm._v(" "),
-            _c("div", { staticClass: "card-tools" }, [
+            _c("div", { staticClass: "card-tools no-print" }, [
               _c("div", { staticClass: "input-group input-group-sm" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-outline-primary",
+                    attrs: { href: "", target: "_blank" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.printme($event)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fa fa-print" }), _vm._v(" Print")]
+                ),
+                _vm._v("\n                  \n                "),
                 _vm.$gate.isAdmin()
                   ? _c(
                       "button",
@@ -80451,12 +80492,18 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(claim.accident_cause))]),
-                      _vm._v(" "),
                       _c("td", [
                         _vm._v(
                           _vm._s(
                             _vm._f("numFormat")(claim.withdraw_amount, "0,0.00")
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticStyle: { color: "red" } }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("numFormat")(claim.approve_amount, "0,0.00")
                           )
                         )
                       ]),
@@ -80501,7 +80548,7 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.$gate.isUser()
-                        ? _c("td", [
+                        ? _c("td", { staticClass: "no-print" }, [
                             _c(
                               "a",
                               {
@@ -80518,7 +80565,7 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.$gate.isAdmin()
-                        ? _c("td", [
+                        ? _c("td", { staticClass: "no-print" }, [
                             _c(
                               "a",
                               {
@@ -80573,7 +80620,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "card-footer" },
+            { staticClass: "card-footer no-print" },
             [
               _c("pagination", {
                 attrs: { data: _vm.claims },
@@ -80585,6 +80632,223 @@ var render = function() {
         ])
       ])
     ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "viewModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content th-table" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body th-table" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-sm-4" }, [
+                    _c("b", [_vm._v("วันเริ่มคุ้มครอง : ")]),
+                    _vm._v(
+                      _vm._s(
+                        _vm._f("myDate")(
+                          this.form.insurer.namelist.protection_date
+                        )
+                      )
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("แผน : ")]),
+                    _vm._v(" " + _vm._s(this.form.insurer.namelist.plan.name)),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("ปีการศึกษา : ")]),
+                    _vm._v(" " + _vm._s(this.form.insurer.namelist.year)),
+                    _c("br")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("b", [_vm._v("รหัสเคลม :  ")]),
+                    _vm._v(_vm._s(this.form.id)),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("รหัสผู้ทำประกัน :  ")]),
+                    _vm._v(_vm._s(this.form.ins_id)),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("วันที่เคลม :  ")]),
+                    _vm._v(
+                      " " + _vm._s(_vm._f("myDate")(this.form.claim_date))
+                    ),
+                    _c("br")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-5" }, [
+                    _c("b", [_vm._v("โรงเรียน : ")]),
+                    _vm._v(
+                      " " + _vm._s(this.form.insurer.namelist.school.name)
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("ชื่อ-นามสกุล : ")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(this.form.insurer.title.name) +
+                        _vm._s(this.form.insurer.ins_fname) +
+                        " " +
+                        _vm._s(this.form.insurer.ins_lname)
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("ชั้นเรียน : ")]),
+                    _vm._v(" " + _vm._s(this.form.insurer.ins_class)),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("b", [_vm._v("ประเภท : ")]),
+                    _vm._v(" " + _vm._s(this.form.insurer.ins_type)),
+                    _c("br"),
+                    _c("br")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-12 table-responsive" }, [
+                    _c("table", { staticClass: "table" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("tbody", [
+                        _c("tr", [
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(_vm._f("myDate")(this.form.accident_date))
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(this.form.accident_cause))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("numFormat")(
+                                  this.form.withdraw_amount,
+                                  "0,0.00"
+                                )
+                              ) + " บาท"
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticStyle: { color: "red" } }, [
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("numFormat")(
+                                    this.form.approve_amount,
+                                    "0,0.00"
+                                  )
+                                ) + " "
+                              )
+                            ]),
+                            _vm._v(" บาท")
+                          ]),
+                          _vm._v(" "),
+                          _vm.form.status_id === 1
+                            ? _c("td", [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "label label-mali",
+                                    staticStyle: { color: "#fff" }
+                                  },
+                                  [_vm._v(_vm._s(this.form.status.name))]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.form.status_id === 2
+                            ? _c("td", [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "label label-info",
+                                    staticStyle: { color: "#fff" }
+                                  },
+                                  [_vm._v(_vm._s(this.form.status.name))]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.form.status_id === 3
+                            ? _c("td", [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "label label-success",
+                                    staticStyle: { color: "#fff" }
+                                  },
+                                  [_vm._v(_vm._s(this.form.status.name))]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.form.status_id === 4
+                            ? _c("td", [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "label label-danger",
+                                    staticStyle: { color: "#fff" }
+                                  },
+                                  [_vm._v(_vm._s(this.form.status.name))]
+                                )
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", { attrs: { colspan: "5" } }, [
+                            _c("b", [_vm._v("รายละเอียด : ")]),
+                            _vm._v(_vm._s(this.form.detail))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm.form.status_id === 3
+                          ? _c("tr", [
+                              _c("td", { attrs: { colspan: "5" } }, [
+                                _c("b", [_vm._v("รูปแบบการจ่ายเงิน : ")]),
+                                _vm._v(_vm._s(this.form.payType))
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.form.status_id === 3
+                          ? _c("tr", [
+                              _c("td", { attrs: { colspan: "5" } }, [
+                                _c("b", [_vm._v("วันที่จ่ายเงิน : ")]),
+                                _vm._v(
+                                  _vm._s(_vm._f("myDate")(this.form.pay_date))
+                                )
+                              ])
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(4)
+            ])
+          ]
+        )
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -80642,7 +80906,7 @@ var render = function() {
                   [_vm._v("เพิ่มการเคลมประกัน")]
                 ),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(5)
               ]),
               _vm._v(" "),
               _c(
@@ -80676,12 +80940,12 @@ var render = function() {
                                   expression: "form.claim_date"
                                 }
                               ],
-                              staticClass: "datepicker form-control",
+                              staticClass: "form-control",
                               class: {
                                 "is-invalid": _vm.form.errors.has("claim_date")
                               },
                               attrs: {
-                                type: "text",
+                                type: "date",
                                 name: "claim_date",
                                 placeholder: "วันที่ส่งเอกสารเคลม"
                               },
@@ -80700,7 +80964,7 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _vm._m(3)
+                            _vm._m(6)
                           ]),
                           _vm._v(" "),
                           _c("has-error", {
@@ -80778,14 +81042,14 @@ var render = function() {
                                   expression: "form.accident_date"
                                 }
                               ],
-                              staticClass: "form-control datepicker",
+                              staticClass: "form-control",
                               class: {
                                 "is-invalid": _vm.form.errors.has(
                                   "accident_date"
                                 )
                               },
                               attrs: {
-                                type: "text",
+                                type: "date",
                                 name: "accident_date",
                                 placeholder: "วันที่เกิดอุบัติเหตุ"
                               },
@@ -80804,7 +81068,7 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _vm._m(4)
+                            _vm._m(7)
                           ]),
                           _vm._v(" "),
                           _c("has-error", {
@@ -80986,12 +81250,12 @@ var render = function() {
                                   expression: "form.pay_date"
                                 }
                               ],
-                              staticClass: "form-control datepicker",
+                              staticClass: "form-control",
                               class: {
                                 "is-invalid": _vm.form.errors.has("pay_date")
                               },
                               attrs: {
-                                type: "text",
+                                type: "date",
                                 name: "pay_date",
                                 placeholder: "วันที่จ่ายเงินเคลม"
                               },
@@ -81010,7 +81274,7 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _vm._m(5)
+                            _vm._m(8)
                           ]),
                           _vm._v(" "),
                           _c("has-error", {
@@ -81263,211 +81527,7 @@ var render = function() {
           ]
         )
       ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "viewModal" } }, [
-      _c(
-        "div",
-        {
-          staticClass: "modal-dialog modal-dialog-centered modal-lg",
-          attrs: { role: "document" }
-        },
-        [
-          _c("div", { staticClass: "modal-content th-table" }, [
-            _vm._m(6),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body th-table" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-sm-4" }, [
-                  _c("b", [_vm._v("วันเริ่มคุ้มครอง : ")]),
-                  _vm._v(
-                    _vm._s(
-                      _vm._f("myDate")(
-                        this.form.insurer.namelist.protection_date
-                      )
-                    )
-                  ),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b", [_vm._v("แผน : ")]),
-                  _vm._v(" " + _vm._s(this.form.insurer.namelist.plan.name)),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b", [_vm._v("ปีการศึกษา : ")]),
-                  _vm._v(" " + _vm._s(this.form.insurer.namelist.year)),
-                  _c("br")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-4" }, [
-                  _c("b", [_vm._v("รหัสเคลม :  ")]),
-                  _vm._v(_vm._s(this.form.id)),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b", [_vm._v("รหัสผู้ทำประกัน :  ")]),
-                  _vm._v(_vm._s(this.form.ins_id)),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b", [_vm._v("วันที่เคลม :  ")]),
-                  _vm._v(" " + _vm._s(_vm._f("myDate")(this.form.claim_date))),
-                  _c("br")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-4" }, [
-                  _c("b", [_vm._v("โรงเรียน : ")]),
-                  _vm._v(" " + _vm._s(this.form.insurer.namelist.school.name)),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b", [_vm._v("ชื่อ-นามสกุล : ")]),
-                  _vm._v(
-                    " " +
-                      _vm._s(this.form.insurer.title.name) +
-                      _vm._s(this.form.insurer.ins_fname) +
-                      " " +
-                      _vm._s(this.form.insurer.ins_lname)
-                  ),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b", [_vm._v("ชั้นเรียน : ")]),
-                  _vm._v(" " + _vm._s(this.form.insurer.ins_class)),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b", [_vm._v("ประเภท : ")]),
-                  _vm._v(" " + _vm._s(this.form.insurer.ins_type)),
-                  _c("br"),
-                  _c("br")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12 table-responsive" }, [
-                  _c("table", { staticClass: "table" }, [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("tbody", [
-                      _c("tr", [
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(_vm._f("myDate")(this.form.accident_date))
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(this.form.accident_cause))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("numFormat")(
-                                this.form.withdraw_amount,
-                                "0,0.00"
-                              )
-                            ) + " บาท"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticStyle: { color: "red" } }, [
-                          _c("b", [
-                            _vm._v(
-                              _vm._s(
-                                _vm._f("numFormat")(
-                                  this.form.approve_amount,
-                                  "0,0.00"
-                                )
-                              ) + " "
-                            )
-                          ]),
-                          _vm._v(" บาท")
-                        ]),
-                        _vm._v(" "),
-                        _vm.form.status_id === 1
-                          ? _c("td", [
-                              _c(
-                                "span",
-                                {
-                                  staticClass: "label label-mali",
-                                  staticStyle: { color: "#fff" }
-                                },
-                                [_vm._v(_vm._s(this.form.status.name))]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.form.status_id === 2
-                          ? _c("td", [
-                              _c(
-                                "span",
-                                {
-                                  staticClass: "label label-info",
-                                  staticStyle: { color: "#fff" }
-                                },
-                                [_vm._v(_vm._s(this.form.status.name))]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.form.status_id === 3
-                          ? _c("td", [
-                              _c(
-                                "span",
-                                {
-                                  staticClass: "label label-success",
-                                  staticStyle: { color: "#fff" }
-                                },
-                                [_vm._v(_vm._s(this.form.status.name))]
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.form.status_id === 4
-                          ? _c("td", [
-                              _c(
-                                "span",
-                                {
-                                  staticClass: "label label-danger",
-                                  staticStyle: { color: "#fff" }
-                                },
-                                [_vm._v(_vm._s(this.form.status.name))]
-                              )
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { colspan: "5" } }, [
-                          _c("b", [_vm._v("รายละเอียด : ")]),
-                          _vm._v(_vm._s(this.form.detail))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm.form.status_id === 3
-                        ? _c("tr", [
-                            _c("td", { attrs: { colspan: "5" } }, [
-                              _c("b", [_vm._v("รูปแบบการจ่ายเงิน : ")]),
-                              _vm._v(_vm._s(this.form.payType))
-                            ])
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.form.status_id === 3
-                        ? _c("tr", [
-                            _c("td", { attrs: { colspan: "5" } }, [
-                              _c("b", [_vm._v("วันที่จ่ายเงิน : ")]),
-                              _vm._v(
-                                _vm._s(_vm._f("myDate")(this.form.pay_date))
-                              )
-                            ])
-                          ])
-                        : _vm._e()
-                    ])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _vm._m(8)
-          ])
-        ]
-      )
-    ])
+    )
   ])
 }
 var staticRenderFns = [
@@ -81491,15 +81551,85 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("ชื่อ-นามสกุล")]),
       _vm._v(" "),
-      _c("th", [_vm._v("สาเหตุ")]),
-      _vm._v(" "),
       _c("th", [_vm._v("ตั้งเบิก")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("อนุมัติ")]),
       _vm._v(" "),
       _c("th", [_vm._v("ปีการศึกษา")]),
       _vm._v(" "),
       _c("th", [_vm._v("สถานะ")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Action")])
+      _c("th", { staticClass: "no-print" }, [_vm._v("Action")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header th-table" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _c("i", { staticClass: "nav-icon fas fa-user-injured blue" }),
+        _vm._v("  ข้อมูลการเคลมประกัน")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close no-print",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("วันที่เกิดอุบัติเหตุ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("สาเหตุอุบัติเหตุ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ตั้งเบิก")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("อนุมัติ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("สถานะ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer no-print" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-outline-primary print",
+          attrs: {
+            href: "",
+            onClick: "window.print();return false",
+            target: "_blank"
+          }
+        },
+        [_c("i", { staticClass: "fa fa-print" }), _vm._v(" Print")]
+      ),
+      _vm._v("\n                  \n            "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("ปิด")]
+      )
     ])
   },
   function() {
@@ -81547,63 +81677,6 @@ var staticRenderFns = [
       _c("span", { staticClass: "input-group-text" }, [
         _c("i", { staticClass: "nav-icon far fa-calendar-alt blue" })
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header th-table" }, [
-      _c("h4", { staticClass: "modal-title" }, [
-        _c("i", { staticClass: "nav-icon fas fa-user-injured blue" }),
-        _vm._v("  ข้อมูลการเคลมประกัน")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("วันที่เกิดอุบัติเหตุ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("สาเหตุอุบัติเหตุ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("ตั้งเบิก")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("อนุมัติ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("สถานะ")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("ปิด")]
-      )
     ])
   }
 ]
@@ -86907,129 +86980,54 @@ if (false) {
 }
 
 /***/ }),
-/* 230 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(231)
-/* template */
-var __vue_template__ = __webpack_require__(232)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/ExampleComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-299e239e", Component.options)
-  } else {
-    hotAPI.reload("data-v-299e239e", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 231 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-});
-
-/***/ }),
-/* 232 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-299e239e", module.exports)
-  }
-}
-
-/***/ }),
+/* 230 */,
+/* 231 */,
+/* 232 */,
 /* 233 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */
+/***/ (function(module, exports) {
+
+
+(function ($) {
+    $(document).ready(function () {
+        // Add Print Classes for Modal
+        $('.modal').on('shown.bs.modal', function () {
+            $('.modal,.modal-backdrop').addClass('toPrint');
+            $('body').addClass('non-print');
+        });
+        // Remove classes
+        $('.modal').on('hidden.bs.modal', function () {
+            $('.modal,.modal-backdrop').removeClass('toPrint');
+            $('body').removeClass('non-print');
+        });
+    });
+})(jQuery);
 
 /***/ })
 /******/ ]);

@@ -1,6 +1,6 @@
 @extends('layouts.report')
 @section('report')
-      <div class="container">
+<div class="container">
             <div class="row mt-3">
                   <div class="col-md-12">
                         <div class="card">

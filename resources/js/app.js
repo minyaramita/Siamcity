@@ -6,10 +6,11 @@
  */
 
 
-require('./bootstrap');
+ require('./bootstrap');
+ require('./print');
 
-import 'jquery-ui/ui/widgets/datepicker.js';
-$('.datepicker').datepicker();
+ import 'jquery-ui/ui/widgets/datepicker.js';
+
 
 window.Vue = require('vue');
 import moment from 'moment';
@@ -55,7 +56,6 @@ let routes = [
     { path: '/insurer', component: require('./components/Insurer.vue') },
     { path: '/hospital', component: require('./components/Hospital.vue') },
     { path: '/claim', component: require('./components/Claim.vue') },
-   // { path: '/claimReport', component: require('./components/ClaimReport.vue') },
     { path: '/profile', component: require('./components/Profile.vue') },
     { path: '/users', component: require('./components/Users.vue') },
     { path: '/*', component: require('./components/Notfound.vue') }
@@ -103,7 +103,7 @@ Vue.component(
   require('./components/NotFound.vue')
 );
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+//Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({
     el: '#app',
@@ -116,5 +116,8 @@ const app = new Vue({
           Fire.$emit('searching');
       },1000),
 
+      printme() {
+        window.print();
+    }
    }
 });

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-       <div class="row mt-3">
+       <div class="row mt-3" id="mytable">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header th-table">
@@ -8,8 +8,10 @@
                   <i class="nav-icon fas fa-user-injured blue"></i>
                     การเคลมประกัน
                 </h3> 
-                <div class="card-tools">
+                <div class="card-tools no-print">
                   <div class="input-group input-group-sm" >
+                    <a href="" @click.prevent="printme" target="_blank" class="btn btn-outline-primary"><i class="fa fa-print"></i> Print</a>
+                    &nbsp;&nbsp;
                     <button type="button" class="btn btn-primary" @click="newModal()" v-if="$gate.isAdmin()">
                         เพิ่ม
                         <i class="fas fa-plus-square"></i>
@@ -24,18 +26,18 @@
                     <th>รหัส</th>
                     <th>สถานศึกษา</th>
                     <th>ชื่อ-นามสกุล</th>
-                    <th>สาเหตุ</th>
                     <th>ตั้งเบิก</th>
+                    <th>อนุมัติ</th>
                     <th>ปีการศึกษา</th>
                     <th>สถานะ</th>  
-                    <th>Action</th>  
+                    <th class="no-print">Action</th>  
                   </tr>
                   <tr v-for="claim in claims.data" :key="claim.id">
                     <td>{{claim.id}}</td>
                     <td>{{claim.insurer.namelist.school.name}}</td>
                     <td>{{claim.insurer.title.name}}{{claim.insurer.ins_fname}}  {{claim.insurer.ins_lname}}</td>
-                    <td>{{claim.accident_cause}}</td>
                     <td>{{claim.withdraw_amount | numFormat('0,0.00')}}</td>
+                    <td style="color:red;">{{claim.approve_amount | numFormat('0,0.00')}}</td>
                     <td>{{claim.insurer.namelist.year}}</td>
                     <td v-if="claim.status_id === 1">
                       <span class="label label-mali" style="color: #fff;">{{claim.status.name}}</span>
@@ -50,13 +52,13 @@
                       <span class="label label-danger">{{claim.status.name}}</span>
                     </td>
 
-                    <td v-if="$gate.isUser()">
+                    <td v-if="$gate.isUser()" class="no-print">
                         <a href="#" @click="viewModal(claim)">
                             <i class="far fa-eye cyan"></i>
                         </a>
                     </td>
 
-                    <td v-if="$gate.isAdmin()">
+                    <td v-if="$gate.isAdmin()" class="no-print">
                         <a href="#" @click="viewModal(claim)">
                             <i class="far fa-eye cyan"></i>
                         </a>
@@ -76,7 +78,7 @@
               <!-- /.card-body -->
 
               <!-- เพิ่ม code pagination -->
-              <div class="card-footer">
+              <div class="card-footer no-print">
                   <pagination :data="claims" @pagination-change-page="getResults"></pagination>
               </div>
             </div>
@@ -84,150 +86,13 @@
           </div>
         </div>
 
-        <!-- Edit Modal -->
-        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content th-table">
-              <div class="modal-header">
-                <h5 class="modal-title" v-show="editmode" id="addNewLabel">แก้ไขข้อมูลการเคลมประกัน</h5>
-                <h5 class="modal-title" v-show="!editmode" id="addNewLabel">เพิ่มการเคลมประกัน</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-
-              <form @submit.prevent="editmode ? updateClaim() : createClaim()">
-              <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label for="claim_date">วันที่ส่งเอกสารเคลม</label>
-                      <div class="input-group">
-                        <input v-model="form.claim_date" type="text" name="claim_date"
-                          placeholder="วันที่ส่งเอกสารเคลม" class="datepicker form-control" 
-                          :class="{ 'is-invalid': form.errors.has('claim_date') }">
-                        <div class="input-group-append">
-                          <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
-                        </div>
-                      </div>
-                      <has-error :form="form" field="claim_date"></has-error>
-                    </div>
-
-                    <div class="form-group col-sm-6">
-                      <label for="ins_id">รหัสผู้ทำประกันภัย</label>
-                      <input v-model="form.ins_id" type="text" name="ins_id"
-                        placeholder="รหัสผู้ทำประกันภัย"
-                        class="form-control" :class="{ 'is-invalid': form.errors.has('ins_id') }">
-                      <has-error :form="form" field="ins_id"></has-error>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label for="accident_date">วันที่เกิดอุบัติเหตุ</label>
-                      <div class="input-group">
-                        <input v-model="form.accident_date" type="text" name="accident_date"
-                          placeholder="วันที่เกิดอุบัติเหตุ" class="form-control datepicker" 
-                          :class="{ 'is-invalid': form.errors.has('accident_date') }">
-                        <div class="input-group-append">
-                          <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
-                        </div>
-                      </div>
-                      <has-error :form="form" field="accident_date"></has-error>
-                    </div>
-                    
-                    <div class="form-group col-sm-6">
-                      <label for="accident_cause">สาเหตุอุบัติเหตุ</label>
-                      <input v-model="form.accident_cause" type="text" name="accident_cause"
-                        placeholder="สาเหตุอุบัติเหตุ"
-                        class="form-control" :class="{ 'is-invalid': form.errors.has('accident_cause') }">
-                      <has-error :form="form" field="accident_cause"></has-error>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label for="withdraw_amount">ยอดเงินที่ตั้งเบิก (บาท)</label>
-                      <input v-model="form.withdraw_amount" type="text" name="withdraw_amount"
-                        placeholder="ยอดเงินที่ตั้งเบิก"
-                        class="form-control" :class="{ 'is-invalid': form.errors.has('withdraw_amount') }">
-                      <has-error :form="form" field="withdraw_amount"></has-error>
-                    </div>
-                    
-                    <div class="form-group col-sm-6">
-                      <label for="approve_amount">ยอดเงินที่อนุมัติ (บาท)</label>
-                      <input v-model="form.approve_amount" type="text" name="approve_amount"
-                        placeholder="ยอดเงินที่อนุมัติ"
-                        class="form-control" :class="{ 'is-invalid': form.errors.has('approve_amount') }">
-                      <has-error :form="form" field="approve_amount"></has-error>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label for="pay_date">วันที่จ่ายเงินเคลม</label>
-                      <div class="input-group">
-                        <input v-model="form.pay_date" type="text" name="pay_date"
-                          placeholder="วันที่จ่ายเงินเคลม" class="form-control datepicker" 
-                          :class="{ 'is-invalid': form.errors.has('pay_date') }">
-                        <div class="input-group-append">
-                          <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
-                        </div>
-                      </div>
-                      <has-error :form="form" field="pay_date"></has-error>
-                    </div>
-                    
-                    <div class="form-group col-sm-6">
-                      <label for="payType">รูปแบบการจ่ายเงินเคลม</label>
-                      <select name="payType" v-model="form.payType" id="payType" 
-                        class="form-control" :class="{ 'is-invalid': form.errors.has('payType') }">
-                        <option value="">เลือกรูปแบบการจ่ายเงิน</option>
-                        <option value="เงินสด">เงินสด</option>
-                        <option value="โอนเงินเข้าบัญชีธนาคาร">โอนเงินเข้าบัญชีธนาคาร</option>
-                        <option value="ดราฟท์">ดราฟท์</option>
-                      </select>
-                      <has-error :form="form" field="payType"></has-error>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="detail">รายละเอียด</label>
-                  <textarea v-model="form.detail" name="detail" id="detail"
-                    placeholder="รายละเอียด"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('detail') }"></textarea>
-                  <has-error :form="form" field="detail"></has-error>          
-                </div>
-                
-                <div class="form-group">
-                  <label for="status_id">สถานะ</label>
-                  <select name="status_id" v-model="form.status_id" id="status_id" 
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('status_id') }">
-                    <option value="">เลือกสถานะ</option>
-                    <option value="1">รอตรวจสอบเอกสาร</option>
-                    <option value="2">รอการพิจารณาอนุมัติเคลม</option>
-                    <option value="3">อนุมัติจ่ายเคลม</option>
-                    <option value="4">ไม่อนุมัติจ่ายเคลม</option>
-                  </select>
-                  <has-error :form="form" field="status_id"></has-error>
-                </div>            
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
-                <button v-show="editmode" type="submit" class="btn btn-primary">อัพเดท</button>
-                <button v-show="!editmode" type="submit" class="btn btn-primary">บันทึก</button>
-              </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <!-- ./Edit Modal -->
-        
         <!-- View Modal -->
-        <div class="modal fade" id="viewModal">
-          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content th-table">
               <div class="modal-header th-table">
                 <h4 class="modal-title"> <i class="nav-icon fas fa-user-injured blue"></i>  ข้อมูลการเคลมประกัน</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close no-print" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -238,12 +103,12 @@
                     <b>แผน : </b> {{this.form.insurer.namelist.plan.name}}<br>
                     <b>ปีการศึกษา : </b> {{this.form.insurer.namelist.year}}<br>
                   </div> <!-- /.col -->
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                     <b>รหัสเคลม :  </b>{{this.form.id}}<br>
                     <b>รหัสผู้ทำประกัน :  </b>{{this.form.ins_id}}<br>
                     <b>วันที่เคลม :  </b> {{this.form.claim_date | myDate}}<br>  
                   </div> <!-- /.col -->
-                  <div class="col-sm-4">
+                  <div class="col-sm-5">
                     <b>โรงเรียน : </b> {{this.form.insurer.namelist.school.name}}<br>
                     <b>ชื่อ-นามสกุล : </b> {{this.form.insurer.title.name}}{{this.form.insurer.ins_fname}} {{this.form.insurer.ins_lname}}<br>
                     <b>ชั้นเรียน : </b> {{this.form.insurer.ins_class}}<br>
@@ -295,18 +160,155 @@
                   </table>
                 </div>
                 <!-- /.col -->
-              </div>
-                
+              </div>  
               </div> <!-- /.modal-body -->
 
-              <div class="modal-footer">
+              <div class="modal-footer no-print">
+                <a href="" onClick="window.print();return false" target="_blank" class="btn btn-outline-primary print"><i class="fa fa-print"></i> Print</a>
+                    &nbsp;&nbsp;
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
               </div>
             </div>
           </div>
-        </div>
-        <!-- ./View Modal -->
-    </div>
+        </div><!-- ./View Modal -->    
+
+        <!-- Edit Modal -->
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content th-table">
+              <div class="modal-header">
+                <h5 class="modal-title" v-show="editmode" id="addNewLabel">แก้ไขข้อมูลการเคลมประกัน</h5>
+                <h5 class="modal-title" v-show="!editmode" id="addNewLabel">เพิ่มการเคลมประกัน</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form @submit.prevent="editmode ? updateClaim() : createClaim()">
+              <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="claim_date">วันที่ส่งเอกสารเคลม</label>
+                      <div class="input-group">
+                        <input v-model="form.claim_date" type="date" name="claim_date"
+                          placeholder="วันที่ส่งเอกสารเคลม" class="form-control" 
+                          :class="{ 'is-invalid': form.errors.has('claim_date') }">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
+                        </div>
+                      </div>
+                      <has-error :form="form" field="claim_date"></has-error>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                      <label for="ins_id">รหัสผู้ทำประกันภัย</label>
+                      <input v-model="form.ins_id" type="text" name="ins_id"
+                        placeholder="รหัสผู้ทำประกันภัย"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('ins_id') }">
+                      <has-error :form="form" field="ins_id"></has-error>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="accident_date">วันที่เกิดอุบัติเหตุ</label>
+                      <div class="input-group">
+                        <input v-model="form.accident_date" type="date" name="accident_date"
+                          placeholder="วันที่เกิดอุบัติเหตุ" class="form-control" 
+                          :class="{ 'is-invalid': form.errors.has('accident_date') }">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
+                        </div>
+                      </div>
+                      <has-error :form="form" field="accident_date"></has-error>
+                    </div>
+                    
+                    <div class="form-group col-sm-6">
+                      <label for="accident_cause">สาเหตุอุบัติเหตุ</label>
+                      <input v-model="form.accident_cause" type="text" name="accident_cause"
+                        placeholder="สาเหตุอุบัติเหตุ"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('accident_cause') }">
+                      <has-error :form="form" field="accident_cause"></has-error>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="withdraw_amount">ยอดเงินที่ตั้งเบิก (บาท)</label>
+                      <input v-model="form.withdraw_amount" type="text" name="withdraw_amount"
+                        placeholder="ยอดเงินที่ตั้งเบิก"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('withdraw_amount') }">
+                      <has-error :form="form" field="withdraw_amount"></has-error>
+                    </div>
+                    
+                    <div class="form-group col-sm-6">
+                      <label for="approve_amount">ยอดเงินที่อนุมัติ (บาท)</label>
+                      <input v-model="form.approve_amount" type="text" name="approve_amount"
+                        placeholder="ยอดเงินที่อนุมัติ"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('approve_amount') }">
+                      <has-error :form="form" field="approve_amount"></has-error>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="pay_date">วันที่จ่ายเงินเคลม</label>
+                      <div class="input-group">
+                        <input v-model="form.pay_date" type="date" name="pay_date"
+                          placeholder="วันที่จ่ายเงินเคลม" class="form-control" 
+                          :class="{ 'is-invalid': form.errors.has('pay_date') }">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="nav-icon far fa-calendar-alt blue"></i></span>
+                        </div>
+                      </div>
+                      <has-error :form="form" field="pay_date"></has-error>
+                    </div>
+                    
+                    <div class="form-group col-sm-6">
+                      <label for="payType">รูปแบบการจ่ายเงินเคลม</label>
+                      <select name="payType" v-model="form.payType" id="payType" 
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('payType') }">
+                        <option value="">เลือกรูปแบบการจ่ายเงิน</option>
+                        <option value="เงินสด">เงินสด</option>
+                        <option value="โอนเงินเข้าบัญชีธนาคาร">โอนเงินเข้าบัญชีธนาคาร</option>
+                        <option value="ดราฟท์">ดราฟท์</option>
+                      </select>
+                      <has-error :form="form" field="payType"></has-error>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="detail">รายละเอียด</label>
+                  <textarea v-model="form.detail" name="detail" id="detail"
+                    placeholder="รายละเอียด"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('detail') }"></textarea>
+                  <has-error :form="form" field="detail"></has-error>          
+                </div>
+                
+                <div class="form-group">
+                  <label for="status_id">สถานะ</label>
+                  <select name="status_id" v-model="form.status_id" id="status_id" 
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('status_id') }">
+                    <option value="">เลือกสถานะ</option>
+                    <option value="1">รอตรวจสอบเอกสาร</option>
+                    <option value="2">รอการพิจารณาอนุมัติเคลม</option>
+                    <option value="3">อนุมัติจ่ายเคลม</option>
+                    <option value="4">ไม่อนุมัติจ่ายเคลม</option>
+                  </select>
+                  <has-error :form="form" field="status_id"></has-error>
+                </div>            
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+                <button v-show="editmode" type="submit" class="btn btn-primary">อัพเดท</button>
+                <button v-show="!editmode" type="submit" class="btn btn-primary">บันทึก</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div><!-- ./Edit Modal -->  
+
+    </div> <!-- ./container -->
 </template>
 
 <script>
@@ -354,6 +356,9 @@
           }
         },
         methods:{
+            printme() {
+              window.print();
+            },
             viewModal(claim){
               $('#viewModal').modal('show');
               this.form.fill(claim);
