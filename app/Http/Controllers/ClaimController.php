@@ -107,7 +107,10 @@ class ClaimController extends Controller
             'type'     => 'column', // pie , column ect
             'renderTo' => 'chart1', // render the chart into your div with id  
             'borderWidth' => 1,
-            'borderRadius' => 15,              
+            'borderRadius' => 15,
+            'style' => [
+                'fontFamily' => 'Tahoma',
+            ],                
         ])
         ->subtitle([
             'text' => 'ประกันอุบัติเหตุนักเรียน โครงการโรงเรียนอุ่นใจ',
