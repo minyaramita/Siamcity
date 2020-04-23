@@ -85,6 +85,7 @@
                 <div class="title m-b-md">
                     <img class="img-fluid" src="./img/siamcity.jpg"  width="50%" height=""> <br>
                     ระบบบันทึกข้อมูลประกันอุบัติเหตุนักเรียน 
+                    <h5 style="color:#0158a7;">สำนักงานตัวแทนประกันวินาศภัย โดย คุณบุญยง เอมซ์บุตร</h5>
                 </div>  
                  
             </div>

@@ -104,7 +104,7 @@
             @yield('content')
         </main>
 
-         <footer class="myfooter" style="padding-bottom:0px;">
+         <footer class="myfooter" style="margin-top:8%;">
             <!-- To the right -->
             <div class=" d-none d-sm-inline">
                 
@@ -112,15 +112,19 @@
             <!-- Default to the left -->
             
             <div class="row">
-                <div class="col-md-2">
-                <img class="img-fluid" src="img/logo3.png"  style="margin-left:100px; width:50%; padding-top:10px;"> 
+              <div class="col-3"></div>
+              <div class="col-7">
+                        <div class="media">
+                        <img src="img/logo3.png" class="align-self-center mr-3" alt="...">
+                            <div class="media-body">
+                            <br>
+                                <h5 style="color:#0158a7;">บริษัท สยามซิตี้ประกันภัย จำกัด (มหาชน)</h5>
+                                <h6 style="color:#0158a7;">สำนักงานตัวแทนประกันวินาศภัย โดย คุณบุญยง เอมซ์บุตร</h6>
+                                <p style="color:#0158a7;">48/7 หมู่ 5 ตำบลท่าช้าง อำเภอเมือง จังหวัดจันทบุรี โทร. 039-471887 E-mail: bonyongchan@gmail.com</p>
+                            </div>
+                        </div>
                 </div>
-                <div class="col-md-10" style="text-align:left; margin-left:0px;" > 
-                <br>
-                <h5 style="color:#0158a7;">บริษัท สยามซิตี้ประกันภัย จำกัด (มหาชน)</h5>
-                <h6 style="color:#0158a7;">สำนักงานตัวแทนประกันวินาศภัย โดย คุณบุญยง เอมซ์บุตร</h6>
-                <p style="color:#0158a7;">48/7 หมู่ 5 ตำบลท่าช้าง อำเภอเมือง จังหวัดจันทบุรี โทร. 039-471887 E-mail: bonyongchan@gmail.com</p>
-                </div>
+              <div class="col-2"></div>
             </div>
         </footer>
     </div>
