@@ -24,7 +24,7 @@ class NamelistController extends Controller
      */
     public function index()
     {
-        return Namelist::with(['School','Plan'])->latest()->paginate(10);
+        return Namelist::with(['School','Plan'])->latest()->paginate(30);
     }
 
     /**
