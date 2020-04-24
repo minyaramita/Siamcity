@@ -10,8 +10,10 @@
                 </h3> 
                 <div class="card-tools no-print">
                   <div class="input-group input-group-sm" >
+                    <!--
                     <a href="" @click.prevent="printme" target="_blank" class="btn btn-outline-primary"><i class="fa fa-print"></i> Print</a>
                     &nbsp;&nbsp;
+                    -->
                     <button type="button" class="btn btn-primary" @click="newModal()" v-if="$gate.isAdmin()">
                         เพิ่ม
                         <i class="fas fa-plus-square"></i>
@@ -25,8 +27,8 @@
                   <tbody><tr>
                     <th>รหัส</th>
                     <th>สถานศึกษา</th>
-                    <th>จำนวนนักเรียน</th>
-                    <th>จำนวนบุคลากร</th>
+                    <th>นักเรียน</th>
+                    <th>บุคลากร</th>
                     <th>วันที่รับรายชื่อ</th>
                     <th>วันคุ้มครอง</th>
                     <th>แผน</th>

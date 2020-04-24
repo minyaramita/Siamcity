@@ -75759,6 +75759,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -75987,21 +75989,6 @@ var render = function() {
                                 }
                               },
                               [_c("i", { staticClass: "fa fa-edit blue" })]
-                            ),
-                            _vm._v(
-                              "\n                    /\n                    "
-                            ),
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.deleteSchool(school.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-trash red" })]
                             )
                           ])
                         : _vm._e()
@@ -76966,6 +76953,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -77115,21 +77104,6 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "card-tools no-print" }, [
               _c("div", { staticClass: "input-group input-group-sm" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-outline-primary",
-                    attrs: { href: "", target: "_blank" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.printme($event)
-                      }
-                    }
-                  },
-                  [_c("i", { staticClass: "fa fa-print" }), _vm._v(" Print")]
-                ),
-                _vm._v("\n                  \n                "),
                 _vm.$gate.isAdmin()
                   ? _c(
                       "button",
@@ -77164,9 +77138,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("th", [_vm._v("สถานศึกษา")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("จำนวนนักเรียน")]),
+                    _c("th", [_vm._v("นักเรียน")]),
                     _vm._v(" "),
-                    _c("th", [_vm._v("จำนวนบุคลากร")]),
+                    _c("th", [_vm._v("บุคลากร")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("วันที่รับรายชื่อ")]),
                     _vm._v(" "),
@@ -80281,6 +80255,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -80442,28 +80418,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row mt-3", attrs: { id: "mytable" } }, [
-      _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "col-md-12 " }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header th-table" }, [
+          _c("div", { staticClass: "card-header th-table no-print" }, [
             _vm._m(0),
             _vm._v(" "),
-            _c("div", { staticClass: "card-tools no-print" }, [
+            _c("div", { staticClass: "card-tools" }, [
               _c("div", { staticClass: "input-group input-group-sm" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-outline-primary",
-                    attrs: { href: "", target: "_blank" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.printme($event)
-                      }
-                    }
-                  },
-                  [_c("i", { staticClass: "fa fa-print" }), _vm._v(" Print")]
-                ),
-                _vm._v("\n                  \n                "),
                 _vm.$gate.isAdmin()
                   ? _c(
                       "button",
@@ -80640,7 +80601,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "card-footer no-print" },
+            { staticClass: "card-footer" },
             [
               _c("pagination", {
                 attrs: { data: _vm.claims },
@@ -81579,7 +81540,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("สถานะ")]),
       _vm._v(" "),
-      _c("th", { staticClass: "no-print" }, [_vm._v("Action")])
+      _c("th", [_vm._v("Action")])
     ])
   },
   function() {
@@ -81839,6 +81800,7 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -82268,6 +82230,22 @@ var render = function() {
                           })
                         ],
                         1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticStyle: {
+                            "font-size": "12px",
+                            "font-weight": "lighter",
+                            color: "Gray"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "      เว้นว่างไว้ หากไม่ต้องการเปลี่ยนรหัสผ่าน"
+                          )
+                        ]
                       )
                     ]),
                     _vm._v(" "),

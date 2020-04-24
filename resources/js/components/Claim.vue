@@ -1,17 +1,19 @@
 <template>
     <div class="container">
        <div class="row mt-3" id="mytable">
-          <div class="col-md-12">
+          <div class="col-md-12 ">
             <div class="card">
-              <div class="card-header th-table">
+              <div class="card-header th-table no-print">
                 <h3 class="card-title">
                   <i class="nav-icon fas fa-user-injured blue"></i>
                     การเคลมประกัน
                 </h3> 
-                <div class="card-tools no-print">
+                <div class="card-tools">
                   <div class="input-group input-group-sm" >
+                    <!--
                     <a href="" @click.prevent="printme" target="_blank" class="btn btn-outline-primary"><i class="fa fa-print"></i> Print</a>
                     &nbsp;&nbsp;
+                    -->
                     <button type="button" class="btn btn-primary" @click="newModal()" v-if="$gate.isAdmin()">
                         เพิ่ม
                         <i class="fas fa-plus-square"></i>
@@ -30,7 +32,7 @@
                     <th>อนุมัติ</th>
                     <th>ปีการศึกษา</th>
                     <th>สถานะ</th>  
-                    <th class="no-print">Action</th>  
+                    <th>Action</th>  
                   </tr>
                   <tr v-for="claim in claims.data" :key="claim.id">
                     <td>{{claim.id}}</td>
@@ -78,7 +80,7 @@
               <!-- /.card-body -->
 
               <!-- เพิ่ม code pagination -->
-              <div class="card-footer no-print">
+              <div class="card-footer">
                   <pagination :data="claims" @pagination-change-page="getResults"></pagination>
               </div>
             </div>

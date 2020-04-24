@@ -39,7 +39,8 @@ class ClaimController extends Controller
         $this->validate($request,[
             'ins_id' => 'required',
             'accident_cause' => 'required|string|max:191',
-            'withdraw_amount' => 'required|numeric',
+            'withdraw_amount' => 'required|numeric|min:1',
+            'approve_amount' => 'required|numeric|min:0',
             'status_id' => 'required',
         ]);
 
@@ -81,7 +82,8 @@ class ClaimController extends Controller
         $this->validate($request,[
             'ins_id' => 'required',
             'accident_cause' => 'required|string|max:191',
-            'withdraw_amount' => 'required|numeric',
+            'withdraw_amount' => 'required|numeric|min:1',
+            'approve_amount' => 'required|numeric|min:0',
             'status_id' => 'required',
         ]);
 

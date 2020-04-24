@@ -68,6 +68,7 @@
                           <input v-model="form.password" type="password" name="password" id="password" class="form-control"  placeholder="รหัสผ่าน" :class="{ 'is-invalid': form.errors.has('password') }">
                           <has-error :form="form" field="password"></has-error>
                         </div>
+                        <p style="font-size: 12px; font-weight: lighter; color: Gray;">&nbsp; &nbsp;&nbsp; &nbsp;เว้นว่างไว้ หากไม่ต้องการเปลี่ยนรหัสผ่าน</p>
                       </div>
 
                       <div class="form-group">

@@ -45,10 +45,12 @@
                         <a href="#" @click="editModal(school)">
                             <i class="fa fa-edit blue"></i>
                         </a>
+                        <!--
                         /
                         <a href="#" @click="deleteSchool(school.id)">
                             <i class="fa fa-trash red" ></i>
                         </a>
+                        -->
                     </td>
                   </tr>
                 </tbody></table>

@@ -37,6 +37,8 @@ class NamelistController extends Controller
     {
         $this->validate($request,[
             'school_id' => 'required',
+            'quantity_student' => 'required|numeric|min:20',
+            'quantity_personnel' => 'required|numeric|min:0',
             'protection_date' => 'required',
             'plan_id' => 'required',
             'year' => 'required',
@@ -78,6 +80,8 @@ class NamelistController extends Controller
 
         $this->validate($request,[
             'school_id' => 'required',
+            'quantity_student' => 'required|numeric|min:20',
+            'quantity_personnel' => 'required|numeric|min:0',
             'protection_date' => 'required',
             'plan_id' => 'required',
             'year' => 'required',
